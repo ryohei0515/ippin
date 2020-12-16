@@ -1,0 +1,8 @@
+<% if @user.errors.any? %>
+  エラーが <%= @user.errors.count %>件 あります
+  <ul>
+  <% @user.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+<% end %>
