@@ -2,9 +2,14 @@
   <%= link_to "IPPIN", root_path %>
   <nav>
     <ul>
-      <li><%= link_to "Home",   root_path %></li>
-      <li><%= link_to "Help",   help_path %></li>
-      <li><%= link_to "Log in", '#' %></li>
+      <li><%= link_to "ホーム",   root_path %></li>
+      <li><%= link_to "ヘルプ",   help_path %></li>
+      <% if logged_in? %>
+        <li><%= link_to "プロフィール", current_user %></li>
+        <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
+      <% else %>
+        <li><%= link_to "ログイン", login_path %></li>
+      <% end %>
     </ul>
   </nav>
 </div>
