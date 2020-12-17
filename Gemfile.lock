@@ -78,6 +78,8 @@ GEM
     concurrent-ruby (1.1.7)
     crass (1.0.6)
     erubi (1.10.0)
+    faker (2.1.2)
+      i18n (>= 0.8)
     ffi (1.13.1)
     formatador (0.2.5)
     globalid (0.4.2)
@@ -238,6 +240,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  faker (= 2.1.2)
   guard (= 2.16.2)
   guard-minitest (= 2.4.6)
   jbuilder (~> 2.7)
