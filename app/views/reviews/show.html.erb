@@ -1,0 +1,13 @@
+<% provide(:title, "レビュー詳細") %>
+<div class="">
+  <%= @review.food %>,
+  <%= @review.content %>,
+  <%= link_to @review.user.name, @review.user %>,
+  <%= time_ago_in_words(@review.updated_at) %>
+</div>
+
+<% if current_user?(@review.user) %>
+  <div class="">
+    <%= link_to "レビュー修正", edit_review_path(@review) %>
+  </div>
+<% end%>

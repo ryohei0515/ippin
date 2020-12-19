@@ -1,0 +1,11 @@
+<%= form_with(model: @review, local:true) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label :food %>
+  <%= f.text_field :food %>
+
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+
+  <%= f.submit yield(:submit_text) %>
+<% end %>
