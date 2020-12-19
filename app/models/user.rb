@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence:true, length: { minimum: 6 }, allow_nil: true
   attr_accessor :remember_token
+  has_many :reviews, dependent: :destroy
 
   #引数の文字列のハッシュ値を返す
   def User.digest(string)

@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @review = @user.reviews.page(params[:page]).per(PER_REVIEW)
   end
 
   def create
@@ -39,15 +40,6 @@ class UsersController < ApplicationController
     def users_params
       params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation)
-    end
-
-    #ログイン済みか確認
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "ログインしてください"
-        redirect_to login_url
-      end
     end
 
     #正しいユーザか確認

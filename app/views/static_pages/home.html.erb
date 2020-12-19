@@ -2,6 +2,19 @@
 <p>
   IPPINのホーム画面
 </p>
+<% if logged_in? %>
+  <div class="">
+    <%= link_to "レビューの新規投稿", new_review_path %>
+  </div>
+<% else %>
+  <div class="">
+    <%= link_to "新規登録", signup_path %>
+  </div>
+<% end %>
 <div class="">
-  <%= link_to "新規登録", signup_path %>
+  <h2>レビュー投稿一覧（<%= @reviews.count %>件）</h2>
 </div>
+<ol>
+  <%= render @reviews %>
+</ol>
+  <%= paginate @reviews %>

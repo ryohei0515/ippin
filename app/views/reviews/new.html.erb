@@ -1,0 +1,13 @@
+<% provide(:title, "レビュー投稿") %>
+<h1>レビュー新規投稿</h1>
+<%= form_with(model: @review, local:true) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label :food %>
+  <%= f.text_field :food %>
+
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+
+  <%= f.submit "新規投稿" %>
+<% end %>

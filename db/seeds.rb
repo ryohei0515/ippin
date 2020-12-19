@@ -14,3 +14,11 @@ User.create!(name:  "Example User",
                password:              password,
                password_confirmation: password)
 end
+
+# ユーザーの一部を対象にレビューを生成する
+users = User.order(:created_at).take(6)
+10.times do
+  content = Faker::Lorem.sentence(word_count: 5)
+  food = Faker::Food.dish
+  users.each { |user| user.reviews.create!(content: content, food: food) }
+end

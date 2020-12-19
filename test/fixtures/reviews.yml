@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: "まあまあ"
+  food: "シチュー"
+  user: michael
+  created_at: <%= 30.minutes.ago %>
+
+two:
+  content: "普通"
+  food: "ハンバーグ"
+  user: michael
+  created_at: <%= 20.minutes.ago %>
+
+most_recent:
+  content: "おいしかった"
+  food: "カツ丼"
+  user: michael
+  created_at: <%= 10.minutes.ago %>
+
+<% 100.times do |n| %>
+micropost_<%= n %>:
+  content: <%= Faker::Lorem.sentence(word_count: 5) %>
+  food: <%= Faker::Food.dish %>
+  created_at: <%= 42.days.ago %>
+  user: michael
+<% end %>
