@@ -7,11 +7,4 @@ module LoginSupport
     check "ログイン状態を記憶する" if remember_me == '1'
     click_button "ログイン"
   end
-
-  # def in_browser(name)
-  #   old_session = Capybara.session_name
-  #   Capybara.session_name = name
-  #   yield
-  #   Capybara.session_name = old_session
-  # end
 end
