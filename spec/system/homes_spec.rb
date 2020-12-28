@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Homes", type: :system, focus: true do
+RSpec.describe "Homes", type: :system do
   let(:user) { FactoryBot.create(:user) }
   let(:review_list) { FactoryBot.create_list(:review, 30, user: user) }
 
