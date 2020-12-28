@@ -1,8 +1,10 @@
 FactoryBot.define do
   factory :review, class: Review do
-    content { "おいしい" }
-    food { "カレー" }
+    content { Faker::Lorem.sentence(word_count: 5) }
+    food { Faker::Food.dish }
     association :user, factory: :review_user, strategy: :create
+    sequence(:created_at) { |n| n.hours.ago }
+    sequence(:updated_at) { |n| n.hours.ago }
 
     trait :created_30_minutes_ago do
       created_at { 30.minutes.ago }
