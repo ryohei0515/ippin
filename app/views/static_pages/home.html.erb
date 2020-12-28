@@ -12,7 +12,7 @@
   </div>
 <% end %>
 <div class="">
-  <h2>レビュー投稿一覧（<%= @reviews.count %>件）</h2>
+  <h2>レビュー投稿一覧（<%= @reviews.total_count %>件）</h2>
 </div>
 <ol>
   <%= render @reviews %>
