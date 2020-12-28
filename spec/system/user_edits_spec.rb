@@ -69,4 +69,19 @@ RSpec.describe "UserEdits", type: :system do
       expect(User.find(user.id)).to eq user
     end
   end
+
+  describe "認証に問題があるため、ページが表示できないこと" do
+    it "未ログインの場合" do
+      visit edit_user_path(user.id)
+      expect(page).to have_selector '.alert-danger'
+      expect(current_path).to eq login_path
+    end
+    it "ログインユーザ自身の編集ではない場合" do
+      log_in_as user
+      other_user = FactoryBot.create(:other_user)
+      visit edit_user_path(other_user.id)
+      expect(current_path).to eq root_path
+    end
+  end
+
 end
