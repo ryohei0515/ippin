@@ -31,14 +31,18 @@ RSpec.describe "UpdateReviews", type: :system do
       fill_in "Food", with: @updated_food
     }
     it "foodが誤り" do
-      fill_in "Food", with: ""
-      click_button "修正する"
-      expect(Review.find(review.id).inspect).to eq review.inspect
+      expect {
+        fill_in "Food", with: ""
+        click_button "修正する"
+      }.to_not change{ review.reload.inspect }
+      expect(page).to have_selector '.alert-danger'
     end
     it "contentが誤り" do
-      fill_in "Content", with: ""
-      click_button "修正する"
-      expect(Review.find(review.id).inspect).to eq review.inspect
+      expect {
+        fill_in "Content", with: ""
+        click_button "修正する"
+      }.to_not change{ review.reload.inspect }
+      expect(page).to have_selector '.alert-danger'
     end
   end
 

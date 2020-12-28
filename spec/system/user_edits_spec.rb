@@ -41,32 +41,37 @@ RSpec.describe "UserEdits", type: :system do
     end
   end
 
-  describe "入力誤りがある時、登録されないこと" do
+  describe "入力誤りがある時、更新されないこと" do
     before {
       log_in_as user
       visit edit_user_path(user.id)
+      fill_in "Name", with: @updated_name
+      fill_in "Email", with: @updated_email
     }
 
     it "nameが誤り" do
-      fill_in "Name", with: ""
-      click_button "登録情報更新"
+      expect {
+        fill_in "Name", with: ""
+        click_button "登録情報更新"
+      }.to_not change{ user.reload.inspect }
       expect(page).to have_selector '.alert-danger'
-      expect(User.find(user.id)).to eq user
     end
 
     it "emailが誤り" do
-      fill_in "Email", with: ""
-      click_button "登録情報更新"
+      expect {
+        fill_in "Email", with: ""
+        click_button "登録情報更新"
+      }.to_not change{ user.reload.inspect }
       expect(page).to have_selector '.alert-danger'
-      expect(User.find(user.id)).to eq user
     end
 
     it "passwordとpassword_confirmationが不一致" do
-      fill_in "Password", with: "password"
-      fill_in "Password confirmation", with: "foobar"
-      click_button "登録情報更新"
+      expect {
+        fill_in "Password", with: "password"
+        fill_in "Password confirmation", with: "foobar"
+        click_button "登録情報更新"
+      }.to_not change{ user.reload.inspect }
       expect(page).to have_selector '.alert-danger'
-      expect(User.find(user.id)).to eq user
     end
   end
 
