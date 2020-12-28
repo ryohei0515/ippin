@@ -35,7 +35,10 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-
+    review = Review.find(params[:id])
+    review.destroy
+    flash[:success] = "レビューを削除しました"
+    redirect_to user_path(@review_user)
   end
 
   private
@@ -44,7 +47,7 @@ class ReviewsController < ApplicationController
     end
 
     def correct_user
-      user = Review.find(params[:id]).user
-      redirect_to(review_path(params[:id])) unless current_user?(user)
+      @review_user = Review.find(params[:id]).user
+      redirect_to(review_path(params[:id])) unless current_user?(@review_user)
     end
 end
