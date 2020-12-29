@@ -14,36 +14,12 @@ RSpec.describe Review, type: :model do
     expect(create(:review, :created_most_recent)).to eq Review.first
   end
 
+  it { is_expected.to validate_presence_of(:content) }
+  it { is_expected.to validate_length_of(:content).is_at_most(400) }
 
-  describe "content:" do
-    it "空白で無効" do
-      expect(build(:review, content: " ")).to_not be_valid
-      expect(build(:review, content: nil)).to_not be_valid
-    end
-    it "長すぎるため無効" do
-      expect(build(:review, content: "a" * 400)).to be_valid
-      expect(build(:review, content: "a" * 401)).to_not be_valid
-    end
+  it { is_expected.to validate_presence_of(:food) }
+  it { is_expected.to validate_length_of(:food).is_at_most(50) }
 
-  end
-
-  describe "food:" do
-    it "空白で無効" do
-      expect(build(:review, food: " ")).to_not be_valid
-      expect(build(:review, food: nil)).to_not be_valid
-    end
-    it "長すぎるため無効" do
-      expect(build(:review, food: "a" * 50)).to be_valid
-      expect(build(:review, food: "a" * 51)).to_not be_valid
-    end
-  end
-
-
-  describe "user_id:" do
-    it "空白で無効" do
-      expect(build(:review, user_id: " ")).to_not be_valid
-      expect(build(:review, user_id: nil)).to_not be_valid
-    end
-  end
-
+  it { is_expected.to validate_presence_of(:user_id) }
+  it { should belong_to(:user) }
 end
