@@ -75,7 +75,7 @@ RSpec.describe User, type: :model do
 
   it "ユーザを削除した時、レビューも併せて削除されること" do
     user = create(:user)
-    user.reviews.create!(content: "おいしい", food: "ハンバーグ")
+    FactoryBot.create(:review, user: user)
     expect{ user.destroy }.to change{ Review.count }.by(-1)
   end
 

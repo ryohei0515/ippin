@@ -21,7 +21,7 @@ users = User.order(:created_at).take(6)
   content = Faker::Lorem.sentence(word_count: 5)
   food = Faker::Food.dish
   restaurant = Faker::Restaurant.name
-  rate = Random.rand(10).to_f / 2
+  rate = Random.rand(8).to_f / 2 + 1
   title = Faker::Lorem.sentence(word_count: 2)
   users.each { |user| user.reviews.create!(content: content,
                                            food: food,
