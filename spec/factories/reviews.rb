@@ -2,6 +2,9 @@ FactoryBot.define do
   factory :review, class: Review do
     content { Faker::Lorem.sentence(word_count: 5) }
     food { Faker::Food.dish }
+    restaurant { Faker::Restaurant.name }
+    rate { Random.rand(10).to_f / 2 }
+    title { Faker::Lorem.sentence(word_count: 2) }
     association :user, factory: :review_user, strategy: :create
     sequence(:created_at) { |n| n.hours.ago }
     sequence(:updated_at) { |n| n.hours.ago }
