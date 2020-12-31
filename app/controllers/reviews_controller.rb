@@ -3,14 +3,14 @@ class ReviewsController < ApplicationController
   before_action :correct_user, only: [:destroy, :edit, :update]
 
   def new
-    @review = current_user.reviews.new
+    @form = ReviewForm.new
   end
 
   def create
-    @review = current_user.reviews.build(reviews_params)
-    if @review.save
+    @form = ReviewForm.new(reviews_params)
+    if @form.create
       flash[:success] = "レビューを投稿しました"
-      redirect_to @review
+      redirect_to review_path(@form.review_id)
     else
       render 'new'
     end
@@ -22,11 +22,13 @@ class ReviewsController < ApplicationController
 
   def edit
     @review = Review.find(params[:id])
+    @form = ReviewForm.new(review: @review)
   end
 
   def update
     @review = Review.find(params[:id])
-    if @review.update(reviews_params)
+    @form = ReviewForm.new(reviews_params, review: @review)
+    if @form.update
       flash[:success] = "レビューを更新しました"
       redirect_to @review
     else
@@ -44,11 +46,12 @@ class ReviewsController < ApplicationController
   private
     def reviews_params
       params.require(:review).permit(:content, :food, :title, :restaurant,
-                                     :rate)
+                                     :rate, :user_id)
     end
 
     def correct_user
       @review_user = Review.find(params[:id]).user
       redirect_to(review_path(params[:id])) unless current_user?(@review_user)
     end
+
 end
