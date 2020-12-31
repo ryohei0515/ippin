@@ -17,16 +17,26 @@ end
 
 # ユーザーの一部を対象にレビューを生成する
 users = User.order(:created_at).take(6)
-10.times do
-  content = Faker::Lorem.sentence(word_count: 5)
-  food = Faker::Food.dish
-  restaurant = Faker::Restaurant.name
-  rate = Random.rand(8).to_f / 2 + 1
-  title = Faker::Lorem.sentence(word_count: 2)
-  users.each { |user| user.reviews.create!(content: content,
-                                           food: food,
-                                           restaurant: restaurant,
-                                           rate: rate,
-                                           title: title
-                                          ) }
+
+users.each do |user|
+  10.times do |i|
+    name = Faker::Food.dish
+    category = "Category_#{i}"
+    restaurant = "Restaurant_#{i}"
+    food = Food.create!(name: name,
+                        category: category,
+                        restaurant: restaurant
+                       )
+
+    content = Faker::Lorem.sentence(word_count: 5)
+    restaurant = Faker::Restaurant.name
+    rate = Random.rand(8).to_f / 2 + 1
+    title = Faker::Lorem.sentence(word_count: 2)
+    user.reviews.create!(content: content,
+                         food: food,
+                         restaurant: restaurant,
+                         rate: rate,
+                         title: title
+                        )
+  end
 end
