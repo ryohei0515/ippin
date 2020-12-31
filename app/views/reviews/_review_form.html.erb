@@ -1,6 +1,9 @@
-<%= form_with(model: @review, local:true) do |f| %>
+<% @form.user_id ||= current_user.id %>
+<%= form_with(model: @form, local:true) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
+  <%= f.hidden_field :user_id %>
+  
   <%= f.label :title %>
   <%= f.text_field :title %>
 
