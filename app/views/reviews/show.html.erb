@@ -1,6 +1,6 @@
 <% provide(:title, "レビュー詳細") %>
 <div class="">
-  <%= @review.food %>,
+  <%= @review.food.name %>,
   <%= @review.content %>,
   <%= link_to @review.user.name, @review.user %>,
   <%= time_ago_in_words(@review.updated_at) %>
