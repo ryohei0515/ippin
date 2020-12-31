@@ -13,7 +13,7 @@ RSpec.describe "UserProfiles", type: :system do
       expect(page).to have_selector '.pagination'
       for review in review_list[0..4] do
         expect(page).to have_content review.content
-        expect(page).to have_content review.food
+        expect(page).to have_content review.food.name
       end
     end
   end

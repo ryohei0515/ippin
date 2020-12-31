@@ -6,6 +6,7 @@ RSpec.describe "UpdateReviews", type: :system do
   let(:review) { FactoryBot.create(:review, user: user) }
   before do
     @updated_food = "updated_food"
+    @updated_category = "updated_ctgry"
     @updated_content = "updated_content"
     @updated_title = "updatedd_title"
     @updated_restaurant = "updatedd_restaurant"
@@ -17,16 +18,19 @@ RSpec.describe "UpdateReviews", type: :system do
     visit edit_review_path(review.id)
     fill_in "Content", with: @updated_content
     fill_in "Food", with: @updated_food
+    fill_in "Category", with: @updated_category
     fill_in "Title", with: @updated_title
     fill_in "Restaurant", with: @updated_restaurant
     fill_in "Rate", with: @updated_rate
     click_button "修正する"
     updated_review = Review.find(review.id)
     aggregate_failures do
-      expect(updated_review.food).to eq @updated_food
+      expect(updated_review.food.name).to eq @updated_food
+      expect(updated_review.food.category).to eq @updated_category
       expect(updated_review.content).to eq @updated_content
       expect(updated_review.title).to eq @updated_title
       expect(updated_review.restaurant).to eq @updated_restaurant
+      expect(updated_review.food.restaurant).to eq @updated_restaurant
       expect(updated_review.rate).to eq @updated_rate
       expect(current_path).to eq review_path(review.id)
     end
@@ -38,6 +42,7 @@ RSpec.describe "UpdateReviews", type: :system do
       visit edit_review_path(review.id)
       fill_in "Content", with: @updated_content
       fill_in "Food", with: @updated_food
+      fill_in "Category", with: @updated_category
       fill_in "Title", with: @updated_title
       fill_in "Restaurant", with: @updated_restaurant
       fill_in "Rate", with: @updated_rate
@@ -45,6 +50,13 @@ RSpec.describe "UpdateReviews", type: :system do
     it "foodが誤り" do
       expect {
         fill_in "Food", with: ""
+        click_button "修正する"
+      }.to_not change{ review.reload.inspect }
+      expect(page).to have_selector '.alert-danger'
+    end
+    it "categoryが誤り" do
+      expect {
+        fill_in "Category", with: ""
         click_button "修正する"
       }.to_not change{ review.reload.inspect }
       expect(page).to have_selector '.alert-danger'

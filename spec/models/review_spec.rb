@@ -4,7 +4,7 @@ RSpec.describe Review, type: :model do
 
   let(:review) { build(:review) }
 
-  it "content, food, user_idが全て有効" do
+  it "項目全て有効" do
     expect(review).to be_valid
   end
 
@@ -16,9 +16,6 @@ RSpec.describe Review, type: :model do
 
   it { is_expected.to validate_presence_of(:content) }
   it { is_expected.to validate_length_of(:content).is_at_most(400) }
-
-  it { is_expected.to validate_presence_of(:food) }
-  it { is_expected.to validate_length_of(:food).is_at_most(50) }
 
   it { is_expected.to validate_presence_of(:user_id) }
   it { should belong_to(:user) }
@@ -34,4 +31,6 @@ RSpec.describe Review, type: :model do
   it { is_expected.to validate_numericality_of(:rate).
           is_less_than_or_equal_to(5) }
 
+  it { is_expected.to validate_presence_of(:food_id) }
+  it { should belong_to(:food) }
 end

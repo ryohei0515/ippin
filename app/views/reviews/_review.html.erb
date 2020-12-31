@@ -1,5 +1,5 @@
 <li>
-  <span><%= review.food %></span>
+  <span><%= review.food.name %></span>
   <span><%= link_to review.content, review %></span>
   <span><%= link_to review.user.name, review.user %></span>
   <span><%= time_ago_in_words(review.updated_at) %></span>
