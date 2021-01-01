@@ -2,8 +2,17 @@ require 'rails_helper'
 
 RSpec.describe ReviewForm, type: :model do
 
-  let(:review) { FactoryBot.create(:review) }
+  #let(:review) { FactoryBot.create(:review) }
+  let(:review) { Review.create!("user_id"=>user.id,
+                                "food_id"=>food.id,
+                                "content"=>"form_test_content",
+                                "title"=>"form_test_title",
+                                "restaurant"=>"form_test_restaurant",
+                                "rate"=>3.5
+                               ) }
   let(:user) { FactoryBot.create(:user) }
+  let(:food) { Food.create!(name: "form_test_food", category: "update_category",
+                            restaurant: "form_test_restaurant") }
 
   it { is_expected.to validate_presence_of(:user_id) }
 
@@ -27,5 +36,63 @@ RSpec.describe ReviewForm, type: :model do
   it { is_expected.to validate_presence_of(:category) }
   it { is_expected.to validate_length_of(:category).is_at_most(15) }
 
+  describe "#create" do
+    before { user }
+    context "存在しないfoodのレビューの場合" do
+      it "foodを登録すること" do
+        form = ReviewForm.new({"user_id"=>1,
+                               "food"=>"form_test_food",
+                               "content"=>"form_test_content",
+                               "title"=>"form_test_title",
+                               "restaurant"=>"form_test_restaurant",
+                               "rate"=>3.5,
+                               "category"=>"test_category"
+                              })
+        expect{ form.create }.to change{ Food.count }.from(0).to(1)
+      end
+    end
+    context "既に存在するfoodのレビューの場合" do
+      it "foodを登録しないこと" do
+        form = ReviewForm.new({"user_id"=>1,
+                               "food"=>food.name,
+                               "content"=>"update_content",
+                               "title"=>"update_title",
+                               "restaurant"=>food.restaurant,
+                               "rate"=>3.5,
+                               "category"=>food.category
+                              })
+        expect{ form.create }.to_not change{ Food.count }
+      end
+    end
+  end
+
+  describe "#update" do
+    context "存在しないfoodのレビューの場合" do
+      it "foodを登録すること" do
+        form = ReviewForm.new({"user_id"=>1,
+                               "food"=>"update_food",
+                               "content"=>"update_content",
+                               "title"=>"update_title",
+                               "restaurant"=>"update_restaurant",
+                               "rate"=>3.5,
+                               "category"=>"update_ctgry"
+                              }, review: review)
+        expect{ form.update }.to change{ Food.count }.from(1).to(2)
+      end
+    end
+    context "既に存在するfoodのレビューの場合" do
+      it "既に存在するfoodのレビューの場合foodを登録しないこと" do
+        form = ReviewForm.new({"user_id"=>1,
+                               "food"=>food.name,
+                               "content"=>"update_content",
+                               "title"=>"update_title",
+                               "restaurant"=>food.restaurant,
+                               "rate"=>3.5,
+                               "category"=>food.category
+                              }, review: review)
+        expect{ form.update }.to_not change{ Food.count }
+      end
+    end
+  end
 
 end
