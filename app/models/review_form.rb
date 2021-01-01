@@ -31,6 +31,7 @@ class ReviewForm
       review = Review.create!(user_id: user_id, food: @review_food,
                               content: content, title: title,
                               restaurant: restaurant, rate: rate)
+      @review_food.calc_and_save_rate
       @review_id = review.id
     end
   rescue ActiveRecord::RecordInvalid => e
@@ -45,6 +46,7 @@ class ReviewForm
       review.update(user_id: user_id, food: @review_food,
                     content: content, title: title,
                     restaurant: restaurant, rate: rate)
+      @review_food.calc_and_save_rate
     end
   rescue ActiveRecord::RecordInvalid
     p e

@@ -20,23 +20,20 @@ users = User.order(:created_at).take(6)
 
 users.each do |user|
   10.times do |i|
-    name = Faker::Food.dish
+    name = "Food_#{i}"
     category = "Category_#{i}"
     restaurant = "Restaurant_#{i}"
-    food = Food.create!(name: name,
-                        category: category,
-                        restaurant: restaurant
-                       )
-
     content = Faker::Lorem.sentence(word_count: 5)
-    restaurant = Faker::Restaurant.name
     rate = Random.rand(8).to_f / 2 + 1
     title = Faker::Lorem.sentence(word_count: 2)
-    user.reviews.create!(content: content,
-                         food: food,
-                         restaurant: restaurant,
-                         rate: rate,
-                         title: title
-                        )
+    form = ReviewForm.new({"user_id"=>user.id,
+                           "food"=>name,
+                           "content"=>content,
+                           "title"=>title,
+                           "restaurant"=>restaurant,
+                           "rate"=>rate,
+                           "category"=>category
+                          })
+    form.create
   end
 end
