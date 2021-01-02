@@ -3,7 +3,8 @@ class Food < ApplicationRecord
   has_many :users, through: :reviews
   default_scope -> { order(rate: :desc) }
 
-  validates :name, presence: true, length: { maximum: 30 }
+  validates :name, presence: true, length: { maximum: 30 },
+                   uniqueness: { scope: :restaurant }
   validates :category, presence: true, length: { maximum: 15 }
   validates :restaurant, presence: true, length: { maximum: 50 }
 
