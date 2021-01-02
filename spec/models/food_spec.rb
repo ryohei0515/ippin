@@ -14,6 +14,12 @@ RSpec.describe Food, type: :model do
   it { is_expected.to validate_presence_of(:restaurant) }
   it { is_expected.to validate_length_of(:restaurant).is_at_most(50) }
 
+  it "rateの降順でデータが取得できること" do
+    FactoryBot.create :food, rate: 3
+    FactoryBot.create :food, rate: 2
+    expect(FactoryBot.create(:food, rate: 4)).to eq Food.first
+  end
+
   describe "#calc_and_save_rate" do
     let(:food) { FactoryBot.create(:food, name: "test_name",
                                    restaurant: "restaurant", rate:0) }
