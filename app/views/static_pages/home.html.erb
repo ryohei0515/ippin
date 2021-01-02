@@ -12,9 +12,9 @@
   </div>
 <% end %>
 <div class="">
-  <h2>レビュー投稿一覧（<%= @reviews.total_count %>件）</h2>
+  <h2>フード投稿一覧（<%= @foods.total_count %>件）</h2>
 </div>
 <ol>
-  <%= render @reviews %>
+  <%= render @foods %>
 </ol>
-  <%= paginate @reviews %>
+  <%= paginate @foods %>

@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
-    @reviews = Review.all.page(params[:page]).per(PER_REVIEW)
+    @foods = Food.all.page(params[:page]).per(PER_FOOD)
   end
 
   def help
