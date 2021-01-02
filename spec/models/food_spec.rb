@@ -28,7 +28,6 @@ RSpec.describe Food, type: :model do
       sum_rate = 0
       5.times do
         review = FactoryBot.create(:review, user: user, food:food,
-                                   restaurant: food.restaurant,
                                    rate: Random.rand(8).to_f / 2 + 1)
         sum_rate += review.rate
       end

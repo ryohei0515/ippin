@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :review, class: Review do
     content { Faker::Lorem.sentence(word_count: 5) }
-    restaurant { Faker::Restaurant.name }
     rate { 3.5 }
     title { Faker::Lorem.sentence(word_count: 2) }
     association :user, factory: :review_user, strategy: :create

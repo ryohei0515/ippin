@@ -30,7 +30,6 @@ RSpec.describe "CreateReviews", type: :system do
       expect(created_review.food.category).to eq @created_category
       expect(created_review.content).to eq @created_content
       expect(created_review.title).to eq @created_title
-      expect(created_review.restaurant).to eq @created_restaurant
       expect(created_review.food.restaurant).to eq @created_restaurant
       expect(created_review.rate).to eq @created_rate
       expect(current_path).to eq review_path(created_review.id)
@@ -80,12 +79,6 @@ RSpec.describe "CreateReviews", type: :system do
     it "titleが誤り" do
       expect {
         fill_in "Title", with: ""
-        click_button "新規投稿"
-      }.to change(Review, :count).by(0)
-    end
-    it "restaurantが誤り" do
-      expect {
-        fill_in "Restaurant", with: ""
         click_button "新規投稿"
       }.to change(Review, :count).by(0)
     end

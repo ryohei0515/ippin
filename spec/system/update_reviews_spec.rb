@@ -29,7 +29,6 @@ RSpec.describe "UpdateReviews", type: :system do
       expect(updated_review.food.category).to eq @updated_category
       expect(updated_review.content).to eq @updated_content
       expect(updated_review.title).to eq @updated_title
-      expect(updated_review.restaurant).to eq @updated_restaurant
       expect(updated_review.food.restaurant).to eq @updated_restaurant
       expect(updated_review.rate).to eq @updated_rate
       expect(current_path).to eq review_path(review.id)
@@ -71,12 +70,6 @@ RSpec.describe "UpdateReviews", type: :system do
     it "titleが誤り" do
       expect {
         fill_in "Title", with: ""
-        click_button "修正する"
-      }.to change(Review, :count).by(0)
-    end
-    it "restaurantが誤り" do
-      expect {
-        fill_in "Restaurant", with: ""
         click_button "修正する"
       }.to change(Review, :count).by(0)
     end

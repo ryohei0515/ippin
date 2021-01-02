@@ -30,7 +30,7 @@ class ReviewForm
       create_or_find_food
       review = Review.create!(user_id: user_id, food: @review_food,
                               content: content, title: title,
-                              restaurant: restaurant, rate: rate)
+                              rate: rate)
       @review_food.calc_and_save_rate
       @review_id = review.id
     end
@@ -45,7 +45,7 @@ class ReviewForm
       create_or_find_food
       review.update(user_id: user_id, food: @review_food,
                     content: content, title: title,
-                    restaurant: restaurant, rate: rate)
+                    rate: rate)
       @review_food.calc_and_save_rate
     end
   rescue ActiveRecord::RecordInvalid
@@ -65,7 +65,7 @@ class ReviewForm
       food: review.food_id ? review.food.name : nil,
       content: review.content,
       title: review.title,
-      restaurant: review.restaurant,
+      restaurant: review.food_id ? review.food.restaurant : nil,
       rate: review.rate,
       category: review.food_id ? review.food.category : nil
     }

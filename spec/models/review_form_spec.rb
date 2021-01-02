@@ -7,7 +7,6 @@ RSpec.describe ReviewForm, type: :model do
                                 "food_id"=>food.id,
                                 "content"=>"form_test_content",
                                 "title"=>"form_test_title",
-                                "restaurant"=>"form_test_restaurant",
                                 "rate"=>3.5
                                ) }
   let(:user) { FactoryBot.create(:user) }
