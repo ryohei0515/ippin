@@ -1,0 +1,33 @@
+<% provide(:title, "料理詳細") %>
+<div class="">
+  <%= @food.name %>
+  <%= @food.restaurant %>
+  <%= @food.category %>
+  <%= @food.rate %>
+</div>
+<div class="">
+  <h2>レビュー投稿一覧（<%= @reviews.total_count %>件）</h2>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>title</th>
+      <th>rate</th>
+      <th>content</th>
+      <th>user</th>
+      <th>created_at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reviews.each do |review| %>
+      <tr>
+        <td><%= link_to review.title, review %></td>
+        <td><%= review.rate %></td>
+        <td><%= review.content %></td>
+        <td><%= link_to review.user.name, review.user %></td>
+        <td><%= time_ago_in_words(review.updated_at) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @reviews %>
