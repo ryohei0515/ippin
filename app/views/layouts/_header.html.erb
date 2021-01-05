@@ -1,17 +1,71 @@
-<div>
-  <%= link_to "IPPIN", root_path %>
-  <nav>
-    <ul>
-      <li><%= link_to "ホーム",   root_path %></li>
-      <li><%= link_to "ヘルプ",   help_path %></li>
+<div id="header" class="">
+  <div class="md:flex">
+    <div class="flex justify-start items-center w-full left-0 h-16 px-2">
+      <%= link_to image_tag("title_logo.png"), "/", {class: "w-32 hover:opacity-50"} %>
       <% if logged_in? %>
-        <li><%= link_to "新規投稿", new_review_path %></li>
-        <li><%= link_to "プロフィール", current_user %></li>
-        <li><%= link_to "登録情報更新", edit_user_path(current_user) %></li>
-        <li><%= link_to "ログアウト", logout_path, method: :delete %></li>
+        <%= link_to(current_user, class: "ml-auto header-link") do %>
+            <div class="header-link-text">マイページ</div>
+            <i class="fa fa-user fa-2x header-link-icon" aria-hidden="true"></i>
+        <% end %>
+        <%= link_to(logout_path, {method: :delete, class: "header-link"}) do %>
+            <div class="header-link-text">ログアウト</div>
+            <i class="fa fa-sign-out-alt fa-2x header-link-icon" aria-hidden="true"></i>
+        <% end %>
       <% else %>
-        <li><%= link_to "ログイン", login_path %></li>
+        <%= link_to(signup_path, class: "ml-auto header-link") do %>
+            <div class="header-link-text">新規登録</div>
+            <i class="fa fa-user-plus fa-2x header-link-icon" aria-hidden="true"></i>
+        <% end %>
+        <%= link_to(login_path, class: "header-link") do %>
+            <div class="header-link-text">ログイン</div>
+            <i class="fa fa-sign-in-alt fa-2x header-link-icon" aria-hidden="true"></i>
+        <% end %>
+      <% end %>
+      <button @click="isOpen = !isOpen" class="xsm:mr-5 hover:opacity-50 focus:outline-none md:hidden text-center md:mx-5">
+        <div class="text-3xs xsm:text-xs">メニュー</div>
+        <span v-show="!isOpen">
+          <i class="fa fa-bars fa-2x text-green-800" aria-hidden="true"></i>
+        </span>
+        <span v-show="isOpen">
+          <i class="fa fa-times fa-2x text-green-800" aria-hidden="true"></i>
+        </span>
+      </button>
+    </div>
+
+  </div>
+  <div :class="isOpen ? 'block' : 'hidden'" class="absolute w-full bg-yellow-200 md:block md:static md:h-12 md:bg-gradient-to-b md:from-yellow-400 md:to-yellow-200">
+    <ul class="md:flex md:justify-start md:items-center">
+      <li class="border-b md:border-none">
+        <%= link_to(help_path, class: "header-nav-link") do %>
+          <i class="fa fa-info" aria-hidden="true"></i>
+          ヘルプ
+        <% end %>
+      </li>
+      <% if logged_in? %>
+        <li class="border-b md:border-none">
+          <%= link_to(help_path, class: "header-nav-link") do %>
+            <i class="fa fa-user-edit" aria-hidden="true"></i>
+            登録情報更新
+          <% end %>
+        </li>
+        <li class="border-b md:border-none">
+          <%= link_to(help_path, class: "header-nav-link") do %>
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            新規投稿
+          <% end %>
+        </li>
       <% end %>
     </ul>
-  </nav>
+  </div>
 </div>
+
+<script>
+    const app = new Vue({
+        el : '#header',
+        data: {
+            isOpen: false,
+        }
+    })
+
+
+</script>
