@@ -31,6 +31,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'faker',                   '2.1.2'
 gem 'kaminari', '~> 1.2.1'
 gem 'font-awesome-sass', '~> 5.8.1'
+gem 'jquery-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

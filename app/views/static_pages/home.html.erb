@@ -1,4 +1,11 @@
-<div class="container mx-auto mt-16 md:mt-0">
+<div class="container mx-auto">
+  <ul class="slider">
+    <li><%= image_tag "food_pic_01.jpg" ,class: "w-screen h-64 md:h-96 object-cover" %></li>
+    <li><%= image_tag "food_pic_02.jpg" ,class: "w-screen h-64 md:h-96 object-cover"  %></li>
+    <li><%= image_tag "food_pic_03.jpg" ,class: "w-screen h-64 md:h-96 object-cover"  %></li>
+    <li><%= image_tag "food_pic_04.jpg" ,class: "w-screen h-64 md:h-96 object-cover"  %></li>
+  </ul>
+
 
 <i class="fa fa-bars" aria-hidden="true" fa-2x></i>
 <p>ダミー1</p>
@@ -42,3 +49,15 @@
 </ol>
   <%= paginate @foods %>
 </div>
+
+<script type="text/javascript">
+$(document).on('turbolinks:load', function(){
+  $('.slider').slick({
+    autoplay:true,
+    autoplaySpeed: 6000,
+    dots:true,
+    centerMode: true,
+    centerPadding: '5%',
+  });
+});
+</script>
