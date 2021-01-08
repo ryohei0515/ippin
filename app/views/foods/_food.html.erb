@@ -1,6 +1,18 @@
 <li>
-  <span><%= link_to food.name, food %> </span>
-  <span><%= food.restaurant %> </span>
-  <span><%= food.category %> </span>
-  <span><%= food.rate %> </span>
+  <div class="w-11/12 mx-auto bg-gray-50 my-4 p-4">
+    <div class="sm:flex sm:flex-row">
+      <%= link_to(food, class: "sm:w-4/12") do %>
+          <div class="h-40 bg-gray-300 sm:h-full sm:w-full">food画像</div>
+      <% end %>
+      <div class="ml-4">
+        <div><%= link_to food.name, food, class: "font-bold text-blue-500" %></div>
+        <div>
+          点数：<%= food.rate %>
+          <span class="ml-2 text-xs"><i class="fas fa-comments text-green-300 mx-1"></i><%= food.reviews.count %>件</span>
+        </div>
+        <div>カテゴリー：<%= food.category %> </div>
+        <div>レストラン：<%= food.restaurant %> </div>
+      </div>
+    </div>
+  </div>
 </li>

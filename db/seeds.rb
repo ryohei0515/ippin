@@ -36,4 +36,24 @@ users.each do |user|
                           })
     form.create
   end
+
+  if user.name == "Example User"
+    100.times do |i|
+      name = "Food_#{i+10}"
+      category = "Category_#{i+10}"
+      restaurant = "Restaurant_#{i+10}"
+      content = Faker::Lorem.sentence(word_count: 5)
+      rate = 1
+      title = Faker::Lorem.sentence(word_count: 2)
+      form = ReviewForm.new({"user_id"=>user.id,
+                             "food"=>name,
+                             "content"=>content,
+                             "title"=>title,
+                             "restaurant"=>restaurant,
+                             "rate"=>rate,
+                             "category"=>category
+                            })
+      form.create
+    end
+  end
 end
