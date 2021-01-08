@@ -6,16 +6,15 @@
     <li><%= image_tag "food_pic_04.jpg" ,class: "w-screen h-64 md:h-96 object-cover"  %></li>
   </ul>
 
-<div class="my-5 p-3 bg-yellow-100 text-xl">
-  <h2>フード投稿一覧（<%= @foods.total_count %>件）</h2>
-</div>
-<ol>
-  <%= render @foods %>
-</ol>
-<div class="my-5 p-3 bg-yellow-100">
-  <%= paginate @foods %>
-</div>
-
+  <div class="my-5 p-3 bg-yellow-100 text-xl">
+    <h2>フード投稿一覧（<%= @foods.total_count %>件）</h2>
+  </div>
+  <ol>
+    <%= render @foods %>
+  </ol>
+  <div class="my-10">
+    <%= paginate @foods %>
+  </div>
 </div>
 
 <script type="text/javascript">

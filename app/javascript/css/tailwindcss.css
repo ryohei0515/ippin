@@ -18,5 +18,9 @@
     @apply block px-8 py-2 my-1 hover:opacity-50 rounded md:px-2 md:mx-1;
   }
 
+  .pagination-link {
+    @apply p-3 rounded bg-gray-100 hover:bg-yellow-100
+  }
+
 }
 @import "tailwindcss/utilities";
