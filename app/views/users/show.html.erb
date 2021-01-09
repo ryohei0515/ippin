@@ -7,7 +7,7 @@
       <h2>レビュー投稿一覧（<%= @user.reviews.count %>件）</h2>
     </div>
     <ol>
-      <%= render @review %>
+      <%= render partial: 'reviews/review_summary', collection: @review, as: :review %>
     </ol>
      <%= paginate @review %>
   <% end %>

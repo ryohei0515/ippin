@@ -1,12 +1,37 @@
 <% provide(:title, "料理詳細") %>
-<div class="">
+
+<div class="w-11/12 mx-auto bg-gray-50 my-4 p-4">
+  <div class="sm:flex sm:flex-row">
+    <%= link_to(@food, class: "sm:w-4/12") do %>
+        <div class="h-40 bg-gray-300 sm:h-full sm:w-full">food画像</div>
+    <% end %>
+    <div class="ml-4">
+      <div class="font-bold"><%= @food.name %></div>
+      <div>
+        点数：<%= @food.rate %>
+      </div>
+      <div>カテゴリー：<%= @food.category %> </div>
+      <div>レストラン：<%= @food.restaurant %> </div>
+    </div>
+  </div>
+</div>
+
+<div class="my-5 p-3 bg-yellow-100 text-xl">
+  <h2><span class="ml-2 font-semibold">レビュー投稿<i class="fas fa-comments text-green-300 mx-1"></i><%= @food.reviews.count %>件</span></h2>
+</div>
+<ol>
+  <%= render @reviews %>
+</ol>
+<div class="my-10">
+  <%= paginate @reviews %>
+</div>
+<!-- <div class="">
   <%= @food.name %>
   <%= @food.restaurant %>
   <%= @food.category %>
   <%= @food.rate %>
 </div>
 <div class="">
-  <h2>レビュー投稿一覧（<%= @reviews.total_count %>件）</h2>
 </div>
 <table>
   <thead>
@@ -30,4 +55,6 @@
     <% end %>
   </tbody>
 </table>
-<%= paginate @reviews %>
+<div class="my-10">
+  <%= paginate @reviews %>
+</div> -->

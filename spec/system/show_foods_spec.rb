@@ -20,7 +20,7 @@ RSpec.describe "ShowFoods", type: :system do
         expect(page).to have_content review.content
         expect(page).to have_content review.rate
         expect(page).to have_content review.user.name
-        expect(page).to have_content time_ago_in_words(review.updated_at)
+        expect(page).to have_content review.updated_at.strftime("%Y年%-m月%-d日")
       end
     end
   end
