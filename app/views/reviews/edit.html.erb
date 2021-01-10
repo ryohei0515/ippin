@@ -1,4 +1,6 @@
 <% provide(:title, "レビュー修正") %>
 <% provide(:submit_text, "修正する") %>
-<h1>レビュー修正</h1>
-<%= render 'review_form' %>
+<% provide(:description, "変更箇所を編集し、修正してください") %>
+<div class="container mx-auto my-8">
+  <%= render 'review_form' %>
+</div>
