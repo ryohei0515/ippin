@@ -43,13 +43,13 @@
       </li>
       <% if logged_in? %>
         <li class="border-b md:border-none">
-          <%= link_to(help_path, class: "header-nav-link") do %>
+          <%= link_to(edit_user_path(current_user), class: "header-nav-link") do %>
             <i class="fa fa-user-edit" aria-hidden="true"></i>
             登録情報更新
           <% end %>
         </li>
         <li class="border-b md:border-none">
-          <%= link_to(help_path, class: "header-nav-link") do %>
+          <%= link_to(new_review_path, class: "header-nav-link") do %>
             <i class="fa fa-plus" aria-hidden="true"></i>
             新規投稿
           <% end %>
