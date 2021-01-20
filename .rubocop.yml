@@ -1,0 +1,11 @@
+inherit_from: .rubocop_todo.yml
+
+# 自動生成されたファイルを対象外にする
+AllCops:
+  TargetRubyVersion: 2.7.3
+  Rails:
+    Enabled: true
+  Exclude:
+    - 'bin/*'
+    - 'db/**/*'
+    - 'script/**/*'
