@@ -16,3 +16,8 @@ default: &default
 development:
   <<: *default
   database: mysql_development
+
+test:
+  <<: *default
+  database: mysql_test
+  host: test-db
