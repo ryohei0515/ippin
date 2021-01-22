@@ -39,7 +39,7 @@ RSpec.describe ReviewForm, type: :model do
     before { user }
     context "存在しないfoodのレビューの場合" do
       it "foodを登録すること" do
-        form = ReviewForm.new({"user_id"=>1,
+        form = ReviewForm.new({"user_id"=>user.id,
                                "food"=>"form_test_food",
                                "content"=>"form_test_content",
                                "title"=>"form_test_title",
@@ -52,7 +52,7 @@ RSpec.describe ReviewForm, type: :model do
     end
     context "既に存在するfoodのレビューの場合" do
       it "foodを登録しないこと" do
-        form = ReviewForm.new({"user_id"=>1,
+        form = ReviewForm.new({"user_id"=>user.id,
                                "food"=>food.name,
                                "content"=>"update_content",
                                "title"=>"update_title",
@@ -68,7 +68,7 @@ RSpec.describe ReviewForm, type: :model do
   describe "#update" do
     context "存在しないfoodのレビューの場合" do
       it "foodを登録すること" do
-        form = ReviewForm.new({"user_id"=>1,
+        form = ReviewForm.new({"user_id"=>user.id,
                                "food"=>"update_food",
                                "content"=>"update_content",
                                "title"=>"update_title",
