@@ -9,3 +9,9 @@ AllCops:
     - 'bin/*'
     - 'db/**/*'
     - 'script/**/*'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+
+# 日本語コメントを許可。
+Style/AsciiComments:
+  Enabled: false
