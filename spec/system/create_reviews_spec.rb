@@ -1,29 +1,29 @@
 require 'rails_helper'
 
-RSpec.describe "CreateReviews", type: :system do
+RSpec.describe 'CreateReviews', type: :system do
   include LoginSupport
   let(:user) { FactoryBot.create(:user) }
   before do
-    @created_food = "created_food"
-    @created_category = "created_ctgry"
-    @created_content = "created_content"
-    @created_title = "created_title"
-    @created_restaurant = "created_restaurant"
+    @created_food = 'created_food'
+    @created_category = 'created_ctgry'
+    @created_content = 'created_content'
+    @created_title = 'created_title'
+    @created_restaurant = 'created_restaurant'
     @created_rate = 4.5
   end
 
-  it "レビューを新規投稿できること" do
+  it 'レビューを新規投稿できること' do
     log_in_as user
     visit new_review_path
-    expect {
-      fill_in "Content", with: @created_content
-      fill_in "Food", with: @created_food
-      fill_in "Category", with: @created_category
-      fill_in "Title", with: @created_title
-      fill_in "Restaurant", with: @created_restaurant
-      fill_in "Rate", with: @created_rate
-      click_button "新規投稿"
-    }.to change(Review, :count).by(1)
+    expect do
+      fill_in 'Content', with: @created_content
+      fill_in 'Food', with: @created_food
+      fill_in 'Category', with: @created_category
+      fill_in 'Title', with: @created_title
+      fill_in 'Restaurant', with: @created_restaurant
+      fill_in 'Rate', with: @created_rate
+      click_button '新規投稿'
+    end.to change(Review, :count).by(1)
     created_review = user.reviews.first
     aggregate_failures do
       expect(created_review.food.name).to eq @created_food
@@ -36,57 +36,57 @@ RSpec.describe "CreateReviews", type: :system do
     end
   end
 
-  describe "入力誤りがある時、投稿されないこと" do
-    before {
+  describe '入力誤りがある時、投稿されないこと' do
+    before do
       log_in_as user
       visit new_review_path
-      fill_in "Content", with: @created_content
-      fill_in "Food", with: @created_food
-      fill_in "Category", with: @created_category
-      fill_in "Title", with: @created_title
-      fill_in "Restaurant", with: @created_restaurant
-      fill_in "Rate", with: @created_rate
-    }
-    after {
-      expect {
-        fill_in "Content", with: @created_content
-        fill_in "Food", with: @created_food
-        fill_in "Category", with: @created_category
-        fill_in "Title", with: @created_title
-        fill_in "Restaurant", with: @created_restaurant
-        fill_in "Rate", with: @created_rate
-        click_button "新規投稿"
-      }.to change(Review, :count).by(1)
-    }
-    it "foodが誤り" do
-      expect {
-        fill_in "Food", with: ""
-        click_button "新規投稿"
-      }.to change(Review, :count).by(0)
+      fill_in 'Content', with: @created_content
+      fill_in 'Food', with: @created_food
+      fill_in 'Category', with: @created_category
+      fill_in 'Title', with: @created_title
+      fill_in 'Restaurant', with: @created_restaurant
+      fill_in 'Rate', with: @created_rate
     end
-    it "categoryが誤り" do
-      expect {
-        fill_in "Category", with: ""
-        click_button "新規投稿"
-      }.to change(Review, :count).by(0)
+    after do
+      expect do
+        fill_in 'Content', with: @created_content
+        fill_in 'Food', with: @created_food
+        fill_in 'Category', with: @created_category
+        fill_in 'Title', with: @created_title
+        fill_in 'Restaurant', with: @created_restaurant
+        fill_in 'Rate', with: @created_rate
+        click_button '新規投稿'
+      end.to change(Review, :count).by(1)
     end
-    it "contentが誤り" do
-      expect {
-        fill_in "Content", with: ""
-        click_button "新規投稿"
-      }.to change(Review, :count).by(0)
+    it 'foodが誤り' do
+      expect do
+        fill_in 'Food', with: ''
+        click_button '新規投稿'
+      end.to change(Review, :count).by(0)
     end
-    it "titleが誤り" do
-      expect {
-        fill_in "Title", with: ""
-        click_button "新規投稿"
-      }.to change(Review, :count).by(0)
+    it 'categoryが誤り' do
+      expect do
+        fill_in 'Category', with: ''
+        click_button '新規投稿'
+      end.to change(Review, :count).by(0)
     end
-    it "rateが誤り" do
-      expect {
-        fill_in "Rate", with: ""
-        click_button "新規投稿"
-      }.to change(Review, :count).by(0)
+    it 'contentが誤り' do
+      expect do
+        fill_in 'Content', with: ''
+        click_button '新規投稿'
+      end.to change(Review, :count).by(0)
+    end
+    it 'titleが誤り' do
+      expect do
+        fill_in 'Title', with: ''
+        click_button '新規投稿'
+      end.to change(Review, :count).by(0)
+    end
+    it 'rateが誤り' do
+      expect do
+        fill_in 'Rate', with: ''
+        click_button '新規投稿'
+      end.to change(Review, :count).by(0)
     end
   end
 end

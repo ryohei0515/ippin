@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -65,13 +66,11 @@ group :test do
   gem 'launchy', '~> 2.4.3'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers', require: !ENV['SELENIUM_DRIVER_URL']
-  gem 'rails-controller-testing', '1.0.4'
   gem 'minitest',                 '5.11.3'
   gem 'minitest-reporters',       '1.3.8'
   gem 'rails-controller-testing', '1.0.4'
-  gem 'selenium-webdriver'
   gem 'shoulda-matchers'
+  gem 'webdrivers', require: !ENV['SELENIUM_DRIVER_URL']
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

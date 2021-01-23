@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create, :destroy, :edit, :update]
-  before_action :correct_user, only: [:destroy, :edit, :update]
+  before_action :logged_in_user, only: %i[new create destroy edit update]
+  before_action :correct_user, only: %i[destroy edit update]
 
   def new
     @form = ReviewForm.new
@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
   def create
     @form = ReviewForm.new(reviews_params)
     if @form.create
-      flash[:success] = "レビューを投稿しました"
+      flash[:success] = 'レビューを投稿しました'
       redirect_to review_path(@form.review_id)
     else
       render 'new'
@@ -29,7 +29,7 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @form = ReviewForm.new(reviews_params, review: @review)
     if @form.update
-      flash[:success] = "レビューを更新しました"
+      flash[:success] = 'レビューを更新しました'
       redirect_to @review
     else
       render 'edit'
@@ -39,19 +39,19 @@ class ReviewsController < ApplicationController
   def destroy
     review = Review.find(params[:id])
     review.destroy
-    flash[:success] = "レビューを削除しました"
+    flash[:success] = 'レビューを削除しました'
     redirect_to user_path(@review_user)
   end
 
   private
-    def reviews_params
-      params.require(:review).permit(:content, :food, :title, :restaurant,
-                                     :rate, :user_id, :category)
-    end
 
-    def correct_user
-      @review_user = Review.find(params[:id]).user
-      redirect_to(review_path(params[:id])) unless current_user?(@review_user)
-    end
+  def reviews_params
+    params.require(:review).permit(:content, :food, :title, :restaurant,
+                                   :rate, :user_id, :category)
+  end
 
+  def correct_user
+    @review_user = Review.find(params[:id]).user
+    redirect_to(review_path(params[:id])) unless current_user?(@review_user)
+  end
 end

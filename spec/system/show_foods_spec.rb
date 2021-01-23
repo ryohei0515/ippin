@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "ShowFoods", type: :system do
+RSpec.describe 'ShowFoods', type: :system do
   include ActionView::Helpers::DateHelper
   let(:review_list) { FactoryBot.create_list(:review, 30, food: food) }
   let(:food) { FactoryBot.create(:food) }
 
-  it "正しくfoodとそれに紐づくReviewを表示できること" do
+  it '正しくfoodとそれに紐づくReviewを表示できること' do
     review_list
     visit food_path(food.id)
     aggregate_failures do
@@ -13,14 +13,14 @@ RSpec.describe "ShowFoods", type: :system do
       expect(page).to have_content food.restaurant
       expect(page).to have_content food.category
       expect(page).to have_content food.rate
-      expect(page).to have_content "#{food.reviews.count.to_s}件"
+      expect(page).to have_content "#{food.reviews.count}件"
       expect(page).to have_selector '.pagination'
-      for review in food.reviews.order(rate: :desc)[0..4] do
+      food.reviews.order(rate: :desc)[0..4].each do |review|
         expect(page).to have_content review.title
         expect(page).to have_content review.content
         expect(page).to have_content review.rate
         expect(page).to have_content review.user.name
-        expect(page).to have_content review.updated_at.strftime("%Y年%-m月%-d日")
+        expect(page).to have_content review.updated_at.strftime('%Y年%-m月%-d日')
       end
     end
   end

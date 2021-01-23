@@ -7,7 +7,7 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     @user = users(:michael)
   end
 
-  test "user profile display" do
+  test 'user profile display' do
     get user_path(@user)
     assert_template 'users/show'
     assert_select 'title', full_title(@user.name)
@@ -17,5 +17,4 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
       assert_match review.content, response.body
     end
   end
-
 end

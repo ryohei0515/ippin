@@ -26,6 +26,7 @@ class ReviewForm
 
   def create
     return if invalid?
+
     ActiveRecord::Base.transaction do
       create_or_find_food
       review = Review.create!(user_id: user_id, food: @review_food,
@@ -41,6 +42,7 @@ class ReviewForm
 
   def update
     return if invalid?
+
     ActiveRecord::Base.transaction do
       create_or_find_food
       review.update(user_id: user_id, food: @review_food,
@@ -75,6 +77,6 @@ class ReviewForm
   def create_or_find_food
     @review_food = Food.find_by(name: food, restaurant: restaurant)
     @review_food ||= Food.create!(name: food, category: category,
-                                restaurant: restaurant)
+                                  restaurant: restaurant)
   end
 end
