@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReviewForm
   include ActiveModel::Model
   attr_accessor :review_id, :user_id, :food, :content, :title, :restaurant,

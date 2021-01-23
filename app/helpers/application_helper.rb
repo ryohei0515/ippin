@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   PER_REVIEW = 5 # レビューの1ページあたりの表示数
   PER_FOOD = 5 # フードの1ページあたりの表示数
@@ -8,7 +10,7 @@ module ApplicationHelper
     if page_title.empty?
       base_title
     else
-      page_title + ' | ' + base_title
+      "#{page_title} | #{base_title}"
     end
   end
 end

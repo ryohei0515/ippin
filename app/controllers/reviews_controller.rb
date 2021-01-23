@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReviewsController < ApplicationController
   before_action :logged_in_user, only: %i[new create destroy edit update]
   before_action :correct_user, only: %i[destroy edit update]

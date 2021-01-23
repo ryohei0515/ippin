@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'UserEdits', type: :system do
@@ -25,7 +27,7 @@ RSpec.describe 'UserEdits', type: :system do
       aggregate_failures do
         expect(updated_user.name).to eq @updated_name
         expect(updated_user.email).to eq @updated_email
-        expect(!!updated_user.authenticate(@updated_password)).to be_truthy
+        expect(!updated_user.authenticate(@updated_password).nil?).to be_truthy
         expect(current_path).to eq edit_user_path(user.id)
       end
     end

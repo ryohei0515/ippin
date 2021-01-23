@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Capybara.register_driver :remote_chrome do |app|
   url = ENV['SELENIUM_DRIVER_URL']
   caps = ::Selenium::WebDriver::Remote::Capabilities.chrome(

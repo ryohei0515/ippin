@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -22,8 +24,8 @@ RSpec.describe User, type: :model do
       expect(build(:user, email: nil)).to_not be_valid
     end
     it '長すぎるため無効' do
-      expect(build(:user, email: 'a' * 243 + '@example.com')).to be_valid
-      expect(build(:user, email: 'a' * 244 + '@example.com')).to_not be_valid
+      expect(build(:user, email: "#{'a' * 243}@example.com")).to be_valid
+      expect(build(:user, email: "#{'a' * 244}@example.com")).to_not be_valid
     end
     describe 'フォーマットに則っていないため無効' do
       it 'user@example,com' do
