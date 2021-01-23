@@ -72,8 +72,6 @@ group :test do
   gem 'rails-controller-testing', '1.0.4'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
