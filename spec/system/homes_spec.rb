@@ -11,7 +11,7 @@ RSpec.describe "Homes", type: :system do
     aggregate_failures do
       expect(page).to have_content "#{Food.count.to_s}件"
       expect(page).to have_selector '.pagination'
-      for food in Food.all.order(rate: :desc)[0..4] do
+      for food in Food.all.order(rate: :desc, name: :asc)[0..4] do
         expect(page).to have_content food.name
         expect(page).to have_content food.restaurant
         expect(page).to have_content food.category

@@ -6,10 +6,10 @@ RSpec.describe "SignUps", type: :system do
   it "ユーザ登録できること" do
     expect {
       visit signup_path
-      fill_in "Name", with: user.name
-      fill_in "Email", with: user.email
-      fill_in "Password", with: user.password
-      fill_in "Password confirmation", with: user.password_confirmation
+      fill_in "user_name", with: user.name
+      fill_in "user_email", with: user.email
+      fill_in "user_password", with: user.password
+      fill_in "user_password_confirmation", with: user.password_confirmation
       click_button "新規登録"
     }.to change(User, :count).by(1)
 
@@ -24,39 +24,39 @@ RSpec.describe "SignUps", type: :system do
   describe "入力誤りがある時、登録されないこと" do
     before {
       visit signup_path
-      fill_in "Name", with: user.name
-      fill_in "Email", with: user.email
-      fill_in "Password", with: user.password
-      fill_in "Password confirmation", with: user.password_confirmation
+      fill_in "user_name", with: user.name
+      fill_in "user_email", with: user.email
+      fill_in "user_password", with: user.password
+      fill_in "user_password_confirmation", with: user.password_confirmation
     }
     after {
       expect {
-        fill_in "Name", with: user.name
-        fill_in "Email", with: user.email
-        fill_in "Password", with: user.password
-        fill_in "Password confirmation", with: user.password_confirmation
+        fill_in "user_name", with: user.name
+        fill_in "user_email", with: user.email
+        fill_in "user_password", with: user.password
+        fill_in "user_password_confirmation", with: user.password_confirmation
         click_button "新規登録"
       }.to change(User, :count).by(1)
     }
 
-    it "nameが誤り" do
+    it "user_nameが誤り" do
       expect {
-        fill_in "Name", with: ""
+        fill_in "user_name", with: ""
         click_button "新規登録"
       }.to_not change(User, :count)
     end
 
-    it "emailが誤り" do
+    it "user_emailが誤り" do
       expect {
-        fill_in "Email", with: ""
+        fill_in "user_email", with: ""
         click_button "新規登録"
       }.to_not change(User, :count)
     end
 
-    it "passwordとpassword_confirmationが不一致" do
+    it "user_passwordとuser_password_confirmationが不一致" do
       expect {
-        fill_in "Password", with: "password"
-        fill_in "Password confirmation", with: "foobar"
+        fill_in "user_password", with: "user_password"
+        fill_in "user_password_confirmation", with: "foobar"
         click_button "新規登録"
       }.to_not change(User, :count)
     end

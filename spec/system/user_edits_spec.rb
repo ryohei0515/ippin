@@ -13,13 +13,13 @@ RSpec.describe "UserEdits", type: :system do
     before do
       log_in_as user
       visit edit_user_path(user.id)
-      fill_in "Name", with: @updated_name
-      fill_in "Email", with: @updated_email
+      fill_in "user_name", with: @updated_name
+      fill_in "user_email", with: @updated_email
     end
 
     it "全情報の編集" do
-      fill_in "Password", with: @updated_password
-      fill_in "Password confirmation", with: @updated_password
+      fill_in "user_password", with: @updated_password
+      fill_in "user_password_confirmation", with: @updated_password
       click_button "登録情報更新"
       updated_user = User.find(user.id)
       aggregate_failures do
@@ -45,13 +45,13 @@ RSpec.describe "UserEdits", type: :system do
     before {
       log_in_as user
       visit edit_user_path(user.id)
-      fill_in "Name", with: @updated_name
-      fill_in "Email", with: @updated_email
+      fill_in "user_name", with: @updated_name
+      fill_in "user_email", with: @updated_email
     }
 
     it "nameが誤り" do
       expect {
-        fill_in "Name", with: ""
+        fill_in "user_name", with: ""
         click_button "登録情報更新"
       }.to_not change{ user.reload.inspect }
       expect(page).to have_selector '.alert-danger'
@@ -59,7 +59,7 @@ RSpec.describe "UserEdits", type: :system do
 
     it "emailが誤り" do
       expect {
-        fill_in "Email", with: ""
+        fill_in "user_email", with: ""
         click_button "登録情報更新"
       }.to_not change{ user.reload.inspect }
       expect(page).to have_selector '.alert-danger'
@@ -67,8 +67,8 @@ RSpec.describe "UserEdits", type: :system do
 
     it "passwordとpassword_confirmationが不一致" do
       expect {
-        fill_in "Password", with: "password"
-        fill_in "Password confirmation", with: "foobar"
+        fill_in "user_password", with: "password"
+        fill_in "user_password_confirmation", with: "foobar"
         click_button "登録情報更新"
       }.to_not change{ user.reload.inspect }
       expect(page).to have_selector '.alert-danger'
