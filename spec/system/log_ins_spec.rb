@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Log in', type: :system do
   include LoginSupport
   let(:user) { FactoryBot.create(:user) }
 
-  it "ログインできること" do
+  it 'ログインできること' do
     visit root_path
-    click_link "ログイン"
-    fill_in "Email", with: user.email
-    fill_in "Password", with: user.password
-    click_button "ログイン"
+    click_link 'ログイン'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    click_button 'ログイン'
 
     aggregate_failures do
       expect(current_path).to eq user_path(user)
@@ -18,12 +20,12 @@ RSpec.describe 'Log in', type: :system do
     end
   end
 
-  it "パスワード不一致の場合、ログインできないこと" do
+  it 'パスワード不一致の場合、ログインできないこと' do
     visit root_path
-    click_link "ログイン"
-    fill_in "Email", with: user.email
-    fill_in "Password", with: "invalid"
-    click_button "ログイン"
+    click_link 'ログイン'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: 'invalid'
+    click_button 'ログイン'
 
     aggregate_failures do
       expect(current_path).to eq login_path
@@ -31,10 +33,10 @@ RSpec.describe 'Log in', type: :system do
     end
   end
 
-  it "ログアウトできること" do
+  it 'ログアウトできること' do
     log_in_as user
 
-    click_link "ログアウト"
+    click_link 'ログアウト'
     aggregate_failures do
       expect(current_path).to eq root_path
       expect(page).to have_selector 'a', text: 'ログイン'
@@ -42,13 +44,13 @@ RSpec.describe 'Log in', type: :system do
     end
   end
 
-  it "ログイン状態の記憶にチェックを入れている場合、ブラウザ再起動後ログイン状態であること" do
+  it 'ログイン状態の記憶にチェックを入れている場合、ブラウザ再起動後ログイン状態であること' do
     visit root_path
-    click_link "ログイン"
-    fill_in "Email", with: user.email
-    fill_in "Password", with: user.password
-    check "ログイン状態を記憶する"
-    click_button "ログイン"
+    click_link 'ログイン'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    check 'ログイン状態を記憶する'
+    click_button 'ログイン'
 
     # cookieを一時退避
     remember_token_value = Capybara.current_session.driver.request.cookies
@@ -68,12 +70,12 @@ RSpec.describe 'Log in', type: :system do
     end
   end
 
-  it "ログイン状態の記憶にチェックを入れていない場合、ブラウザ再起動後ログイン状態でないこと" do
+  it 'ログイン状態の記憶にチェックを入れていない場合、ブラウザ再起動後ログイン状態でないこと' do
     visit root_path
-    click_link "ログイン"
-    fill_in "Email", with: user.email
-    fill_in "Password", with: user.password
-    click_button "ログイン"
+    click_link 'ログイン'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    click_button 'ログイン'
 
     # cookieを一時退避（remember_tokenは空の想定）
     remember_token_value = Capybara.current_session.driver.request.cookies

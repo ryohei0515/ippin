@@ -1,20 +1,21 @@
+# frozen_string_literal: true
+
 Capybara.register_driver :remote_chrome do |app|
-  url = ENV["SELENIUM_DRIVER_URL"]
+  url = ENV['SELENIUM_DRIVER_URL']
   caps = ::Selenium::WebDriver::Remote::Capabilities.chrome(
-  "goog:chromeOptions" => {
-    "args" => [
-    "no-sandbox",
-    "headless",
-    "disable-gpu",
-    "window-size=1680,1050"
-    ]
-  }
+    'goog:chromeOptions' => {
+      'args' => [
+        'no-sandbox',
+        'headless',
+        'disable-gpu',
+        'window-size=1680,1050'
+      ]
+    }
   )
   Capybara::Selenium::Driver.new(app, browser: :remote, url: url, desired_capabilities: caps)
 end
 
 RSpec.configure do |config|
-
   config.before(:each, type: :system) do
     driven_by :rack_test
   end
