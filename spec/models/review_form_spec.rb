@@ -66,7 +66,7 @@ RSpec.describe ReviewForm, type: :model do
                                 'restaurant' => food.restaurant,
                                 'rate' => 3.5,
                                 'category' => food.category })
-        expect { form.create }.to_not change { Food.count }
+        expect { form.create }.to_not change(Food, :count)
       end
     end
   end
@@ -93,7 +93,7 @@ RSpec.describe ReviewForm, type: :model do
                                 'restaurant' => food.restaurant,
                                 'rate' => 3.5,
                                 'category' => food.category }, review: review)
-        expect { form.update }.to_not change { Food.count }
+        expect { form.create }.to_not change(Food, :count)
       end
     end
   end

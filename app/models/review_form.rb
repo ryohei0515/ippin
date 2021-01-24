@@ -30,7 +30,7 @@ class ReviewForm
     return if invalid?
 
     ActiveRecord::Base.transaction do
-      create_or_find_food
+      _review_food
       review = Review.create!(user_id: user_id, food: @review_food,
                               content: content, title: title,
                               rate: rate)
@@ -46,7 +46,7 @@ class ReviewForm
     return if invalid?
 
     ActiveRecord::Base.transaction do
-      create_or_find_food
+      _review_food
       review.update(user_id: user_id, food: @review_food,
                     content: content, title: title,
                     rate: rate)
@@ -62,6 +62,7 @@ class ReviewForm
   attr_reader :review
   attr_accessor :review_food
 
+  # rubocop:disable Metrics/AbcSize
   def default_attributes
     {
       review_id: review.id,
@@ -74,9 +75,10 @@ class ReviewForm
       category: review.food_id ? review.food.category : nil
     }
   end
+  # rubocop:enable Metrics/AbcSize
 
   # 主キーに合致するFoodがあればそれを返す。なければ作成する。
-  def create_or_find_food
+  def _review_food
     @review_food = Food.find_by(name: food, restaurant: restaurant)
     @review_food ||= Food.create!(name: food, category: category,
                                   restaurant: restaurant)
