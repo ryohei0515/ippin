@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :food, class: Food do
     name { Faker::Food.dish }

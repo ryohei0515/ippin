@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_01_02_013747) do
 
-  create_table "foods", force: :cascade do |t|
+  create_table "foods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "category"
     t.string "restaurant"
@@ -23,19 +23,19 @@ ActiveRecord::Schema.define(version: 2021_01_02_013747) do
     t.index ["rate"], name: "index_foods_on_rate"
   end
 
-  create_table "reviews", force: :cascade do |t|
+  create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.text "content"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "title"
     t.float "rate"
-    t.integer "food_id", null: false
+    t.bigint "food_id", null: false
     t.index ["food_id"], name: "index_reviews_on_food_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
