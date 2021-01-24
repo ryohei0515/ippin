@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :review, class: Review do
     content { Faker::Lorem.sentence(word_count: 5) }
@@ -20,10 +22,9 @@ FactoryBot.define do
   end
 
   factory :review_user, class: User do
-    name { "Review User" }
-    sequence(:email) { |n| "review_#{n}@example.com"}
-    password { "foobar" }
-    password_confirmation { "foobar" }
+    name { 'Review User' }
+    sequence(:email) { |n| "review_#{n}@example.com" }
+    password { 'foobar' }
+    password_confirmation { 'foobar' }
   end
-
 end
