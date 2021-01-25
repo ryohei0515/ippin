@@ -86,7 +86,7 @@ RSpec.describe ReviewForm, type: :model do
     end
     context '既に存在するfoodのレビューの場合' do
       it '既に存在するfoodのレビューの場合foodを登録しないこと' do
-        form = ReviewForm.new({ 'user_id' => 1,
+        form = ReviewForm.new({ 'user_id' => user.id,
                                 'food' => food.name,
                                 'content' => 'update_content',
                                 'title' => 'update_title',
