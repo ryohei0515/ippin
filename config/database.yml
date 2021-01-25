@@ -11,6 +11,7 @@ default: &default
   username: app
   password: password
   timeout: 5000
+  port: 3306
   host: db
 
 development:
@@ -19,5 +20,7 @@ development:
 
 test:
   <<: *default
+  username: <%= ENV.fetch('TEST_USERNAME') { 'app' } %>
+  password: <%= ENV.fetch('TEST_USERPASS') { 'password' } %>
+  host: <%= ENV.fetch('TEST_DB_HOST') { 'test-db' } %>
   database: mysql_test
-  host: test-db
