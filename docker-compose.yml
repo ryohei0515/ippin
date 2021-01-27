@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8.0.22
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    ports:
+      - '3306:3306'
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${DEV_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DEV_ROOTPASS}
+      MYSQL_USER: ${DEV_USERNAME}
+      MYSQL_PASSWORD: ${DEV_USERPASS}
+
+  web: &app_base
+    build:
+      context: .
+      dockerfile: ./docker/rails/Dockerfile
+    command: bundle exec puma -C config/puma.rb
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - gem_modules:/app/vendor/bundle
+      - node_modules:/app/node_modules
+      - sockets:/app/tmp/sockets
+      - public-data:/app/public
+    environment:
+      BUNDLE_APP_CONFIG: ./.bundle
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - sockets:/app/tmp/sockets
+      - public-data:/app/public
+    depends_on:
+      - web
+
+volumes:
+  db_data:
+  gem_modules:
+  node_modules:
+  sockets:
+  public-data:
