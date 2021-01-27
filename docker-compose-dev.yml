@@ -37,8 +37,8 @@ services:
       - "3000:3000"
     volumes:
       - .:/app
-      - gem_modules:/vendor/bundle
-      - node_modules:/node_modules
+      - gem_modules:/app/vendor/bundle
+      - node_modules:/app/node_modules
     tty: true
     stdin_open: true
     environment:
