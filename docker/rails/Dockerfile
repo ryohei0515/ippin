@@ -32,11 +32,6 @@ RUN apk update \
 # 既存railsプロジェクトをコンテナ内にコピー
 COPY . $APP_ROOT
 
-# puma.sockを配置するディレクトリを作成
-#RUN mkdir -p $APP_ROOT/tmp/sockets
-#RUN mkdir -p $APP_ROOT/tmp/test
-#RUN mkdir -p $APP_ROOT/tmp/pids
-
 ENTRYPOINT [ \
   "prehook", "bundle install -j4 --quiet", "--", \
   "prehook", "yarn install --check-files --ignore-optional", "--"]
