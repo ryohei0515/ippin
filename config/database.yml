@@ -8,19 +8,25 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: app
-  password: password
   timeout: 5000
   port: 3306
   host: db
 
 development:
   <<: *default
-  database: mysql_development
+  username: <%= ENV.fetch('DEV_USERNAME') { 'app' } %>
+  password: <%= ENV.fetch('DEV_USERPASS') { 'password' } %>
+  database: <%= ENV.fetch('DEV_DATABASE') { 'mysql_development' } %>
 
 test:
   <<: *default
   username: <%= ENV.fetch('TEST_USERNAME') { 'app' } %>
-  password: <%= ENV.fetch('TEST_USERPASS') { 'password' } %>
-  host: <%= ENV.fetch('TEST_DB_HOST') { 'test-db' } %>
-  database: mysql_test
+  password: <%= ENV.fetch('TEST_USERPASS') { 'passwrd' } %>
+  database: <%= ENV.fetch('TEST_DATABASE') { 'mysql_test' } %>
+  host: 'test-db'
+
+production:
+  <<: *default
+  username: <%= ENV.fetch('PROD_USERNAME') { 'app' } %>
+  password: <%= ENV.fetch('PROD_USERPASS') { 'password' } %>
+  database: <%= ENV.fetch('PROD_DATABASE') { 'mysql_prod' } %>

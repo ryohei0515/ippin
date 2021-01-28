@@ -41,3 +41,5 @@ Procfile
 
 node_modules/
 vendor/bundle/
+
+.env
