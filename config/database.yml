@@ -23,7 +23,7 @@ test:
   username: <%= ENV.fetch('TEST_USERNAME') { 'app' } %>
   password: <%= ENV.fetch('TEST_USERPASS') { 'passwrd' } %>
   database: <%= ENV.fetch('TEST_DATABASE') { 'mysql_test' } %>
-  host: <%= ENV.fetch('TEST_DB_HOST') { 'test-db' } %>
+  host: <%= ENV.fetch('TEST_DB_HOST') { 'test-db' } %>  #CircleCI用の環境変数
 
 production:
   <<: *default
