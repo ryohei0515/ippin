@@ -69,7 +69,7 @@ jobs:
           destination: test-results
   deploy:
     machine:
-      image: alpine:3.13
+      image: circleci/circleci-cli:alpine
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -84,6 +84,6 @@ workflows:
       - deploy:
           requires:
             - build
-          filters:
-            branches:
-              only: master
+#          filters:
+#            branches:
+#              only: master
