@@ -22,7 +22,7 @@ RUN apk update \
     alpine-sdk \
     bash \
     build-base \
-	mysql-client \
+	  mysql-client \
     mysql-dev \
     nodejs \
     python2 \

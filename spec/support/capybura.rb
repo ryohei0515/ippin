@@ -21,8 +21,12 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system, js: true) do
-    Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
-    Capybara.app_host = "http://#{Capybara.server_host}"
-    driven_by :remote_chrome
+    if ENV['SELENIUM_DRIVER_URL'].present?
+      Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
+      Capybara.app_host = "http://#{Capybara.server_host}"
+      driven_by :remote_chrome
+    else
+      driven_by :selenium_chrome_headless
+    end
   end
 end

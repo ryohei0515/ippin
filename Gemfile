@@ -31,6 +31,7 @@ gem 'bcrypt', '~> 3.1.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+gem 'dotenv-rails'
 gem 'faker', '2.1.2'
 gem 'font-awesome-sass', '~> 5.8.1'
 gem 'jquery-rails'
@@ -69,6 +70,7 @@ group :test do
   gem 'minitest',                 '5.11.3'
   gem 'minitest-reporters',       '1.3.8'
   gem 'rails-controller-testing', '1.0.4'
+  gem 'rspec_junit_formatter'
   gem 'shoulda-matchers'
   gem 'webdrivers', require: !ENV['SELENIUM_DRIVER_URL']
 end
