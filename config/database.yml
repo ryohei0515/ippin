@@ -27,6 +27,7 @@ test:
 
 production:
   <<: *default
-  username: <%= ENV.fetch('PROD_USERNAME') { 'app' } %>
-  password: <%= ENV.fetch('PROD_USERPASS') { 'password' } %>
-  database: <%= ENV.fetch('PROD_DATABASE') { 'mysql_prod' } %>
+  host: <%= Rails.application.credentials.prod_db[:host] %>
+  username: <%= Rails.application.credentials.prod_db[:username] %>
+  password: <%= Rails.application.credentials.prod_db[:password] %>
+  database: <%= Rails.application.credentials.prod_db[:database] %>
