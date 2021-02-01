@@ -72,8 +72,6 @@ jobs:
       image: circleci/classic:edge
     steps:
       - add_ssh_keys:
-          fingerprints:
-            - "${KEY_FINGERPRINT}"
       - run: ssh ${USER_NAME}@${HOST_NAME} 'cd ippin && git pull && docker-compose run web bundle exec rails assets:precompile RAILS_ENV=production assets:clean'
 
 workflows:
