@@ -69,12 +69,13 @@ jobs:
           destination: test-results
   deploy:
     machine:
-      image: alpine:3.13
+      image: circleci/classic:edge
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "${KEY_FINGERPRINT}"
-      - run: ssh ${USER_NAME}@${HOST_NAME} 'cd ippin && git pull && docker-compose run web bundle exec rails assets:precompile RAILS_ENV=production assets:clean'
+      - add_ssh_keys
+      - run: ssh ${USER_NAME}@${HOST_NAME} '
+             cd ippin &&
+             git pull &&
+             docker-compose run --rm web bundle exec rails assets:precompile RAILS_ENV=production assets:clean'
 
 workflows:
   version: 2.1
