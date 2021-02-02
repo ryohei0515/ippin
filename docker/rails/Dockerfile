@@ -27,6 +27,7 @@ RUN apk update \
     nodejs \
     python2 \
     tzdata \
+    vim \
     yarn
 
 # 既存railsプロジェクトをコンテナ内にコピー
