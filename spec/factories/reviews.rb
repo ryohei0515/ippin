@@ -7,6 +7,8 @@ FactoryBot.define do
     title { Faker::Lorem.sentence(word_count: 2) }
     association :user, factory: :review_user, strategy: :create
     association :food, factory: :food, strategy: :create
+    picture { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/fixtures/files/food_pic_01.jpg'), 'image/jpeg') }
+
     sequence(:created_at) { |n| n.hours.ago }
     sequence(:updated_at) { |n| n.hours.ago }
 
