@@ -3,7 +3,7 @@
 class ReviewForm
   include ActiveModel::Model
   attr_accessor :review_id, :user_id, :food, :content, :title, :restaurant,
-                :rate, :category
+                :rate, :category, :picture
 
   validates :user_id, presence: true
   validates :food, presence: true, length: { maximum: 30 }
@@ -33,7 +33,7 @@ class ReviewForm
       _review_food
       review = Review.create!(user_id: user_id, food: @review_food,
                               content: content, title: title,
-                              rate: rate)
+                              rate: rate, picture: picture)
       @review_food.calc_and_save_rate
       @review_id = review.id
     end
@@ -72,7 +72,8 @@ class ReviewForm
       title: review.title,
       restaurant: review.food_id ? review.food.restaurant : nil,
       rate: review.rate,
-      category: review.food_id ? review.food.category : nil
+      category: review.food_id ? review.food.category : nil,
+      picture: review.picture
     }
   end
   # rubocop:enable Metrics/AbcSize

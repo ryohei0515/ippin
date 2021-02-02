@@ -33,6 +33,12 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'dotenv-rails'
 gem 'faker', '2.1.2'
+
+# for image uploader with AWS S3
+gem 'carrierwave'
+gem 'fog-aws'
+gem 'mini_magick'
+
 gem 'font-awesome-sass', '~> 5.8.1'
 gem 'jquery-rails'
 gem 'kaminari', '~> 1.2.1'
@@ -41,6 +47,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails', '~> 6.1.0'
+  gem 'pry-byebug'
+  gem 'pry-rails'
   gem 'rspec-rails', '~> 4.0.0'
 end
 
