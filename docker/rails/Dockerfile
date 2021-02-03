@@ -22,6 +22,7 @@ RUN apk update \
     alpine-sdk \
     bash \
     build-base \
+    imagemagick \
 	  mysql-client \
     mysql-dev \
     nodejs \
