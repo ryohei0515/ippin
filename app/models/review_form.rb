@@ -49,7 +49,7 @@ class ReviewForm
       _review_food
       review.update(user_id: user_id, food: @review_food,
                     content: content, title: title,
-                    rate: rate)
+                    rate: rate, picture: picture)
       @review_food.calc_and_save_rate
     end
   rescue ActiveRecord::RecordInvalid
