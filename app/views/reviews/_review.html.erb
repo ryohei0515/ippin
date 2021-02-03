@@ -14,12 +14,17 @@
           <% end%>
       </div>
     </div>
-      <div class="m-1 bg-white">
-        <div class="m-2">
-          <span class="border-b-4 border-yellow-300 border-opacity-50 text-xl"><%= review.title %></span>
+      <div class="m-1 bg-white flex flex-row">
+        <div class="">
+          <%= image_tag review.picture_url(:thumb) if review.picture? %>
         </div>
-        <div>点数：<%= review.rate %></div>
-        <div><%= review.content %></div>
+        <div class="">
+          <div class="m-2">
+            <span class="border-b-4 border-yellow-300 border-opacity-50 text-xl"><%= review.title %></span>
+          </div>
+          <div class="m-2">点数：<%= review.rate %></div>
+          <div class="m-2"><%= review.content %></div>
+        </div>
     </div>
   </div>
 </li>
