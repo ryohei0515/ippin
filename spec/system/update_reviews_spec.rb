@@ -13,7 +13,7 @@ RSpec.describe 'UpdateReviews', type: :system do
     @updated_title = 'updated_title'
     @updated_restaurant = 'updated_restaurant'
     @updated_rate = 4.5
-    @updated_picture = 'food_pic_02.jpg'
+    @updated_picture = 'test_pic_02.jpg'
   end
 
   it 'ログインユーザ自身のレビューを更新できること' do

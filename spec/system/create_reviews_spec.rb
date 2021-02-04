@@ -12,7 +12,7 @@ RSpec.describe 'CreateReviews', type: :system do
     @created_title = 'created_title'
     @created_restaurant = 'created_restaurant'
     @created_rate = 4.5
-    @created_picture = 'food_pic_01.jpg'
+    @created_picture = 'test_pic_01.jpg'
   end
 
   it 'レビューを新規投稿できること' do
