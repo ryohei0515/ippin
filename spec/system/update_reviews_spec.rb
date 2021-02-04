@@ -10,8 +10,8 @@ RSpec.describe 'UpdateReviews', type: :system do
     @updated_food = 'updated_food'
     @updated_category = 'updated_ctgry'
     @updated_content = 'updated_content'
-    @updated_title = 'updatedd_title'
-    @updated_restaurant = 'updatedd_restaurant'
+    @updated_title = 'updated_title'
+    @updated_restaurant = 'updated_restaurant'
     @updated_rate = 4.5
     @updated_picture = 'food_pic_02.jpg'
   end
@@ -50,6 +50,7 @@ RSpec.describe 'UpdateReviews', type: :system do
       fill_in 'Title', with: @updated_title
       fill_in 'Restaurant', with: @updated_restaurant
       fill_in 'Rate', with: @updated_rate
+      attach_file 'Picture', file_fixture(@updated_picture)
     end
     it 'foodが誤り' do
       expect do
@@ -83,6 +84,11 @@ RSpec.describe 'UpdateReviews', type: :system do
         fill_in 'Rate', with: ''
         click_button '修正する'
       end.to change(Review, :count).by(0)
+    end
+    it '画像がキャッシュされること' do
+      fill_in 'Food', with: ''
+      click_button '修正する'
+      expect(page).to have_selector("img[src$='thumb_#{@updated_picture}']")
     end
   end
 
