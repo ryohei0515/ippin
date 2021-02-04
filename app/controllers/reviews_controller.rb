@@ -49,7 +49,7 @@ class ReviewsController < ApplicationController
 
   def reviews_params
     params.require(:review).permit(:content, :food, :title, :restaurant,
-                                   :rate, :user_id, :category, :picture)
+                                   :rate, :user_id, :category, :picture, :picture_cache)
   end
 
   def correct_user

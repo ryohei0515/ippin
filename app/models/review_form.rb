@@ -2,8 +2,11 @@
 
 class ReviewForm
   include ActiveModel::Model
+  extend CarrierWave::Mount
   attr_accessor :review_id, :user_id, :food, :content, :title, :restaurant,
-                :rate, :category, :picture
+                :rate, :category
+
+  mount_uploader :picture, PictureUploader
 
   validates :user_id, presence: true
   validates :food, presence: true, length: { maximum: 30 }

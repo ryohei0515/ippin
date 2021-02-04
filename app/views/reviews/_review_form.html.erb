@@ -28,7 +28,9 @@
     </div>
     <div class="mb-4">
       <%= f.label :picture, class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= image_tag @form.picture_url(:thumb) if @form.picture? %>
       <%= f.file_field :picture %>
+      <%= f.hidden_field :picture_cache %>
     </div>
     <div class="mb-4">
       <%= f.label :content, class: "block text-gray-700 text-sm font-bold mb-2" %>

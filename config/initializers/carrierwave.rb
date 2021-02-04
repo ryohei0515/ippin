@@ -7,6 +7,7 @@ require 'carrierwave/storage/fog'
 unless Rails.env.test?
   CarrierWave.configure do |config|
     config.storage :fog
+    config.cache_storage = :fog
     config.fog_provider = 'fog/aws'
     config.fog_directory = Rails.application.credentials.dev_aws[:BUCKET_NAME]
     config.fog_credentials = {

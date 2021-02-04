@@ -51,6 +51,7 @@ RSpec.describe 'CreateReviews', type: :system do
       fill_in 'Title', with: @created_title
       fill_in 'Restaurant', with: @created_restaurant
       fill_in 'Rate', with: @created_rate
+      attach_file 'Picture', file_fixture(@created_picture)
     end
     after do
       expect do
@@ -92,6 +93,11 @@ RSpec.describe 'CreateReviews', type: :system do
         fill_in 'Rate', with: ''
         click_button '新規投稿'
       end.to change(Review, :count).by(0)
+    end
+    it '画像がキャッシュされること' do
+      fill_in 'Food', with: ''
+      click_button '新規投稿'
+      expect(page).to have_selector("img[src$='thumb_#{@created_picture}']")
     end
   end
 end
