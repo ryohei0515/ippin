@@ -4,6 +4,7 @@
   <%= @review.content %>,
   <%= link_to @review.user.name, @review.user %>,
   <%= time_ago_in_words(@review.updated_at) %>
+  <%= image_tag @review.picture.url if @review.picture? %>
 </div>
 
 <% if current_user?(@review.user) %>

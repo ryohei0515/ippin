@@ -22,11 +22,13 @@ RUN apk update \
     alpine-sdk \
     bash \
     build-base \
+    imagemagick \
 	  mysql-client \
     mysql-dev \
     nodejs \
     python2 \
     tzdata \
+    vim \
     yarn
 
 # 既存railsプロジェクトをコンテナ内にコピー

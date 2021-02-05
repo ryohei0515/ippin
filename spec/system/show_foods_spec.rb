@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'ShowFoods', type: :system do
   include ActionView::Helpers::DateHelper
-  let(:review_list) { FactoryBot.create_list(:review, 30, food: food) }
+  let(:review_list) { FactoryBot.create_list(:review, 10, food: food) }
   let(:food) { FactoryBot.create(:food) }
 
   it '正しくfoodとそれに紐づくReviewを表示できること' do
@@ -22,6 +22,7 @@ RSpec.describe 'ShowFoods', type: :system do
         expect(page).to have_content review.content
         expect(page).to have_content review.rate
         expect(page).to have_content review.user.name
+        expect(page).to have_selector("img[src$='#{review.picture_url(:thumb)}']")
         expect(page).to have_content review.updated_at.strftime('%Y年%-m月%-d日')
       end
     end
