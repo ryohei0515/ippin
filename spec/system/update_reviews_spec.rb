@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'UpdateReviews', type: :system do
+RSpec.describe 'UpdateReviews', type: :system,focus:true do
   include LoginSupport
   let(:user) { FactoryBot.create(:user) }
   let(:review) { FactoryBot.create(:review, user: user) }
@@ -25,7 +25,6 @@ RSpec.describe 'UpdateReviews', type: :system do
     fill_in 'Title', with: @updated_title
     fill_in 'Restaurant', with: @updated_restaurant
     fill_in 'Rate', with: @updated_rate
-    attach_file 'Picture', file_fixture(@updated_picture)
     click_button '修正する'
     updated_review = Review.find(review.id)
     aggregate_failures do
@@ -86,6 +85,7 @@ RSpec.describe 'UpdateReviews', type: :system do
       end.to change(Review, :count).by(0)
     end
     it '画像がキャッシュされること' do
+      attach_file 'Picture', file_fixture(@updated_picture)
       fill_in 'Food', with: ''
       click_button '修正する'
       expect(page).to have_selector("img[src$='thumb_#{@updated_picture}']")
