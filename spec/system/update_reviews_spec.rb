@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'UpdateReviews', type: :system,focus:true do
+RSpec.describe 'UpdateReviews', type: :system do
   include LoginSupport
   let(:user) { FactoryBot.create(:user) }
   let(:review) { FactoryBot.create(:review, user: user) }

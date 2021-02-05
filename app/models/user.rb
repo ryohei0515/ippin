@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   attr_accessor :remember_token
+
   mount_uploader :picture, PictureUploader
 
   has_many :reviews, dependent: :destroy
