@@ -44,3 +44,4 @@ vendor/bundle/
 
 .env
 public/uploads
+bs-config.js
