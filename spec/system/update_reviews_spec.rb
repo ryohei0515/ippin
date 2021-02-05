@@ -25,6 +25,7 @@ RSpec.describe 'UpdateReviews', type: :system do
     fill_in 'Title', with: @updated_title
     fill_in 'Restaurant', with: @updated_restaurant
     fill_in 'Rate', with: @updated_rate
+    attach_file 'Picture', file_fixture(@updated_picture)
     click_button '修正する'
     updated_review = Review.find(review.id)
     aggregate_failures do
