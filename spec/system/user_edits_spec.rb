@@ -9,6 +9,7 @@ RSpec.describe 'UserEdits', type: :system do
     @updated_name = 'updated_name'
     @updated_email = 'updated@example.com'
     @updated_password = 'updated_password'
+    @updated_picture = 'test_pic_01.jpg'
   end
 
   describe 'ログインユーザ自身のユーザ情報を編集できること' do
@@ -17,6 +18,7 @@ RSpec.describe 'UserEdits', type: :system do
       visit edit_user_path(user.id)
       fill_in 'user_name', with: @updated_name
       fill_in 'user_email', with: @updated_email
+      attach_file 'Picture', file_fixture(@updated_picture)
     end
 
     it '全情報の編集' do
@@ -28,6 +30,7 @@ RSpec.describe 'UserEdits', type: :system do
         expect(updated_user.name).to eq @updated_name
         expect(updated_user.email).to eq @updated_email
         expect(!updated_user.authenticate(@updated_password).nil?).to be_truthy
+        expect(updated_user.picture.file.filename).to eq @updated_picture
         expect(current_path).to eq edit_user_path(user.id)
       end
     end
@@ -38,6 +41,7 @@ RSpec.describe 'UserEdits', type: :system do
       aggregate_failures do
         expect(updated_user.name).to eq @updated_name
         expect(updated_user.email).to eq @updated_email
+        expect(updated_user.picture.file.filename).to eq @updated_picture
         expect(current_path).to eq edit_user_path(user.id)
       end
     end
@@ -74,6 +78,13 @@ RSpec.describe 'UserEdits', type: :system do
         click_button '登録情報更新'
       end.to_not change { user.reload.inspect }
       expect(page).to have_selector '.alert-danger'
+    end
+
+    it '画像がキャッシュされること' do
+      attach_file 'Picture', file_fixture(@updated_picture)
+      fill_in 'user_name', with: ''
+      click_button '登録情報更新'
+      expect(page).to have_selector("img[src$='thumb_#{@updated_picture}']")
     end
   end
 
