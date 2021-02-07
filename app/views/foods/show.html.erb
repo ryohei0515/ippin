@@ -25,3 +25,18 @@
 <div class="my-10">
   <%= paginate @reviews %>
 </div>
+<!-- 評価javascript -->
+<script>
+$('.review-star-rating').raty({
+  starOff:  '<%= asset_path('star-off.png') %>',
+  starOn : '<%= asset_path('star-on.png') %>',
+  starHalf : '<%= asset_path('star-half.png') %>',
+  scoreName: 'review[rate]',
+  target: '#hint1',
+  hints: ['とても悪い', '悪い', '普通', '良い', 'とても良い'],
+  score: function() {
+      return $(this).attr('data-rate');
+    },
+  readOnly: true
+});
+</script>

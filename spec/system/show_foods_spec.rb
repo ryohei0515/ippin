@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'ShowFoods', type: :system do
+RSpec.describe 'ShowFoods', type: :system, js:true do
   include ActionView::Helpers::DateHelper
   let(:review_list) { FactoryBot.create_list(:review, 10, food: food) }
   let(:food) { FactoryBot.create(:food) }
@@ -17,10 +17,10 @@ RSpec.describe 'ShowFoods', type: :system do
       expect(page).to have_content food.rate
       expect(page).to have_content "#{food.reviews.count}件"
       expect(page).to have_selector '.pagination'
-      food.reviews.order(rate: :desc)[0..4].each do |review|
+      food.reviews.order(rate: :desc)[0..4].each.with_index(0) do |review, i|
         expect(page).to have_content review.title
         expect(page).to have_content review.content
-        expect(page).to have_content review.rate
+        expect(page).to have_selector("div.review-star-rating[data-rate='#{review.rate}']")
         expect(page).to have_content review.user.name
         expect(page).to have_selector("img[src$='#{review.picture_url(:thumb)}']")
         expect(page).to have_content review.updated_at.strftime('%Y年%-m月%-d日')
