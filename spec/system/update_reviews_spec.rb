@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'UpdateReviews', type: :system do
+RSpec.describe 'UpdateReviews', type: :system, js: true do
   include LoginSupport
   let(:user) { FactoryBot.create(:user) }
   let(:review) { FactoryBot.create(:review, user: user) }
@@ -12,7 +12,7 @@ RSpec.describe 'UpdateReviews', type: :system do
     @updated_content = 'updated_content'
     @updated_title = 'updated_title'
     @updated_restaurant = 'updated_restaurant'
-    @updated_rate = 4.5
+    @updated_rate = 4
     @updated_picture = 'test_pic_02.jpg'
   end
 
@@ -24,7 +24,7 @@ RSpec.describe 'UpdateReviews', type: :system do
     fill_in 'Category', with: @updated_category
     fill_in 'Title', with: @updated_title
     fill_in 'Restaurant', with: @updated_restaurant
-    fill_in 'Rate', with: @updated_rate
+    page.find('#review-star-rating').all('img')[@updated_rate - 1].click
     attach_file 'Picture', file_fixture(@updated_picture)
     click_button '修正する'
     updated_review = Review.find(review.id)
@@ -49,7 +49,6 @@ RSpec.describe 'UpdateReviews', type: :system do
       fill_in 'Category', with: @updated_category
       fill_in 'Title', with: @updated_title
       fill_in 'Restaurant', with: @updated_restaurant
-      fill_in 'Rate', with: @updated_rate
       attach_file 'Picture', file_fixture(@updated_picture)
     end
     it 'foodが誤り' do
@@ -79,12 +78,12 @@ RSpec.describe 'UpdateReviews', type: :system do
         click_button '修正する'
       end.to change(Review, :count).by(0)
     end
-    it 'rateが誤り' do
-      expect do
-        fill_in 'Rate', with: ''
-        click_button '修正する'
-      end.to change(Review, :count).by(0)
-    end
+    # 発生し得ない条件のため、除外
+    # it 'rateが誤り' do
+    #   expect do
+    #     click_button '修正する'
+    #   end.to change(Review, :count).by(0)
+    # end
     it '画像がキャッシュされること' do
       attach_file 'Picture', file_fixture(@updated_picture)
       fill_in 'Food', with: ''

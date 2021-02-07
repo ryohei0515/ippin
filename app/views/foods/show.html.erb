@@ -7,8 +7,11 @@
     <% end %>
     <div class="ml-4">
       <div class="font-bold"><%= @food.name %></div>
-      <div>
-        点数：<%= @food.rate %>
+      <div class="flex flex-row">
+        <div class="flex flex-row star-rating" data-rate="<%= @food.rate %>"></div>
+        <div class="ml-2">
+          <%= @food.rate %>
+        </div>
       </div>
       <div>カテゴリー：<%= @food.category %> </div>
       <div>レストラン：<%= @food.restaurant %> </div>
@@ -25,3 +28,18 @@
 <div class="my-10">
   <%= paginate @reviews %>
 </div>
+<!-- 評価javascript -->
+<script>
+$('.star-rating').raty({
+  starOff:  '<%= asset_path('star-off.png') %>',
+  starOn : '<%= asset_path('star-on.png') %>',
+  starHalf : '<%= asset_path('star-half.png') %>',
+  scoreName: 'review[rate]',
+  target: '#hint1',
+  hints: ['とても悪い', '悪い', '普通', '良い', 'とても良い'],
+  score: function() {
+      return $(this).attr('data-rate');
+    },
+  readOnly: true
+});
+</script>

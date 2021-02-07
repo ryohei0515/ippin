@@ -12,7 +12,10 @@
     </div>
     <div class="mb-4">
       <%= f.label :rate, class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= f.text_field :rate, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        <div class="flex flex-row">
+          <div class="flex flex-row" id="review-star-rating" data-rate="<%= @form.rate %>"></div>
+          <div class="ml-4" id="hint1"></div>
+        </div>
     </div>
     <div class="mb-4">
       <%= f.label :category, class: "block text-gray-700 text-sm font-bold mb-2" %>
@@ -38,3 +41,19 @@
     </div>
     <%= f.submit yield(:submit_text), class: "w-full text-center rounded py-2 bg-blue-400 hover:bg-blue-600 text-white" %>
 <% end %>
+<!-- 評価javascript -->
+<script>
+$('#review-star-rating').raty({
+  starOff:  '<%= asset_path('star-off.png') %>',
+  starOn : '<%= asset_path('star-on.png') %>',
+  scoreName: 'review[rate]',
+  target: '#hint1',
+  targetText: '評価を選択してください' ,
+  hints: ['とても悪い', '悪い', '普通', '良い', 'とても良い'],
+  targetKeep: true,
+  half: false,
+  score: function() {
+      return $(this).attr('data-rate');
+    },
+});
+</script>
