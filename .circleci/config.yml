@@ -76,6 +76,7 @@ jobs:
              cd ippin &&
              git pull &&
              docker-compose down &&
+             docker-compose build &&
              docker-compose run --rm web bundle exec rails assets:precompile RAILS_ENV=production assets:clean &&
              docker-compose up -d --remove-orphans'
 
