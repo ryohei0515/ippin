@@ -13,7 +13,7 @@
     <div class="mb-4">
       <%= f.label :rate, class: "block text-gray-700 text-sm font-bold mb-2" %>
         <div class="flex flex-row">
-          <div class="flex flex-row" id="review-star-rating"></div>
+          <div class="flex flex-row" id="review-star-rating" data-rate="<%= @form.rate %>"></div>
           <div class="ml-4" id="hint1"></div>
         </div>
     </div>
@@ -51,6 +51,9 @@ $('#review-star-rating').raty({
   targetText: '評価を選択してください' ,
   hints: ['とても悪い', '悪い', '普通', '良い', 'とても良い'],
   targetKeep: true,
-  half: false
+  half: false,
+  score: function() {
+      return $(this).attr('data-rate');
+    },
 });
 </script>

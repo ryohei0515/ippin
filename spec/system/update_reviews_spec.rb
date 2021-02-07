@@ -53,7 +53,6 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     end
     it 'foodが誤り' do
       expect do
-        page.find('#review-star-rating').all('img')[@updated_rate - 1].click
         fill_in 'Food', with: ''
         click_button '修正する'
       end.to_not change { review.reload.inspect }
@@ -61,7 +60,6 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     end
     it 'categoryが誤り' do
       expect do
-        page.find('#review-star-rating').all('img')[@updated_rate - 1].click
         fill_in 'Category', with: ''
         click_button '修正する'
       end.to_not change { review.reload.inspect }
@@ -69,7 +67,6 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     end
     it 'contentが誤り' do
       expect do
-        page.find('#review-star-rating').all('img')[@updated_rate - 1].click
         fill_in 'Content', with: ''
         click_button '修正する'
       end.to_not change { review.reload.inspect }
@@ -77,20 +74,19 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     end
     it 'titleが誤り' do
       expect do
-        page.find('#review-star-rating').all('img')[@updated_rate - 1].click
         fill_in 'Title', with: ''
         click_button '修正する'
       end.to change(Review, :count).by(0)
     end
-    it 'rateが誤り' do
-      expect do
-        # Rateが入力されていない状態で更新
-        click_button '修正する'
-      end.to change(Review, :count).by(0)
-    end
+    # 発生し得ない条件のため、除外
+    # it 'rateが誤り' do
+    #   expect do
+    #     click_button '修正する'
+    #   end.to change(Review, :count).by(0)
+    # end
     it '画像がキャッシュされること' do
       attach_file 'Picture', file_fixture(@updated_picture)
-      # Rateが入力されていない状態で更新
+      fill_in 'Food', with: ''
       click_button '修正する'
       expect(page).to have_selector("img[src$='thumb_#{@updated_picture}']")
     end
