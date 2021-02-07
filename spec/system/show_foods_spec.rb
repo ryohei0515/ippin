@@ -14,13 +14,13 @@ RSpec.describe 'ShowFoods', type: :system, js: true do
       expect(page).to have_content food.name
       expect(page).to have_content food.restaurant
       expect(page).to have_content food.category
-      expect(page).to have_content food.rate
+      expect(page).to have_selector("div.star-rating[data-rate='#{food.rate}']")
       expect(page).to have_content "#{food.reviews.count}件"
       expect(page).to have_selector '.pagination'
       food.reviews.order(rate: :desc)[0..4] do |review|
         expect(page).to have_content review.title
         expect(page).to have_content review.content
-        expect(page).to have_selector("div.review-star-rating[data-rate='#{review.rate}']")
+        expect(page).to have_selector("div.star-rating[data-rate='#{review.rate}']")
         expect(page).to have_content review.user.name
         expect(page).to have_selector("img[src$='#{review.picture_url(:thumb)}']")
         expect(page).to have_content review.updated_at.strftime('%Y年%-m月%-d日')
