@@ -12,7 +12,7 @@ Capybara.register_driver :remote_chrome do |app|
       ]
     }
   )
-  Capybara::Selenium::Driver.new(app, browser: :remote, url: url, desired_capabilities: caps)
+  Capybara::Selenium::Driver.new(app, browser: :remote, url: url, desired_capabilities: caps, timeout: 300)
 end
 
 RSpec.configure do |config|

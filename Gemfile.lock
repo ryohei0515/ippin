@@ -270,6 +270,8 @@ GEM
       rspec-expectations (~> 3.10)
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
+    rspec-retry (0.6.2)
+      rspec-core (> 3.3)
     rspec-support (3.10.1)
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
@@ -388,6 +390,7 @@ DEPENDENCIES
   rails (~> 6.0.3)
   rails-controller-testing (= 1.0.4)
   rspec-rails (~> 4.0.0)
+  rspec-retry
   rspec_junit_formatter
   rubocop
   rubocop-performance
