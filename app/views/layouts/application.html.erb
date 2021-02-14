@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title><%= full_title(yield(:title)) %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -19,14 +20,16 @@
   </head>
 
   <body>
-    <div class="fixed top-0 right-0 m-8 p-3 text-xs font-mono text-white h-6 w-6 rounded-full flex items-center justify-center bg-gray-600 xsm:bg-gray-900 sm:bg-pink-500 md:bg-orange-500 lg:bg-green-500 xl:bg-blue-500">
-      <div class="block  xsm:hidden sm:hidden md:hidden lg:hidden xl:hidden">al</div>
-      <div class="hidden xsm:block sm:hidden md:hidden lg:hidden xl:hidden">xsm</div>
-      <div class="hidden sm:block  md:hidden lg:hidden xl:hidden">sm</div>
-      <div class="hidden sm:hidden md:block  lg:hidden xl:hidden">md</div>
-      <div class="hidden sm:hidden md:hidden lg:block  xl:hidden">lg</div>
-      <div class="hidden sm:hidden md:hidden lg:hidden xl:block">xl</div>
-    </div>
+    <% if Rails.env.development? %>
+      <div class="fixed top-0 right-0 m-8 p-3 text-xs font-mono text-white h-6 w-6 rounded-full flex items-center justify-center bg-gray-600 xsm:bg-gray-900 sm:bg-pink-500 md:bg-orange-500 lg:bg-green-500 xl:bg-blue-500">
+        <div class="block  xsm:hidden sm:hidden md:hidden lg:hidden xl:hidden">al</div>
+        <div class="hidden xsm:block sm:hidden md:hidden lg:hidden xl:hidden">xsm</div>
+        <div class="hidden sm:block  md:hidden lg:hidden xl:hidden">sm</div>
+        <div class="hidden sm:hidden md:block  lg:hidden xl:hidden">md</div>
+        <div class="hidden sm:hidden md:hidden lg:block  xl:hidden">lg</div>
+        <div class="hidden sm:hidden md:hidden lg:hidden xl:block">xl</div>
+      </div>
+    <% end %>
     <header>
       <%= render 'layouts/header' %>
     </header>
@@ -41,7 +44,6 @@
       <div class="" style="border: solid;">
         <%= debug(params) if Rails.env.development? %>
       </div>
-
     </div>
   </body>
 </html>

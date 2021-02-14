@@ -41,6 +41,12 @@
           ヘルプ
         <% end %>
       </li>
+      <li class="border-b md:border-none">
+        <%= link_to(restaurants_path, class: "header-nav-link", data: { turbolinks: false }) do %>
+          <i class="fa fa-search" aria-hidden="true"></i>
+          レストラン検索
+        <% end %>
+      </li>
       <% if logged_in? %>
         <li class="border-b md:border-none">
           <%= link_to(edit_user_path(current_user), class: "header-nav-link") do %>
