@@ -10,7 +10,6 @@
 
 <script>
 import axios from "axios";
-import axiosJsonpAdapter from "axios-jsonp";
 
 export default {
   data() {
@@ -25,23 +24,13 @@ export default {
         return
       }
       this.term = this.term.replace(/　/g," ");
-      // JSONPによる外部APIへのデータ取得
-      window.callback = json => {
-        console.log(json)
-        console.log(process.env.API_KEY_HOTPEPPER)
-        this.$emit("loadComplete", { results: json.results })
-      };
       this.$emit("loadStart");
-      const { data } = await axios.get(`https://webservice.recruit.co.jp/hotpepper/gourmet/v1`, {
-                                         adapter: axiosJsonpAdapter,
-                                         params: {
-                                           key: "",
-                                           keyword: this.term,
-                                           format: "jsonp",
-                                           callback: "callback",
-                                           count: 100
-                                         }
-                                      });
+      const { data } = await axios.get('/api/v1/restaurants.json', {
+                        params: {
+                          term: this.term
+                        }
+                      });
+      this.$emit("loadComplete", { results: data.results })
     },
   },
 };

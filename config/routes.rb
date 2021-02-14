@@ -12,4 +12,9 @@ Rails.application.routes.draw do
   resources :users
   resources :reviews, only: %i[new edit create update destroy show]
   resources :foods, only: [:show]
+  namespace :api, { format: 'json' } do
+    namespace :v1 do
+      resources :restaurants, only: [:index]
+    end
+  end
 end
