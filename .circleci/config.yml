@@ -75,10 +75,13 @@ jobs:
       - run: ssh ${USER_NAME}@${HOST_NAME} '
              cd ippin &&
              git pull &&
-             docker-compose down &&
+             docker-clean stop &&
              docker-compose build &&
-             docker-compose run --rm web bundle exec rails db:migrate &&
-             docker-compose run --rm web bundle exec rails assets:precompile RAILS_ENV=production assets:clean &&
+             docker-compose run --rm web bash -c "
+               bundle exec rails db:migrate &&
+               bundle exec rake assets:clobber &&
+               bundle exec rails assets:precompile RAILS_ENV=production assets:clean
+             " &&
              docker-compose up -d --remove-orphans'
 
 workflows:
