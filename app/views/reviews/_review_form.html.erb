@@ -30,6 +30,11 @@
       <%= f.text_field :restaurant, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
     </div>
     <div class="mb-4">
+      <%= f.label :restaurant, class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= link_to "選択する", "#", class: "font-bold text-blue-500",id:"select_restaurant_modal_link", data: { turbolinks: false } %>
+      <div id="select-restaurant-modal"></div>
+    </div>
+    <div class="mb-4">
       <%= f.label :picture, class: "block text-gray-700 text-sm font-bold mb-2" %>
       <%= image_tag @form.picture_url(:thumb) if @form.picture? %>
       <%= f.file_field :picture %>
@@ -41,6 +46,8 @@
     </div>
     <%= f.submit yield(:submit_text), class: "w-full text-center rounded py-2 bg-blue-400 hover:bg-blue-600 text-white" %>
 <% end %>
+<%= stylesheet_pack_tag 'review_form' %>
+<%= javascript_pack_tag 'review_form' %>
 <!-- 評価javascript -->
 <script>
 $('#review-star-rating').raty({
