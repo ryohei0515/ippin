@@ -19,7 +19,7 @@
 
 <script type="text/javascript">
 $(document).on('turbolinks:load', function(){
-  $('.slider').slick({
+  $('.slider').not('.slick-initialized').slick({
     autoplay:true,
     autoplaySpeed: 6000,
     dots:false,
