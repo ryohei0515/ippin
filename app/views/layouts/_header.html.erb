@@ -65,13 +65,13 @@
   </div>
 </div>
 
-<script>
-    const app = new Vue({
-        el : '#header',
-        data: {
-            isOpen: false,
-        }
-    })
-
-
+<script data-turbolinks-eval="false">
+  $(document).on('turbolinks:load', function() {
+    const header = new Vue({
+      el: '#header',
+      data: {
+        isOpen: false,
+      }
+    });
+  });
 </script>
