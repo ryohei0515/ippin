@@ -42,7 +42,7 @@
         <% end %>
       </li>
       <li class="border-b md:border-none">
-        <%= link_to(restaurants_path, class: "header-nav-link") do %>
+        <%= link_to(restaurants_path, class: "header-nav-link", data: { turbolinks: false }) do %>
           <i class="fa fa-search" aria-hidden="true"></i>
           レストラン検索
         <% end %>
