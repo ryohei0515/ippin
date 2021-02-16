@@ -42,7 +42,7 @@
         <% end %>
       </li>
       <li class="border-b md:border-none">
-        <%= link_to(restaurants_path, class: "header-nav-link", data: { turbolinks: false }) do %>
+        <%= link_to(restaurants_path, class: "header-nav-link") do %>
           <i class="fa fa-search" aria-hidden="true"></i>
           レストラン検索
         <% end %>
@@ -65,13 +65,13 @@
   </div>
 </div>
 
-<script>
-    const app = new Vue({
-        el : '#header',
-        data: {
-            isOpen: false,
-        }
-    })
-
-
+<script data-turbolinks-eval="false">
+  $(document).on('turbolinks:load', function() {
+    const header = new Vue({
+      el: '#header',
+      data: {
+        isOpen: false,
+      }
+    });
+  });
 </script>
