@@ -1,8 +1,9 @@
 <template>
 <div>
-  <div>
-    <input class="text-center rounded py-2 bg-blue-600 hover:bg-blue-600 text-white w-20 ml-2" type="button" value="new選択する" @click.self="modalOpen">
-    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-blue-200" type="text" name="review[restaurant]" id="review_restaurant" v-model="restaurant_name" readonly>
+  <div class="float flex flex-row">
+    <label class="block text-gray-700 text-sm mb-2 mx-2" :value="restaurantName" >{{ restaurantName }}</label>
+    <a class="font-bold text-blue-500" id="select_restaurant_modal_link" data-turbolinks="false" href="#" @click.self="modalOpen">レストランを選択</a>
+    <input type="hidden" name="review[restaurant]" id="review_restaurant" :value="restaurantId">
   </div>
   <div class="overlay z-10 fixed top-0 left-0 w-full h-full" @click.self="modalClose" v-show="modalShow" @test="modalOpen">
     <div class="content z-20 bg-white max-h-11/12 w-11/12 lg:container rounded">
@@ -19,16 +20,27 @@
 <script>
 import Search from "./packs/components/Search";
 import Result from "./packs/components/Result";
+import axios from "axios";
 
 export default {
+  props: ['initRestaurantId'],
   data() {
     return {
       results: [],
       loadProgress: false,
       modalShow: false,
-      restaurant_name: "",
-      restaurant_id: ""
+      restaurantName: "",
+      restaurantId: ""
     };
+  },
+  async created() {
+    this.restaurantId = this.initRestaurantId;
+    if (this.restaurantId != null) {
+      var r = await axios.get('/api/v1/restaurants/' + this.restaurantId);
+      this.restaurantName = r.data.results.shop[0].name
+    } else {
+      restaurantName = "未選択"
+    }
   },
   methods: {
     onLoadStart() {
@@ -45,8 +57,8 @@ export default {
       this.modalShow = false;
     },
     selectItem({ restaurant }) {
-      this.restaurant_id = restaurant.id;
-      this.restaurant_name = restaurant.name;
+      this.restaurantId = restaurant.id;
+      this.restaurantName = restaurant.name;
       this.modalShow = false;
     },
   },

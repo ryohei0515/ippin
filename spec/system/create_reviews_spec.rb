@@ -10,7 +10,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     @created_category = 'created_ctgry'
     @created_content = 'created_content'
     @created_title = 'created_title'
-    @created_restaurant = 'created_restaurant'
+    @created_restaurant = ''
     @created_rate = 4
     @created_picture = 'test_pic_01.jpg'
   end
@@ -23,8 +23,15 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
       fill_in 'Food', with: @created_food
       fill_in 'Category', with: @created_category
       fill_in 'Title', with: @created_title
-      fill_in 'Restaurant', with: @created_restaurant
+      # rate入力
       page.find('#review-star-rating').all('img')[@created_rate - 1].click
+      # restaurant選択
+      click_link 'レストランを選択'
+      fill_in 'restaurant-textbox', with: '鳥'
+      click_button '検索'
+      page.all('.select-button')[0].click
+      @created_restaurant = find('#review_restaurant', visible: false).value
+      # pictureアップロード
       attach_file 'Picture', file_fixture(@created_picture)
       click_button '新規投稿'
     end.to change(Review, :count).by(1)
@@ -49,7 +56,6 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
       fill_in 'Food', with: @created_food
       fill_in 'Category', with: @created_category
       fill_in 'Title', with: @created_title
-      fill_in 'Restaurant', with: @created_restaurant
     end
     after do
       expect do
@@ -57,50 +63,70 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
         fill_in 'Food', with: @created_food
         fill_in 'Category', with: @created_category
         fill_in 'Title', with: @created_title
-        fill_in 'Restaurant', with: @created_restaurant
+        # restaurant選択
+        click_link 'レストランを選択'
+        fill_in 'restaurant-textbox', with: '鳥'
+        click_button '検索'
+        page.all('.select-button')[0].click
         page.find('#review-star-rating').all('img')[@created_rate - 1].click
         click_button '新規投稿'
       end.to change(Review, :count).by(1)
     end
-    it 'foodが誤り' do
-      expect do
-        page.find('#review-star-rating').all('img')[@created_rate - 1].click
-        fill_in 'Food', with: ''
-        click_button '新規投稿'
-      end.to change(Review, :count).by(0)
-    end
-    it 'categoryが誤り' do
-      expect do
-        page.find('#review-star-rating').all('img')[@created_rate - 1].click
-        fill_in 'Category', with: ''
-        click_button '新規投稿'
-      end.to change(Review, :count).by(0)
-    end
-    it 'contentが誤り' do
-      expect do
-        page.find('#review-star-rating').all('img')[@created_rate - 1].click
-        fill_in 'Content', with: ''
-        click_button '新規投稿'
-      end.to change(Review, :count).by(0)
-    end
-    it 'titleが誤り' do
-      expect do
-        page.find('#review-star-rating').all('img')[@created_rate - 1].click
-        fill_in 'Title', with: ''
-        click_button '新規投稿'
-      end.to change(Review, :count).by(0)
-    end
-    it 'rateが誤り' do
-      expect do
+    describe 'restaurant以外のチェック' do
+      before do
+        # restaurant選択
+        click_link 'レストランを選択'
+        fill_in 'restaurant-textbox', with: '鳥'
+        click_button '検索'
+        page.all('.select-button')[0].click
+        @created_restaurant = find('#review_restaurant', visible: false).value
+      end
+      it 'foodが誤り' do
+        expect do
+          page.find('#review-star-rating').all('img')[@created_rate - 1].click
+          fill_in 'Food', with: ''
+          click_button '新規投稿'
+        end.to change(Review, :count).by(0)
+      end
+      it 'categoryが誤り' do
+        expect do
+          page.find('#review-star-rating').all('img')[@created_rate - 1].click
+          fill_in 'Category', with: ''
+          click_button '新規投稿'
+        end.to change(Review, :count).by(0)
+      end
+      it 'contentが誤り' do
+        expect do
+          page.find('#review-star-rating').all('img')[@created_rate - 1].click
+          fill_in 'Content', with: ''
+          click_button '新規投稿'
+        end.to change(Review, :count).by(0)
+      end
+      it 'titleが誤り' do
+        expect do
+          page.find('#review-star-rating').all('img')[@created_rate - 1].click
+          fill_in 'Title', with: ''
+          click_button '新規投稿'
+        end.to change(Review, :count).by(0)
+      end
+      it 'rateが誤り' do
+        expect do
+          # Rateが入力されていない状態で投稿
+          click_button '新規投稿'
+        end.to change(Review, :count).by(0)
+      end
+      it '画像がキャッシュされること' do
+        attach_file 'Picture', file_fixture(@created_picture)
         # Rateが入力されていない状態で投稿
         click_button '新規投稿'
-      end.to change(Review, :count).by(0)
+        expect(page).to have_selector("img[src$='thumb_#{@created_picture}']")
+      end
     end
-    it '画像がキャッシュされること' do
-      attach_file 'Picture', file_fixture(@created_picture)
-      # Rateが入力されていない状態で投稿
-      click_button '新規投稿'
-      expect(page).to have_selector("img[src$='thumb_#{@created_picture}']")
+    it 'restaurantが未選択' do
+      expect do
+        page.find('#review-star-rating').all('img')[@created_rate - 1].click
+        click_button '新規投稿'
+      end.to change(Review, :count).by(0)
     end
   end
 end

@@ -17,7 +17,7 @@
               <div class="">{{ restaurant.genre.catch }} </div>
             </div>
             <div class="flex flex-col items-end">
-              <input class="text-center rounded py-2 bg-yellow-200 hover:bg-yellow-400 w-full mx-auto sm:w-20 sm:mt-auto" type="button" value="選択" @click="selectRestaurant(restaurant)">
+              <input class="select-button text-center rounded py-2 bg-yellow-200 hover:bg-yellow-400 w-full mx-auto sm:w-20 sm:mt-auto" type="button" value="選択" @click="selectRestaurant(restaurant)">
             </div>
           </div>
 

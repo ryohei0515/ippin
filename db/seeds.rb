@@ -24,7 +24,7 @@ users.each do |user|
     category = "Category_#{i}"
     restaurant = "Restaurant_#{i}"
     content = Faker::Lorem.sentence(word_count: 5)
-    rate = Random.rand(8).to_f / 2 + 1
+    rate = Random.rand(4).to_f + 1
     title = Faker::Lorem.sentence(word_count: 2)
     form = ReviewForm.new({"user_id"=>user.id,
                            "food"=>name,
