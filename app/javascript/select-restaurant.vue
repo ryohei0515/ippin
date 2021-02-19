@@ -37,9 +37,9 @@ export default {
     this.restaurantId = this.initRestaurantId;
     if (this.restaurantId != null) {
       var r = await axios.get('/api/v1/restaurants/' + this.restaurantId);
-      this.restaurantName = r.data.results.shop[0].name
+      this.restaurantName = r.data[0].name
     } else {
-      restaurantName = "未選択"
+      this.restaurantName = "未選択"
     }
   },
   methods: {
