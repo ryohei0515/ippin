@@ -4,6 +4,8 @@ require 'rails_helper'
 
 RSpec.describe 'CreateReviews', type: :system, js: true do
   include LoginSupport
+  include AjaxHelper
+
   let(:user) { FactoryBot.create(:user) }
   before do
     @created_food = 'created_food'
@@ -29,6 +31,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
       click_link 'レストランを選択'
       fill_in 'restaurant-textbox', with: '鳥'
       click_button '検索'
+      wait_for_loaded_until_css_exists('.select-button')
       page.all('.select-button')[0].click
       @created_restaurant = find('#review_restaurant', visible: false).value
       # pictureアップロード
@@ -67,6 +70,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
         click_link 'レストランを選択'
         fill_in 'restaurant-textbox', with: '鳥'
         click_button '検索'
+        wait_for_loaded_until_css_exists('.select-button')
         page.all('.select-button')[0].click
         page.find('#review-star-rating').all('img')[@created_rate - 1].click
         click_button '新規投稿'
@@ -78,6 +82,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
         click_link 'レストランを選択'
         fill_in 'restaurant-textbox', with: '鳥'
         click_button '検索'
+        wait_for_loaded_until_css_exists('.select-button')
         page.all('.select-button')[0].click
         @created_restaurant = find('#review_restaurant', visible: false).value
       end

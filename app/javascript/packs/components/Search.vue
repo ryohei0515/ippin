@@ -30,7 +30,7 @@ export default {
                           term: this.term
                         }
                       });
-      this.$emit("loadComplete", { results: data.results })
+      this.$emit("loadComplete", { results: data })
     },
   },
 };

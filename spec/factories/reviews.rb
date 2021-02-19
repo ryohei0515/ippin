@@ -4,7 +4,6 @@ FactoryBot.define do
   factory :review, class: Review do
     content { Faker::Lorem.sentence(word_count: 5) }
     rate { Random.rand(4).to_f + 1 }
-    # rate { 4 }
     title { Faker::Lorem.sentence(word_count: 2) }
     association :user, factory: :review_user, strategy: :create
     association :food, factory: :food, strategy: :create

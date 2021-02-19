@@ -23,10 +23,13 @@ LMetrics/BlockLength:
     - 'spec/**/*'
     - 'Guardfile'
 
-# 1つのメソッドあたりの行数。
+# 1つのメソッドあたりの行数。テスト関連のコードは除外。
 Metrics/MethodLength:
   Enabled: true
   Max: 15
+  Exclude:
+    - 'test/**/*'
+    - 'spec/**/*'
 
 # has_, is_, have_ など特定の文字列で始まるメソッド名。テストでは許可する。
 Naming/PredicateName:

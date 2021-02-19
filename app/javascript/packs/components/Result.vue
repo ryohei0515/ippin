@@ -4,7 +4,7 @@
       件数が多いため、上位100件のみ表示しています。
     </div>
     <ul class="list">
-      <li class="w-11/12 mx-auto bg-gray-100 my-4 p-4 sm:flex sm:justify-start" v-for="restaurant of results.shop" :key="restaurant.id">
+      <li class="w-11/12 mx-auto bg-gray-100 my-4 p-4 sm:flex sm:justify-start" v-for="restaurant of results" :key="restaurant.id">
           <div class="mx-auto w-11/12 sm:mx-4 sm:my-auto sm:w-2/12">
             <img class="w-full h-auto" :src="restaurant.photo.mobile.l" :alt=restaurant.name>
           </div>

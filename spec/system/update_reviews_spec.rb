@@ -4,6 +4,8 @@ require 'rails_helper'
 
 RSpec.describe 'UpdateReviews', type: :system, js: true do
   include LoginSupport
+  include AjaxHelper
+
   let(:user) { FactoryBot.create(:user) }
   let(:review) { FactoryBot.create(:review, user: user) }
   before do
@@ -26,6 +28,7 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     click_link 'レストランを選択'
     fill_in 'restaurant-textbox', with: '鳥'
     click_button '検索'
+    wait_for_loaded_until_css_exists('.select-button')
     page.all('.select-button')[0].click
     updated_restaurant = find('#review_restaurant', visible: false).value
     page.find('#review-star-rating').all('img')[@updated_rate - 1].click

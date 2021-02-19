@@ -3,7 +3,6 @@
 module Api
   module V1
     class RestaurantsController < ApiController
-      include HotpepperApi
       # HOTPEPPERのAPIより、検索条件に該当するレストラン情報を取得する。
       def index
         r = search_restaurant(params[:term])

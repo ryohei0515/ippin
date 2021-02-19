@@ -3,10 +3,6 @@
 module HotpepperApi
   extend ActiveSupport::Concern
 
-  API_KEY = Rails.application.credentials.api_key[:HOTPEPPER]
-  FORMAT = 'json'
-  API_URL = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?'
-
   # 検索条件に合致するレストランを取得する、半角スペースで複数条件指定可能
   def search_restaurant(term, count = 100)
     return json_error_msg('ERROR: 条件指定が不正です') if term.blank?
@@ -27,7 +23,7 @@ module HotpepperApi
 
     api_params = {
       key: API_KEY,
-      keyword: id,
+      id: id,
       format: FORMAT
     }
     uri = URI.parse(API_URL + api_params.to_query)
@@ -36,6 +32,10 @@ module HotpepperApi
 end
 
 private
+
+API_KEY = Rails.application.credentials.api_key[:HOTPEPPER]
+FORMAT = 'json'
+API_URL = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?'
 
 # httpでアクセスし、結果をJSON形式で返却する。
 def api_access(uri)
@@ -46,12 +46,12 @@ def api_access(uri)
 
   case response
   when Net::HTTPSuccess
-    JSON.parse(response.body)
+    JSON.parse(response.body)['results']['shop']
   else
     json_error_msg("HTTP ERROR: code=#{response.code} message=#{response.message}")
   end
 end
 
 def json_error_msg(msg)
-  { results: { error: { message: msg } } }
+  { error: { message: msg } }
 end
