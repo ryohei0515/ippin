@@ -37,6 +37,12 @@ Naming/PredicateName:
     - 'test/**/*'
     - 'spec/**/*'
 
+# 1行あたりの文字数。テスト関連のコードは除外。
+Layout/LineLength:
+  Exclude:
+    - 'test/**/*'
+    - 'spec/**/*'
+
 # ドキュメントの付与がないことを許可。
 Style/Documentation:
   Enabled: false

@@ -6,7 +6,7 @@ RSpec.describe 'ShowFoods', type: :system, js: true do
   include ActionView::Helpers::DateHelper
   include ApiHelper
 
-  let(:review_list) { FactoryBot.create_list(:review, 10, food: food) }
+  let(:review_list) { FactoryBot.create_list(:review, 10, :picture, food: food) }
   let(:food) { FactoryBot.create(:food) }
 
   it '正しくfoodとそれに紐づくReviewを表示できること' do
