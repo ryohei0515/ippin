@@ -2,7 +2,7 @@
 <div>
   <div class="float flex flex-row">
     <label class="block text-gray-700 text-sm mb-2 mx-2" :value="restaurantName" >{{ restaurantName }}</label>
-    <a class="font-bold text-blue-500" id="select_restaurant_modal_link" data-turbolinks="false" href="#" @click.self="modalOpen">レストランを選択</a>
+    <a class="font-bold text-blue-500" id="select_restaurant_modal_link" href="#" @click.self="modalOpen">レストランを選択</a>
     <input type="hidden" name="review[restaurant]" id="review_restaurant" :value="restaurantId">
   </div>
   <div class="overlay z-10 fixed top-0 left-0 w-full h-full" @click.self="modalClose" v-show="modalShow" @test="modalOpen">
