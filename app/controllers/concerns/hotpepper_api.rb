@@ -46,7 +46,7 @@ def api_access(uri)
 
   case response
   when Net::HTTPSuccess
-    JSON.parse(response.body)['results']['shop']
+    JSON.parse(response.body)['results']
   else
     json_error_msg("HTTP ERROR: code=#{response.code} message=#{response.message}")
   end
