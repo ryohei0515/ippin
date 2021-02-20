@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'UpdateReviews', type: :system, js: true do
   include LoginSupport
+  include ApiHelper
   include AjaxHelper
 
   let(:user) { FactoryBot.create(:user) }
@@ -15,6 +16,21 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     @updated_title = 'updated_title'
     @updated_rate = 4
     @updated_picture = 'test_pic_02.jpg'
+  end
+
+  it '正しく初期表示できていること' do
+    log_in_as user
+    rev = FactoryBot.create(:review, :picture, user: user)
+    visit edit_review_path(rev.id)
+    aggregate_failures do
+      expect(page).to have_selector "input[value='#{rev.title}']"
+      expect(page).to have_selector "#review-star-rating[data-rate='#{rev.rate}']"
+      expect(page).to have_selector "input[value='#{rev.food.category}']"
+      expect(page).to have_selector "input[value='#{rev.food.name}']"
+      expect(page).to have_content get_restaurant_info(rev.food.restaurant)['name']
+      expect(page).to have_selector "img[src$='#{rev.picture.filename}']"
+      expect(page).to have_content rev.content
+    end
   end
 
   it 'ログインユーザ自身のレビューを更新できること' do
