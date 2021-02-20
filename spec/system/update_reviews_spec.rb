@@ -4,6 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'UpdateReviews', type: :system, js: true do
   include LoginSupport
+  include ApiHelper
+  include AjaxHelper
+
   let(:user) { FactoryBot.create(:user) }
   let(:review) { FactoryBot.create(:review, user: user) }
   before do
@@ -11,9 +14,23 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     @updated_category = 'updated_ctgry'
     @updated_content = 'updated_content'
     @updated_title = 'updated_title'
-    @updated_restaurant = 'updated_restaurant'
     @updated_rate = 4
     @updated_picture = 'test_pic_02.jpg'
+  end
+
+  it '正しく初期表示できていること' do
+    log_in_as user
+    rev = FactoryBot.create(:review, :picture, user: user)
+    visit edit_review_path(rev.id)
+    aggregate_failures do
+      expect(page).to have_selector "input[value='#{rev.title}']"
+      expect(page).to have_selector "#review-star-rating[data-rate='#{rev.rate}']"
+      expect(page).to have_selector "input[value='#{rev.food.category}']"
+      expect(page).to have_selector "input[value='#{rev.food.name}']"
+      expect(page).to have_content get_restaurant_info(rev.food.restaurant)['name']
+      expect(page).to have_selector "img[src$='#{rev.picture.filename}']"
+      expect(page).to have_content rev.content
+    end
   end
 
   it 'ログインユーザ自身のレビューを更新できること' do
@@ -23,7 +40,13 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     fill_in 'Food', with: @updated_food
     fill_in 'Category', with: @updated_category
     fill_in 'Title', with: @updated_title
-    fill_in 'Restaurant', with: @updated_restaurant
+    # restaurant選択
+    click_link 'レストランを選択'
+    fill_in 'restaurant-textbox', with: '鳥'
+    click_button '検索'
+    wait_for_loaded_until_css_exists('.select-button')
+    page.all('.select-button')[0].click
+    updated_restaurant = find('#review_restaurant', visible: false).value
     page.find('#review-star-rating').all('img')[@updated_rate - 1].click
     attach_file 'Picture', file_fixture(@updated_picture)
     click_button '修正する'
@@ -33,7 +56,7 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
       expect(updated_review.food.category).to eq @updated_category
       expect(updated_review.content).to eq @updated_content
       expect(updated_review.title).to eq @updated_title
-      expect(updated_review.food.restaurant).to eq @updated_restaurant
+      expect(updated_review.food.restaurant).to eq updated_restaurant
       expect(updated_review.rate).to eq @updated_rate
       expect(updated_review.picture.file.filename).to eq @updated_picture
       expect(current_path).to eq review_path(review.id)
@@ -48,7 +71,6 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
       fill_in 'Food', with: @updated_food
       fill_in 'Category', with: @updated_category
       fill_in 'Title', with: @updated_title
-      fill_in 'Restaurant', with: @updated_restaurant
       attach_file 'Picture', file_fixture(@updated_picture)
     end
     it 'foodが誤り' do
@@ -78,12 +100,6 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
         click_button '修正する'
       end.to change(Review, :count).by(0)
     end
-    # 発生し得ない条件のため、除外
-    # it 'rateが誤り' do
-    #   expect do
-    #     click_button '修正する'
-    #   end.to change(Review, :count).by(0)
-    # end
     it '画像がキャッシュされること' do
       attach_file 'Picture', file_fixture(@updated_picture)
       fill_in 'Food', with: ''

@@ -11,6 +11,7 @@ AllCops:
     - 'script/**/*'
     - 'vendor/**/*'
     - 'node_modules/**/*'
+    - 'tmp/**/*'
 
 # 日本語コメントを許可。
 Style/AsciiComments:
@@ -23,13 +24,22 @@ LMetrics/BlockLength:
     - 'spec/**/*'
     - 'Guardfile'
 
-# 1つのメソッドあたりの行数。
+# 1つのメソッドあたりの行数。テスト関連のコードは除外。
 Metrics/MethodLength:
   Enabled: true
   Max: 15
+  Exclude:
+    - 'test/**/*'
+    - 'spec/**/*'
 
 # has_, is_, have_ など特定の文字列で始まるメソッド名。テストでは許可する。
 Naming/PredicateName:
+  Exclude:
+    - 'test/**/*'
+    - 'spec/**/*'
+
+# 1行あたりの文字数。テスト関連のコードは除外。
+Layout/LineLength:
   Exclude:
     - 'test/**/*'
     - 'spec/**/*'

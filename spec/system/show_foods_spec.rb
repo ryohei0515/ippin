@@ -4,7 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'ShowFoods', type: :system, js: true do
   include ActionView::Helpers::DateHelper
-  let(:review_list) { FactoryBot.create_list(:review, 10, food: food) }
+  include ApiHelper
+
+  let(:review_list) { FactoryBot.create_list(:review, 10, :picture, food: food) }
   let(:food) { FactoryBot.create(:food) }
 
   it '正しくfoodとそれに紐づくReviewを表示できること' do
@@ -12,7 +14,7 @@ RSpec.describe 'ShowFoods', type: :system, js: true do
     visit food_path(food.id)
     aggregate_failures do
       expect(page).to have_content food.name
-      expect(page).to have_content food.restaurant
+      expect(page).to have_content get_restaurant_info(food.restaurant)['name']
       expect(page).to have_content food.category
       expect(page).to have_selector("div.star-rating[data-rate='#{food.rate}']")
       expect(page).to have_content "#{food.reviews.count}件"

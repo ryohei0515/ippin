@@ -4,11 +4,9 @@ FactoryBot.define do
   factory :review, class: Review do
     content { Faker::Lorem.sentence(word_count: 5) }
     rate { Random.rand(4).to_f + 1 }
-    # rate { 4 }
     title { Faker::Lorem.sentence(word_count: 2) }
     association :user, factory: :review_user, strategy: :create
     association :food, factory: :food, strategy: :create
-    picture { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/fixtures/files/test_pic_01.jpg'), 'image/jpeg') }
 
     sequence(:created_at) { |n| n.hours.ago }
     sequence(:updated_at) { |n| n.hours.ago }
@@ -21,6 +19,10 @@ FactoryBot.define do
     end
     trait :created_most_recent do
       created_at { 10.minutes.ago }
+    end
+
+    trait :picture do
+      picture { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/fixtures/files/test_pic_01.jpg'), 'image/jpeg') }
     end
   end
 

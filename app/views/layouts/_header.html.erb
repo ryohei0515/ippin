@@ -33,7 +33,7 @@
     </div>
 
   </div>
-  <div :class="isOpen ? 'block' : 'hidden'" class="absolute w-full bg-yellow-200 md:block md:static md:h-12 md:bg-gradient-to-b md:from-yellow-400 md:to-yellow-200">
+  <div :class="isOpen ? 'block' : 'hidden'" class="absolute w-full bg-yellow-200 md:block md:static md:h-12 md:bg-gradient-to-b md:from-yellow-400 md:to-yellow-200 z-30">
     <ul class="md:flex md:justify-start md:items-center">
       <li class="border-b md:border-none">
         <%= link_to(help_path, class: "header-nav-link") do %>
@@ -42,7 +42,7 @@
         <% end %>
       </li>
       <li class="border-b md:border-none">
-        <%= link_to(restaurants_path, class: "header-nav-link", data: { turbolinks: false }) do %>
+        <%= link_to(restaurants_path, class: "header-nav-link") do %>
           <i class="fa fa-search" aria-hidden="true"></i>
           レストラン検索
         <% end %>
@@ -65,8 +65,8 @@
   </div>
 </div>
 
-<script data-turbolinks-eval="false">
-  $(document).on('turbolinks:load', function() {
+<script>
+  $(document).on('DOMContentLoaded', function() {
     const header = new Vue({
       el: '#header',
       data: {

@@ -3,7 +3,7 @@
 <div class="w-11/12 mx-auto bg-gray-50 my-4 p-4">
   <div class="sm:flex sm:flex-row">
     <%= link_to(@food, class: "sm:w-4/12") do %>
-        <div class="h-40 bg-gray-300 sm:h-full sm:w-full">food画像</div>
+    <div class="h-40 bg-gray-300 sm:h-full sm:w-full">food画像</div>
     <% end %>
     <div class="ml-4">
       <div class="font-bold"><%= @food.name %></div>
@@ -14,7 +14,7 @@
         </div>
       </div>
       <div>カテゴリー：<%= @food.category %> </div>
-      <div>レストラン：<%= @food.restaurant %> </div>
+      <div>レストラン：<%= @restaurant['name'] %> </div>
     </div>
   </div>
 </div>
@@ -30,16 +30,16 @@
 </div>
 <!-- 評価javascript -->
 <script>
-$('.star-rating').raty({
-  starOff:  '<%= asset_path('star-off.png') %>',
-  starOn : '<%= asset_path('star-on.png') %>',
-  starHalf : '<%= asset_path('star-half.png') %>',
-  scoreName: 'review[rate]',
-  target: '#hint1',
-  hints: ['とても悪い', '悪い', '普通', '良い', 'とても良い'],
-  score: function() {
+  $('.star-rating').raty({
+    starOff: '<%= asset_path("star-off.png") %>',
+    starOn: '<%= asset_path("star-on.png") %>',
+    starHalf: '<%= asset_path("star-half.png") %>',
+    scoreName: 'review[rate]',
+    target: '#hint1',
+    hints: ['とても悪い', '悪い', '普通', '良い', 'とても良い'],
+    score: function() {
       return $(this).attr('data-rate');
     },
-  readOnly: true
-});
+    readOnly: true
+  });
 </script>
