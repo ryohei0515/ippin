@@ -82,6 +82,6 @@ export default {
 }
 
 .result{
-  max-height: 80vh;
+  max-height: 75vh;
 }
 </style>

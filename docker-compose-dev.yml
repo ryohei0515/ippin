@@ -63,10 +63,9 @@ services:
 
   chrome:
     image: selenium/standalone-chrome
-    volumes:
-      - /dev/shm:/dev/shm
     ports:
       - '4444:4444'
+    shm_size: 2G
 
 volumes:
   db_data:

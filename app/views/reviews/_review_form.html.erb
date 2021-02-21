@@ -39,7 +39,7 @@
     <%= f.label :content, class: "block text-gray-700 text-sm font-bold mb-2" %>
     <%= f.text_area :content, class: "h-48 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
   </div>
-  <%= f.submit yield(:submit_text), class: "w-full text-center rounded py-2 bg-blue-400 hover:bg-blue-600 text-white" %>
+  <%= f.button yield(:submit_text), type: "button", class: "w-full text-center rounded py-2 bg-blue-400 hover:bg-blue-600 text-white", onclick: "submit();" %>
   <% end %>
   <%= stylesheet_pack_tag 'review_form' %>
   <%= javascript_pack_tag 'review_form' %>
