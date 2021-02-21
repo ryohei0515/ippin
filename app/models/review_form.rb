@@ -3,7 +3,7 @@
 class ReviewForm
   include ActiveModel::Model
   extend CarrierWave::Mount
-  attr_accessor :review_id, :user_id, :food, :content, :title, :restaurant,
+  attr_accessor :review_id, :user_id, :food, :content, :title, :shop,
                 :rate, :category
 
   mount_uploader :picture, PictureUploader
@@ -12,7 +12,7 @@ class ReviewForm
   validates :food, presence: true, length: { maximum: 30 }
   validates :content, presence: true, length: { maximum: 400 }
   validates :title, presence: true, length: { maximum: 50 }
-  validates :restaurant, presence: true, length: { maximum: 50 }
+  validates :shop, presence: true, length: { maximum: 50 }
   validates :rate, numericality: { greater_than_or_equal_to: 1,
                                    less_than_or_equal_to: 5 }
   validates :category, presence: true, length: { maximum: 15 }
@@ -73,7 +73,7 @@ class ReviewForm
       food: review.food_id ? review.food.name : nil,
       content: review.content,
       title: review.title,
-      restaurant: review.food_id ? review.food.restaurant : nil,
+      shop: review.food_id ? review.food.shop : nil,
       rate: review.rate,
       category: review.food_id ? review.food.category : nil,
       picture: review.picture
@@ -83,8 +83,8 @@ class ReviewForm
 
   # 主キーに合致するFoodがあればそれを返す。なければ作成する。
   def _review_food
-    @review_food = Food.find_by(name: food, restaurant: restaurant)
+    @review_food = Food.find_by(name: food, shop: shop)
     @review_food ||= Food.create!(name: food, category: category,
-                                  restaurant: restaurant)
+                                  shop: shop)
   end
 end

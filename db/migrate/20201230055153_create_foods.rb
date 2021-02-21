@@ -3,7 +3,7 @@ class CreateFoods < ActiveRecord::Migration[6.0]
     create_table :foods do |t|
       t.string :name
       t.string :category
-      t.string :restaurant
+      t.string :shop
 
       t.timestamps
     end

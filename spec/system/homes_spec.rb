@@ -17,7 +17,7 @@ RSpec.describe 'Homes', type: :system do
       expect(page).to have_selector '.pagination'
       Food.all.order(rate: :desc, name: :asc)[0..4].each do |food|
         expect(page).to have_content food.name
-        expect(page).to have_content get_restaurant_info(food.restaurant)['name']
+        expect(page).to have_content get_shop_info(food.shop)['name']
         expect(page).to have_content food.category
         expect(page).to have_content food.rate
       end

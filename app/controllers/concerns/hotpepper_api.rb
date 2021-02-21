@@ -3,8 +3,8 @@
 module HotpepperApi
   extend ActiveSupport::Concern
 
-  # 検索条件に合致するレストランを取得する、半角スペースで複数条件指定可能
-  def search_restaurant(term, count = 100)
+  # 検索条件に合致する店舗を取得する、半角スペースで複数条件指定可能
+  def search_shop(term, count = 100)
     return json_error_msg('ERROR: 条件指定が不正です') if term.blank?
 
     api_params = {
@@ -17,8 +17,8 @@ module HotpepperApi
     api_access(uri)
   end
 
-  # idが合致するレストランを取得する、カンマ区切りで複数選択可能
-  def search_restaurant_by_id(id)
+  # idが合致する店舗を取得する、カンマ区切りで複数選択可能
+  def search_shop_by_id(id)
     return json_error_msg('idが不正です') if id.blank?
 
     api_params = {

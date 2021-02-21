@@ -12,7 +12,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     @created_category = 'created_ctgry'
     @created_content = 'created_content'
     @created_title = 'created_title'
-    @created_restaurant = ''
+    @created_shop = ''
     @created_rate = 4
     @created_picture = 'test_pic_01.jpg'
   end
@@ -27,13 +27,13 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
       fill_in 'Title', with: @created_title
       # rate入力
       page.find('#review-star-rating').all('img')[@created_rate - 1].click
-      # restaurant選択
-      click_link 'レストランを選択'
-      fill_in 'restaurant-textbox', with: '鳥'
+      # shop選択
+      click_link 'お店を選択'
+      fill_in 'shop-textbox', with: '鳥'
       click_button '検索'
       wait_for_loaded_until_css_exists('.select-button')
       page.all('.select-button')[0].click
-      @created_restaurant = find('#review_restaurant', visible: false).value
+      @created_shop = find('#review_shop', visible: false).value
       # pictureアップロード
       attach_file 'Picture', file_fixture(@created_picture)
       click_button '新規投稿'
@@ -44,7 +44,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
       expect(created_review.food.category).to eq @created_category
       expect(created_review.content).to eq @created_content
       expect(created_review.title).to eq @created_title
-      expect(created_review.food.restaurant).to eq @created_restaurant
+      expect(created_review.food.shop).to eq @created_shop
       expect(created_review.rate).to eq @created_rate
       expect(created_review.picture.file.filename).to eq @created_picture
       expect(current_path).to eq review_path(created_review.id)
@@ -66,9 +66,9 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
         fill_in 'Food', with: @created_food
         fill_in 'Category', with: @created_category
         fill_in 'Title', with: @created_title
-        # restaurant選択
-        click_link 'レストランを選択'
-        fill_in 'restaurant-textbox', with: '鳥'
+        # shop選択
+        click_link 'お店を選択'
+        fill_in 'shop-textbox', with: '鳥'
         click_button '検索'
         wait_for_loaded_until_css_exists('.select-button')
         page.all('.select-button')[0].click
@@ -76,15 +76,15 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
         click_button '新規投稿'
       end.to change(Review, :count).by(1)
     end
-    describe 'restaurant以外のチェック' do
+    describe 'shop以外のチェック' do
       before do
-        # restaurant選択
-        click_link 'レストランを選択'
-        fill_in 'restaurant-textbox', with: '鳥'
+        # shop選択
+        click_link 'お店を選択'
+        fill_in 'shop-textbox', with: '鳥'
         click_button '検索'
         wait_for_loaded_until_css_exists('.select-button')
         page.all('.select-button')[0].click
-        @created_restaurant = find('#review_restaurant', visible: false).value
+        @created_shop = find('#review_shop', visible: false).value
       end
       it 'foodが誤り' do
         expect do
@@ -127,7 +127,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
         expect(page).to have_selector("img[src$='thumb_#{@created_picture}']")
       end
     end
-    it 'restaurantが未選択' do
+    it 'shopが未選択' do
       expect do
         page.find('#review-star-rating').all('img')[@created_rate - 1].click
         click_button '新規投稿'

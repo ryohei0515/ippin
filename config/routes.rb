@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   get  'help',  to: 'static_pages#help'
   get  'about', to: 'static_pages#about'
-  get  'restaurants', to: 'static_pages#restaurants'
+  get  'shops', to: 'static_pages#shops'
   get  'signup', to: 'users#new'
   get  'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :foods, only: [:show]
   namespace :api, { format: 'json' } do
     namespace :v1 do
-      resources :restaurants, only: %i[index show]
+      resources :shops, only: %i[index show]
     end
   end
 end

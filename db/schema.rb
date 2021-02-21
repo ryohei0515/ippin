@@ -15,11 +15,11 @@ ActiveRecord::Schema.define(version: 2021_02_04_131617) do
   create_table "foods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "category"
-    t.string "restaurant"
+    t.string "shop"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "rate"
-    t.index ["name", "restaurant"], name: "index_foods_on_name_and_restaurant", unique: true
+    t.index ["name", "shop"], name: "index_foods_on_name_and_shop", unique: true
     t.index ["rate"], name: "index_foods_on_rate"
   end
 

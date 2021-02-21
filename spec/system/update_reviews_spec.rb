@@ -27,7 +27,7 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
       expect(page).to have_selector "#review-star-rating[data-rate='#{rev.rate}']"
       expect(page).to have_selector "input[value='#{rev.food.category}']"
       expect(page).to have_selector "input[value='#{rev.food.name}']"
-      expect(page).to have_content get_restaurant_info(rev.food.restaurant)['name']
+      expect(page).to have_content get_shop_info(rev.food.shop)['name']
       expect(page).to have_selector "img[src$='#{rev.picture.filename}']"
       expect(page).to have_content rev.content
     end
@@ -40,13 +40,13 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     fill_in 'Food', with: @updated_food
     fill_in 'Category', with: @updated_category
     fill_in 'Title', with: @updated_title
-    # restaurant選択
-    click_link 'レストランを選択'
-    fill_in 'restaurant-textbox', with: '鳥'
+    # shop選択
+    click_link 'お店を選択'
+    fill_in 'shop-textbox', with: '鳥'
     click_button '検索'
     wait_for_loaded_until_css_exists('.select-button')
     page.all('.select-button')[0].click
-    updated_restaurant = find('#review_restaurant', visible: false).value
+    updated_shop = find('#review_shop', visible: false).value
     page.find('#review-star-rating').all('img')[@updated_rate - 1].click
     attach_file 'Picture', file_fixture(@updated_picture)
     click_button '修正する'
@@ -56,7 +56,7 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
       expect(updated_review.food.category).to eq @updated_category
       expect(updated_review.content).to eq @updated_content
       expect(updated_review.title).to eq @updated_title
-      expect(updated_review.food.restaurant).to eq updated_restaurant
+      expect(updated_review.food.shop).to eq updated_shop
       expect(updated_review.rate).to eq @updated_rate
       expect(updated_review.picture.file.filename).to eq @updated_picture
       expect(current_path).to eq review_path(review.id)
