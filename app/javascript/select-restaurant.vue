@@ -35,7 +35,7 @@ export default {
   },
   async created() {
     this.restaurantId = this.initRestaurantId;
-    if (this.restaurantId != null) {
+    if (this.restaurantId) {
       var r = await axios.get('/api/v1/restaurants/' + this.restaurantId);
       this.restaurantName = r.data.shop[0].name
     } else {
