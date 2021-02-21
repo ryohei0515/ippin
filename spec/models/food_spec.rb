@@ -9,13 +9,13 @@ RSpec.describe Food, type: :model do
 
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_length_of(:name).is_at_most(30) }
-  it { is_expected.to validate_uniqueness_of(:name).scoped_to(:restaurant).case_insensitive }
+  it { is_expected.to validate_uniqueness_of(:name).scoped_to(:shop).case_insensitive }
 
   it { is_expected.to validate_presence_of(:category) }
   it { is_expected.to validate_length_of(:category).is_at_most(15) }
 
-  it { is_expected.to validate_presence_of(:restaurant) }
-  it { is_expected.to validate_length_of(:restaurant).is_at_most(50) }
+  it { is_expected.to validate_presence_of(:shop) }
+  it { is_expected.to validate_length_of(:shop).is_at_most(50) }
 
   it 'rateの降順でデータが取得できること' do
     FactoryBot.create :food, rate: 3
@@ -26,7 +26,7 @@ RSpec.describe Food, type: :model do
   describe '#calc_and_save_rate' do
     let(:food) do
       FactoryBot.create(:food, name: 'test_name',
-                               restaurant: 'restaurant', rate: 0)
+                               shop: 'shop', rate: 0)
     end
 
     it 'foodのrateを正しく更新できること' do

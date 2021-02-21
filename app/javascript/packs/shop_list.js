@@ -1,5 +1,5 @@
 import Vue from 'vue/dist/vue.esm.js'
-import App from '../restaurant-list.vue'
+import App from '../shop-list.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({

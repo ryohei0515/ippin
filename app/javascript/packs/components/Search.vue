@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="container mx-auto my-4 px-4 flex justify-start">
-      <input id="restaurant-textbox" class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full" type="text" v-model="term" @keyup.enter="exe" placeholder="店名、住所、駅名、お店ジャンル...">
+      <input id="shop-textbox" class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full" type="text" v-model="term" @keyup.enter="exe" placeholder="店名、住所、駅名、お店ジャンル...">
       <input class="text-center rounded py-2 bg-blue-400 hover:bg-blue-600 text-white w-20 ml-2" type="button" value="検索" @click="exe">
     </div>
   </div>
@@ -25,7 +25,7 @@ export default {
       }
       this.term = this.term.replace(/　/g," ");
       this.$emit("loadStart");
-      const { data } = await axios.get('/api/v1/restaurants.json', {
+      const { data } = await axios.get('/api/v1/shops.json', {
                         params: {
                           term: this.term
                         }

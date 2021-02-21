@@ -7,20 +7,20 @@
       合致するお店が見つかりません。<br>別のキーワードで検索してください。
     </div>
     <ul class="list">
-      <li class="w-11/12 mx-auto bg-gray-100 my-4 p-4 sm:flex sm:justify-start" v-for="restaurant of results.shop" :key="restaurant.id">
+      <li class="w-11/12 mx-auto bg-gray-100 my-4 p-4 sm:flex sm:justify-start" v-for="shop of results.shop" :key="shop.id">
           <div class="mx-auto w-11/12 sm:mx-4 sm:my-auto sm:w-2/12">
-            <img class="w-full h-auto" :src="restaurant.photo.mobile.l" :alt=restaurant.name>
+            <img class="w-full h-auto" :src="shop.photo.mobile.l" :alt=shop.name>
           </div>
           <div class="mt-2 mx-auto sm:mx-0 sm:w-10/12 sm:flex sm:justify-between">
             <div>
-              <div class="font-bold text-lg">{{ restaurant.name }}</div>
-              <div class="">{{ restaurant.genre.name }} </div>
-              <div class="mt-2">住所：{{ restaurant.address }}</div>
-              <div class="">最寄り駅：{{ restaurant.station_name }}</div>
-              <div class="">{{ restaurant.genre.catch }} </div>
+              <div class="font-bold text-lg">{{ shop.name }}</div>
+              <div class="">{{ shop.genre.name }} </div>
+              <div class="mt-2">住所：{{ shop.address }}</div>
+              <div class="">最寄り駅：{{ shop.station_name }}</div>
+              <div class="">{{ shop.genre.catch }} </div>
             </div>
             <div class="flex flex-col items-end">
-              <input class="select-button text-center rounded py-2 bg-yellow-200 hover:bg-yellow-400 w-full mx-auto sm:w-20 sm:mt-auto" type="button" value="選択" @click="selectRestaurant(restaurant)">
+              <input class="select-button text-center rounded py-2 bg-yellow-200 hover:bg-yellow-400 w-full mx-auto sm:w-20 sm:mt-auto" type="button" value="選択" @click="selectShop(shop)">
             </div>
           </div>
 
@@ -39,8 +39,8 @@ export default {
     Loading,
   },
   methods: {
-    selectRestaurant (restaurant) {
-      this.$emit("selectRestaurant", { restaurant: restaurant });
+    selectShop (shop) {
+      this.$emit("selectShop", { shop: shop });
     }
   },
 };

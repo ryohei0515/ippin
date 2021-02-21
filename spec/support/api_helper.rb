@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module ApiHelper
-  # idが合致するレストラン情報を取得する
-  def get_restaurant_info(id)
+  # idが合致する店舗情報を取得する
+  def get_shop_info(id)
     api_params = {
       key: API_KEY,
       id: id,

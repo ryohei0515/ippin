@@ -14,7 +14,7 @@ RSpec.describe ReviewForm, type: :model do
   let(:user) { FactoryBot.create(:user) }
   let(:food) do
     Food.create!(name: 'form_test_food', category: 'update_category',
-                 restaurant: 'form_test_restaurant')
+                 shop: 'form_test_shop')
   end
 
   it { is_expected.to validate_presence_of(:user_id) }
@@ -28,8 +28,8 @@ RSpec.describe ReviewForm, type: :model do
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_length_of(:title).is_at_most(50) }
 
-  it { is_expected.to validate_presence_of(:restaurant) }
-  it { is_expected.to validate_length_of(:restaurant).is_at_most(50) }
+  it { is_expected.to validate_presence_of(:shop) }
+  it { is_expected.to validate_length_of(:shop).is_at_most(50) }
 
   it {
     is_expected.to validate_numericality_of(:rate)
@@ -51,7 +51,7 @@ RSpec.describe ReviewForm, type: :model do
                                 'food' => 'form_test_food',
                                 'content' => 'form_test_content',
                                 'title' => 'form_test_title',
-                                'restaurant' => 'form_test_restaurant',
+                                'shop' => 'form_test_shop',
                                 'rate' => 3.5,
                                 'category' => 'test_category' })
         expect { form.create }.to change { Food.count }.from(0).to(1)
@@ -63,7 +63,7 @@ RSpec.describe ReviewForm, type: :model do
                                 'food' => food.name,
                                 'content' => 'update_content',
                                 'title' => 'update_title',
-                                'restaurant' => food.restaurant,
+                                'shop' => food.shop,
                                 'rate' => 3.5,
                                 'category' => food.category })
         expect { form.create }.to_not change(Food, :count)
@@ -78,7 +78,7 @@ RSpec.describe ReviewForm, type: :model do
                                 'food' => 'update_food',
                                 'content' => 'update_content',
                                 'title' => 'update_title',
-                                'restaurant' => 'update_restaurant',
+                                'shop' => 'update_shop',
                                 'rate' => 3.5,
                                 'category' => 'update_ctgry' }, review: review)
         expect { form.update }.to change { Food.count }.from(1).to(2)
@@ -90,7 +90,7 @@ RSpec.describe ReviewForm, type: :model do
                                 'food' => food.name,
                                 'content' => 'update_content',
                                 'title' => 'update_title',
-                                'restaurant' => food.restaurant,
+                                'shop' => food.shop,
                                 'rate' => 3.5,
                                 'category' => food.category }, review: review)
         expect { form.create }.to_not change(Food, :count)
