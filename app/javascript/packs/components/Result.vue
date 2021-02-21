@@ -1,10 +1,13 @@
 <template>
   <div class="container mx-auto">
-    <div class="my-2 mx-auto w-11/12 rounded bg-red-200 p-2 text-center" v-if="results.results_available > 100">
+    <div class="my-2 mx-auto w-11/12 rounded bg-yellow-100 p-2 text-center" v-if="results.results_available > 100">
       件数が多いため、上位100件のみ表示しています。
     </div>
+    <div class="my-2 mx-auto w-11/12 rounded bg-red-200 p-2 text-center" v-if="results.results_available == 0">
+      合致するお店が見つかりません。<br>別のキーワードで検索してください。
+    </div>
     <ul class="list">
-      <li class="w-11/12 mx-auto bg-gray-100 my-4 p-4 sm:flex sm:justify-start" v-for="restaurant of results" :key="restaurant.id">
+      <li class="w-11/12 mx-auto bg-gray-100 my-4 p-4 sm:flex sm:justify-start" v-for="restaurant of results.shop" :key="restaurant.id">
           <div class="mx-auto w-11/12 sm:mx-4 sm:my-auto sm:w-2/12">
             <img class="w-full h-auto" :src="restaurant.photo.mobile.l" :alt=restaurant.name>
           </div>

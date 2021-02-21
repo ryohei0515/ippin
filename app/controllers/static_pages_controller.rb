@@ -7,7 +7,7 @@ class StaticPagesController < ApplicationController
 
     # 料理に紐付くレストラン情報取得
     param = @foods.pluck(:restaurant).join(',')
-    result = search_restaurant_by_id(param)
+    result = search_restaurant_by_id(param)['shop']
     @restaurants = result.map { |r| [r['id'], r] }.to_h
   end
 
