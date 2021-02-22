@@ -34,7 +34,7 @@ class ReviewForm
 
     ActiveRecord::Base.transaction do
       _review_food
-      review = Review.create!(user_id: user_id, food: @review_food,
+      review = Review.create!(user_id: user_id, shop_food: @review_food,
                               content: content, title: title,
                               rate: rate, picture: picture)
       @review_food.calc_and_save_rate
@@ -50,7 +50,7 @@ class ReviewForm
 
     ActiveRecord::Base.transaction do
       _review_food
-      review.update(user_id: user_id, food: @review_food,
+      review.update(user_id: user_id, shop_food: @review_food,
                     content: content, title: title,
                     rate: rate, picture: picture)
       @review_food.calc_and_save_rate
@@ -70,21 +70,21 @@ class ReviewForm
     {
       review_id: review.id,
       user_id: review.user_id,
-      food: review.food_id ? review.food.name : nil,
+      food: review.shop_food_id ? review.shop_food.name : nil,
       content: review.content,
       title: review.title,
-      shop: review.food_id ? review.food.shop : nil,
+      shop: review.shop_food_id ? review.shop_food.shop : nil,
       rate: review.rate,
-      category: review.food_id ? review.food.category : nil,
+      category: review.shop_food_id ? review.shop_food.category : nil,
       picture: review.picture
     }
   end
   # rubocop:enable Metrics/AbcSize
 
-  # 主キーに合致するFoodがあればそれを返す。なければ作成する。
+  # 主キーに合致するShopFoodがあればそれを返す。なければ作成する。
   def _review_food
-    @review_food = Food.find_by(name: food, shop: shop)
-    @review_food ||= Food.create!(name: food, category: category,
-                                  shop: shop)
+    @review_food = ShopFood.find_by(name: food, shop: shop)
+    @review_food ||= ShopFood.create!(name: food, category: category,
+                                      shop: shop)
   end
 end

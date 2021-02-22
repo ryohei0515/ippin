@@ -6,15 +6,15 @@ RSpec.describe ReviewForm, type: :model do
   # let(:review) { FactoryBot.create(:review) }
   let(:review) do
     Review.create!('user_id' => user.id,
-                   'food_id' => food.id,
+                   'shop_food_id' => food.id,
                    'content' => 'form_test_content',
                    'title' => 'form_test_title',
                    'rate' => 3.5)
   end
   let(:user) { FactoryBot.create(:user) }
   let(:food) do
-    Food.create!(name: 'form_test_food', category: 'update_category',
-                 shop: 'form_test_shop')
+    ShopFood.create!(name: 'form_test_food', category: 'update_category',
+                     shop: 'form_test_shop')
   end
 
   it { is_expected.to validate_presence_of(:user_id) }
@@ -45,8 +45,8 @@ RSpec.describe ReviewForm, type: :model do
 
   describe '#create' do
     before { user }
-    context '存在しないfoodのレビューの場合' do
-      it 'foodを登録すること' do
+    context '存在しないshop_foodのレビューの場合' do
+      it 'shop_foodを登録すること' do
         form = ReviewForm.new({ 'user_id' => user.id,
                                 'food' => 'form_test_food',
                                 'content' => 'form_test_content',
@@ -54,11 +54,11 @@ RSpec.describe ReviewForm, type: :model do
                                 'shop' => 'form_test_shop',
                                 'rate' => 3.5,
                                 'category' => 'test_category' })
-        expect { form.create }.to change { Food.count }.from(0).to(1)
+        expect { form.create }.to change { ShopFood.count }.from(0).to(1)
       end
     end
-    context '既に存在するfoodのレビューの場合' do
-      it 'foodを登録しないこと' do
+    context '既に存在するshop_foodのレビューの場合' do
+      it 'shop_foodを登録しないこと' do
         form = ReviewForm.new({ 'user_id' => user.id,
                                 'food' => food.name,
                                 'content' => 'update_content',
@@ -66,14 +66,14 @@ RSpec.describe ReviewForm, type: :model do
                                 'shop' => food.shop,
                                 'rate' => 3.5,
                                 'category' => food.category })
-        expect { form.create }.to_not change(Food, :count)
+        expect { form.create }.to_not change(ShopFood, :count)
       end
     end
   end
 
   describe '#update' do
-    context '存在しないfoodのレビューの場合' do
-      it 'foodを登録すること' do
+    context '存在しないshop_foodのレビューの場合' do
+      it 'shop_foodを登録すること' do
         form = ReviewForm.new({ 'user_id' => user.id,
                                 'food' => 'update_food',
                                 'content' => 'update_content',
@@ -81,11 +81,11 @@ RSpec.describe ReviewForm, type: :model do
                                 'shop' => 'update_shop',
                                 'rate' => 3.5,
                                 'category' => 'update_ctgry' }, review: review)
-        expect { form.update }.to change { Food.count }.from(1).to(2)
+        expect { form.update }.to change { ShopFood.count }.from(1).to(2)
       end
     end
-    context '既に存在するfoodのレビューの場合' do
-      it '既に存在するfoodのレビューの場合foodを登録しないこと' do
+    context '既に存在するshop_foodのレビューの場合' do
+      it '既に存在するshop_foodのレビューの場合foodを登録しないこと' do
         form = ReviewForm.new({ 'user_id' => user.id,
                                 'food' => food.name,
                                 'content' => 'update_content',
@@ -93,7 +93,7 @@ RSpec.describe ReviewForm, type: :model do
                                 'shop' => food.shop,
                                 'rate' => 3.5,
                                 'category' => food.category }, review: review)
-        expect { form.create }.to_not change(Food, :count)
+        expect { form.create }.to_not change(ShopFood, :count)
       end
     end
   end

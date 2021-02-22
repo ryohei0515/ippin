@@ -33,6 +33,6 @@ RSpec.describe Review, type: :model do
       .is_less_than_or_equal_to(5)
   }
 
-  it { is_expected.to validate_presence_of(:food_id) }
-  it { should belong_to(:food) }
+  it { is_expected.to validate_presence_of(:shop_food_id) }
+  it { should belong_to(:shop_food) }
 end

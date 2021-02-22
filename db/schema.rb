@@ -12,31 +12,31 @@
 
 ActiveRecord::Schema.define(version: 2021_02_04_131617) do
 
-  create_table "foods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.string "name"
-    t.string "category"
-    t.string "shop"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.float "rate"
-    t.index ["name", "shop"], name: "index_foods_on_name_and_shop", unique: true
-    t.index ["rate"], name: "index_foods_on_rate"
-  end
-
-  create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+  create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "title"
     t.float "rate"
-    t.bigint "food_id", null: false
+    t.bigint "shop_food_id", null: false
     t.string "picture"
-    t.index ["food_id"], name: "index_reviews_on_food_id"
+    t.index ["shop_food_id"], name: "index_reviews_on_shop_food_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+  create_table "shop_foods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "category"
+    t.string "shop"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "rate"
+    t.index ["name", "shop"], name: "index_shop_foods_on_name_and_shop", unique: true
+    t.index ["rate"], name: "index_shop_foods_on_rate"
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
@@ -47,6 +47,6 @@ ActiveRecord::Schema.define(version: 2021_02_04_131617) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "reviews", "foods"
+  add_foreign_key "reviews", "shop_foods"
   add_foreign_key "reviews", "users"
 end

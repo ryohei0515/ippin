@@ -6,7 +6,7 @@ FactoryBot.define do
     rate { Random.rand(4).to_f + 1 }
     title { Faker::Lorem.sentence(word_count: 2) }
     association :user, factory: :review_user, strategy: :create
-    association :food, factory: :food, strategy: :create
+    association :shop_food, factory: :shop_food, strategy: :create
 
     sequence(:created_at) { |n| n.hours.ago }
     sequence(:updated_at) { |n| n.hours.ago }

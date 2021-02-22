@@ -15,7 +15,7 @@ RSpec.describe 'UserProfiles', type: :system do
       expect(page).to have_selector '.pagination'
       review_list[0..4].each do |review|
         expect(page).to have_content review.content
-        expect(page).to have_content review.food.name
+        expect(page).to have_content review.shop_food.name
       end
     end
   end

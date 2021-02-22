@@ -25,9 +25,9 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     aggregate_failures do
       expect(page).to have_selector "input[value='#{rev.title}']"
       expect(page).to have_selector "#review-star-rating[data-rate='#{rev.rate}']"
-      expect(page).to have_selector "input[value='#{rev.food.category}']"
-      expect(page).to have_selector "input[value='#{rev.food.name}']"
-      expect(page).to have_content get_shop_info(rev.food.shop)['name']
+      expect(page).to have_selector "input[value='#{rev.shop_food.category}']"
+      expect(page).to have_selector "input[value='#{rev.shop_food.name}']"
+      expect(page).to have_content get_shop_info(rev.shop_food.shop)['name']
       expect(page).to have_selector "img[src$='#{rev.picture.filename}']"
       expect(page).to have_content rev.content
     end
@@ -52,11 +52,11 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     click_button '修正する'
     updated_review = Review.find(review.id)
     aggregate_failures do
-      expect(updated_review.food.name).to eq @updated_food
-      expect(updated_review.food.category).to eq @updated_category
+      expect(updated_review.shop_food.name).to eq @updated_food
+      expect(updated_review.shop_food.category).to eq @updated_category
       expect(updated_review.content).to eq @updated_content
       expect(updated_review.title).to eq @updated_title
-      expect(updated_review.food.shop).to eq updated_shop
+      expect(updated_review.shop_food.shop).to eq updated_shop
       expect(updated_review.rate).to eq @updated_rate
       expect(updated_review.picture.file.filename).to eq @updated_picture
       expect(current_path).to eq review_path(review.id)

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :food, class: Food do
+  factory :shop_food, class: ShopFood do
     sequence(:name) { |n| Faker::Food.dish + "_#{n}" }
     sequence(:category) { |n| "Category_#{n}" }
     shop { 'J001170499' }

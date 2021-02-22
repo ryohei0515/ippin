@@ -40,11 +40,11 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     end.to change(Review, :count).by(1)
     created_review = user.reviews.first
     aggregate_failures do
-      expect(created_review.food.name).to eq @created_food
-      expect(created_review.food.category).to eq @created_category
+      expect(created_review.shop_food.name).to eq @created_food
+      expect(created_review.shop_food.category).to eq @created_category
       expect(created_review.content).to eq @created_content
       expect(created_review.title).to eq @created_title
-      expect(created_review.food.shop).to eq @created_shop
+      expect(created_review.shop_food.shop).to eq @created_shop
       expect(created_review.rate).to eq @created_rate
       expect(created_review.picture.file.filename).to eq @created_picture
       expect(current_path).to eq review_path(created_review.id)
