@@ -42,6 +42,7 @@ gem 'mini_magick'
 gem 'font-awesome-sass', '~> 5.8.1'
 gem 'jquery-rails'
 gem 'kaminari', '~> 1.2.1'
+gem 'seed-fu', '~> 2.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
