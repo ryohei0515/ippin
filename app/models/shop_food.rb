@@ -3,8 +3,10 @@
 class ShopFood < ApplicationRecord
   has_many :reviews
   has_many :users, through: :reviews
+  belongs_to :food
   default_scope -> { order(rate: :desc, name: :asc) }
 
+  validates :food_id, presence: true
   validates :name, presence: true, length: { maximum: 30 },
                    uniqueness: { scope: :shop, case_sensitive: false }
   validates :category, presence: true, length: { maximum: 15 }

@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_22_022636) do
+ActiveRecord::Schema.define(version: 2021_02_22_091157) do
 
-  create_table "foods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "foods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "name_kana"
     t.string "category"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_02_22_022636) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.text "content"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -34,18 +34,20 @@ ActiveRecord::Schema.define(version: 2021_02_22_022636) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
-  create_table "shop_foods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "shop_foods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "category"
     t.string "shop"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "rate"
+    t.bigint "food_id", null: false
+    t.index ["food_id"], name: "index_shop_foods_on_food_id"
     t.index ["name", "shop"], name: "index_shop_foods_on_name_and_shop", unique: true
     t.index ["rate"], name: "index_shop_foods_on_rate"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
@@ -58,4 +60,5 @@ ActiveRecord::Schema.define(version: 2021_02_22_022636) do
 
   add_foreign_key "reviews", "shop_foods"
   add_foreign_key "reviews", "users"
+  add_foreign_key "shop_foods", "foods"
 end
