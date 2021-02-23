@@ -20,10 +20,7 @@ RSpec.describe ShopFood, type: :model do
   end
 
   describe '#calc_and_save_rate' do
-    let(:shop_food) do
-      FactoryBot.create(:shop_food, name: 'test_name',
-                                    shop: 'shop', rate: 0)
-    end
+    let(:shop_food) { FactoryBot.create(:shop_food, rate: 0) }
 
     it 'shop_foodのrateを正しく更新できること' do
       sum_rate = 0

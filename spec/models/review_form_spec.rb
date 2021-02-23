@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe ReviewForm, type: :model do
   let(:user) { FactoryBot.create(:user) }
   let(:food) { FactoryBot.create(:food) }
-  let(:shop_food) { FactoryBot.create(:shop_food, food: food) }
+  let(:shop_food) { FactoryBot.create(:shop_food) }
   let(:review) { FactoryBot.create(:review, user: user) }
 
   it { is_expected.to validate_presence_of(:user_id) }
