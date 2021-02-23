@@ -7,13 +7,13 @@
   </ul>
 
   <div class="my-5 p-3 bg-yellow-100 text-xl">
-    <h2>フード投稿一覧（<%= @foods.total_count %>件）</h2>
+    <h2>フード投稿一覧（<%= @shop_foods.total_count %>件）</h2>
   </div>
   <ol>
-    <%= render @foods %>
+    <%= render @shop_foods %>
   </ol>
   <div class="my-10">
-    <%= paginate @foods %>
+    <%= paginate @shop_foods %>
   </div>
 </div>
 

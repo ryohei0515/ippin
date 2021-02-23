@@ -2,11 +2,11 @@
 
 class StaticPagesController < ApplicationController
   def home
-    @foods = Food.all.page(params[:page]).per(PER_FOOD)
-    return if @foods.empty?
+    @shop_foods = ShopFood.all.page(params[:page]).per(PER_FOOD)
+    return if @shop_foods.empty?
 
     # 料理に紐付く店舗情報取得
-    param = @foods.pluck(:shop).join(',')
+    param = @shop_foods.pluck(:shop).join(',')
     result = search_shop_by_id(param)['shop']
     @shops = result.map { |r| [r['id'], r] }.to_h
   end

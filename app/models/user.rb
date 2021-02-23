@@ -14,7 +14,7 @@ class User < ApplicationRecord
   mount_uploader :picture, PictureUploader
 
   has_many :reviews, dependent: :destroy
-  # has_many :foods, through: :reviews
+  has_many :foods, through: :reviews
 
   # 引数の文字列のハッシュ値を返す
   def self.digest(string)

@@ -8,10 +8,10 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
   include AjaxHelper
 
   let(:user) { FactoryBot.create(:user) }
+  let(:food) { FactoryBot.create(:food) }
   let(:review) { FactoryBot.create(:review, user: user) }
   before do
-    @updated_food = 'updated_food'
-    @updated_category = 'updated_ctgry'
+    @updated_food_id = food.id
     @updated_content = 'updated_content'
     @updated_title = 'updated_title'
     @updated_rate = 4
@@ -25,9 +25,8 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     aggregate_failures do
       expect(page).to have_selector "input[value='#{rev.title}']"
       expect(page).to have_selector "#review-star-rating[data-rate='#{rev.rate}']"
-      expect(page).to have_selector "input[value='#{rev.food.category}']"
-      expect(page).to have_selector "input[value='#{rev.food.name}']"
-      expect(page).to have_content get_shop_info(rev.food.shop)['name']
+      expect(page).to have_selector "input[value='#{rev.shop_food.food_id}']"
+      expect(page).to have_content get_shop_info(rev.shop_food.shop)['name']
       expect(page).to have_selector "img[src$='#{rev.picture.filename}']"
       expect(page).to have_content rev.content
     end
@@ -37,8 +36,7 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     log_in_as user
     visit edit_review_path(review.id)
     fill_in 'Content', with: @updated_content
-    fill_in 'Food', with: @updated_food
-    fill_in 'Category', with: @updated_category
+    fill_in 'Food', with: @updated_food_id
     fill_in 'Title', with: @updated_title
     # shop選択
     click_link 'お店を選択'
@@ -52,11 +50,10 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     click_button '修正する'
     updated_review = Review.find(review.id)
     aggregate_failures do
-      expect(updated_review.food.name).to eq @updated_food
-      expect(updated_review.food.category).to eq @updated_category
+      expect(updated_review.shop_food.food_id).to eq @updated_food_id
       expect(updated_review.content).to eq @updated_content
       expect(updated_review.title).to eq @updated_title
-      expect(updated_review.food.shop).to eq updated_shop
+      expect(updated_review.shop_food.shop).to eq updated_shop
       expect(updated_review.rate).to eq @updated_rate
       expect(updated_review.picture.file.filename).to eq @updated_picture
       expect(current_path).to eq review_path(review.id)
@@ -68,21 +65,13 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
       log_in_as user
       visit edit_review_path(review.id)
       fill_in 'Content', with: @updated_content
-      fill_in 'Food', with: @updated_food
-      fill_in 'Category', with: @updated_category
+      fill_in 'Food', with: @updated_food_id
       fill_in 'Title', with: @updated_title
       attach_file 'Picture', file_fixture(@updated_picture)
     end
     it 'foodが誤り' do
       expect do
         fill_in 'Food', with: ''
-        click_button '修正する'
-      end.to_not change { review.reload.inspect }
-      expect(page).to have_selector '.alert-danger'
-    end
-    it 'categoryが誤り' do
-      expect do
-        fill_in 'Category', with: ''
         click_button '修正する'
       end.to_not change { review.reload.inspect }
       expect(page).to have_selector '.alert-danger'

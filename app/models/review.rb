@@ -2,7 +2,7 @@
 
 class Review < ApplicationRecord
   belongs_to :user
-  belongs_to :food
+  belongs_to :shop_food
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader
 
@@ -11,5 +11,5 @@ class Review < ApplicationRecord
   validates :title, presence: true, length: { maximum: 50 }
   validates :rate, numericality: { greater_than_or_equal_to: 1,
                                    less_than_or_equal_to: 5 }
-  validates :food_id, presence: true
+  validates :shop_food_id, presence: true
 end
