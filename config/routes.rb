@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   namespace :api, { format: 'json' } do
     namespace :v1 do
       resources :shops, only: %i[index show]
+      resources :foods, only: %i[index]
     end
   end
 end
