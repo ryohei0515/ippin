@@ -30,9 +30,6 @@ RSpec.describe ReviewForm, type: :model do
       .is_less_than_or_equal_to(5)
   }
 
-  it { is_expected.to validate_presence_of(:category) }
-  it { is_expected.to validate_length_of(:category).is_at_most(15) }
-
   describe '#create' do
     before { user }
     context '存在しないshop_foodのレビューの場合' do
@@ -42,8 +39,7 @@ RSpec.describe ReviewForm, type: :model do
                                 'content' => 'form_test_content',
                                 'title' => 'form_test_title',
                                 'shop' => 'form_test_shop',
-                                'rate' => 3.5,
-                                'category' => food.category })
+                                'rate' => 3.5 })
         expect { form.create }.to change { ShopFood.count }.from(0).to(1)
       end
     end
@@ -54,8 +50,7 @@ RSpec.describe ReviewForm, type: :model do
                                 'content' => 'update_content',
                                 'title' => 'update_title',
                                 'shop' => shop_food.shop,
-                                'rate' => 3.5,
-                                'category' => shop_food.food.category })
+                                'rate' => 3.5 })
         expect { form.create }.to_not change(ShopFood, :count)
       end
     end
@@ -69,8 +64,7 @@ RSpec.describe ReviewForm, type: :model do
                                 'content' => 'update_content',
                                 'title' => 'update_title',
                                 'shop' => 'update_shop',
-                                'rate' => 3.5,
-                                'category' => food.category }, review: review)
+                                'rate' => 3.5 }, review: review)
         expect { form.update }.to change { ShopFood.count }.from(1).to(2)
       end
     end
@@ -81,8 +75,7 @@ RSpec.describe ReviewForm, type: :model do
                                 'content' => 'update_content',
                                 'title' => 'update_title',
                                 'shop' => shop_food.shop,
-                                'rate' => 3.5,
-                                'category' => shop_food.food.category }, review: review)
+                                'rate' => 3.5 }, review: review)
         expect { form.create }.to_not change(ShopFood, :count)
       end
     end

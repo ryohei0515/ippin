@@ -3,20 +3,18 @@
 class ReviewForm
   include ActiveModel::Model
   extend CarrierWave::Mount
-  attr_accessor :review_id, :user_id, :food_id, :food, :content, :title, :shop,
-                :rate, :category
+  attr_accessor :review_id, :user_id, :food_id, :content, :title, :shop,
+                :rate
 
   mount_uploader :picture, PictureUploader
 
   validates :user_id, presence: true
   validates :food_id, presence: true
-  # validates :food, presence: true, length: { maximum: 30 }
   validates :content, presence: true, length: { maximum: 400 }
   validates :title, presence: true, length: { maximum: 50 }
   validates :shop, presence: true, length: { maximum: 50 }
   validates :rate, numericality: { greater_than_or_equal_to: 1,
                                    less_than_or_equal_to: 5 }
-  validates :category, presence: true, length: { maximum: 15 }
 
   delegate :persisted?, to: :review
 
@@ -73,12 +71,10 @@ class ReviewForm
       review_id: review.id,
       user_id: review.user_id,
       food_id: review.shop_food_id ? review.shop_food.food_id : nil,
-      food: 'food',
       content: review.content,
       title: review.title,
       shop: review.shop_food_id ? review.shop_food.shop : nil,
       rate: review.rate,
-      category: review.shop_food_id ? review.shop_food.food.category : nil,
       picture: review.picture
     }
   end
@@ -86,8 +82,8 @@ class ReviewForm
 
   # 主キーに合致するShopFoodがあればそれを返す。なければ作成する。
   def _review_food
-    f = Food.find(food_id)
-    @review_food = ShopFood.find_by(food: f, shop: shop)
-    @review_food ||= ShopFood.create!(food: f, shop: shop)
+    food = Food.find(food_id)
+    @review_food = ShopFood.find_by(food: food, shop: shop)
+    @review_food ||= ShopFood.create!(food: food, shop: shop)
   end
 end
