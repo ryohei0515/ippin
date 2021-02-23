@@ -3,13 +3,14 @@
 class ReviewForm
   include ActiveModel::Model
   extend CarrierWave::Mount
-  attr_accessor :review_id, :user_id, :food, :content, :title, :shop,
+  attr_accessor :review_id, :user_id, :food_id, :food, :content, :title, :shop,
                 :rate, :category
 
   mount_uploader :picture, PictureUploader
 
   validates :user_id, presence: true
-  validates :food, presence: true, length: { maximum: 30 }
+  validates :food_id, presence: true
+  # validates :food, presence: true, length: { maximum: 30 }
   validates :content, presence: true, length: { maximum: 400 }
   validates :title, presence: true, length: { maximum: 50 }
   validates :shop, presence: true, length: { maximum: 50 }
@@ -37,6 +38,7 @@ class ReviewForm
       review = Review.create!(user_id: user_id, shop_food: @review_food,
                               content: content, title: title,
                               rate: rate, picture: picture)
+
       @review_food.calc_and_save_rate
       @review_id = review.id
     end
@@ -70,12 +72,13 @@ class ReviewForm
     {
       review_id: review.id,
       user_id: review.user_id,
-      food: review.shop_food_id ? review.shop_food.name : nil,
+      food_id: review.shop_food_id ? review.shop_food.food_id : nil,
+      food: 'food',
       content: review.content,
       title: review.title,
       shop: review.shop_food_id ? review.shop_food.shop : nil,
       rate: review.rate,
-      category: review.shop_food_id ? review.shop_food.category : nil,
+      category: review.shop_food_id ? review.shop_food.food.category : nil,
       picture: review.picture
     }
   end
@@ -83,8 +86,8 @@ class ReviewForm
 
   # 主キーに合致するShopFoodがあればそれを返す。なければ作成する。
   def _review_food
-    @review_food = ShopFood.find_by(name: food, shop: shop)
-    @review_food ||= ShopFood.create!(name: food, category: category,
-                                      shop: shop)
+    f = Food.find(food_id)
+    @review_food = ShopFood.find_by(food: f, shop: shop)
+    @review_food ||= ShopFood.create!(food: f, shop: shop)
   end
 end

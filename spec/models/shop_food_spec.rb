@@ -7,12 +7,8 @@ RSpec.describe ShopFood, type: :model do
 
   it { should have_many(:reviews) }
 
-  it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_length_of(:name).is_at_most(30) }
-  it { is_expected.to validate_uniqueness_of(:name).scoped_to(:shop).case_insensitive }
-
-  it { is_expected.to validate_presence_of(:category) }
-  it { is_expected.to validate_length_of(:category).is_at_most(15) }
+  it { should belong_to(:food) }
+  it { is_expected.to validate_presence_of(:food_id) }
 
   it { is_expected.to validate_presence_of(:shop) }
   it { is_expected.to validate_length_of(:shop).is_at_most(50) }

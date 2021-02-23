@@ -7,9 +7,6 @@ class ShopFood < ApplicationRecord
   default_scope -> { order(rate: :desc, name: :asc) }
 
   validates :food_id, presence: true
-  validates :name, presence: true, length: { maximum: 30 },
-                   uniqueness: { scope: :shop, case_sensitive: false }
-  validates :category, presence: true, length: { maximum: 15 }
   validates :shop, presence: true, length: { maximum: 50 }
 
   # 紐づくレビューの評価点数の平均を算出し、ShopFoodモデルのrateに保持する。

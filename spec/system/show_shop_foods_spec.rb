@@ -13,9 +13,9 @@ RSpec.describe 'ShowShopFoods', type: :system, js: true do
     review_list
     visit shop_food_path(shop_food.id)
     aggregate_failures do
-      expect(page).to have_content shop_food.name
+      expect(page).to have_content shop_food.food.name
       expect(page).to have_content get_shop_info(shop_food.shop)['name']
-      expect(page).to have_content shop_food.category
+      expect(page).to have_content shop_food.food.category
       expect(page).to have_selector("div.star-rating[data-rate='#{shop_food.rate}']")
       expect(page).to have_content "#{shop_food.reviews.count}件"
       expect(page).to have_selector '.pagination'

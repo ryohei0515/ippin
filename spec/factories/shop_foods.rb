@@ -6,5 +6,6 @@ FactoryBot.define do
     sequence(:category) { |n| "Category_#{n}" }
     shop { 'J001170499' }
     rate { Random.rand(8).to_f / 2 + 1 }
+    association :food, factory: :food, strategy: :create
   end
 end

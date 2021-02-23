@@ -6,14 +6,14 @@
     <div class="h-40 bg-gray-300 sm:h-full sm:w-full">food画像</div>
     <% end %>
     <div class="ml-4">
-      <div class="font-bold"><%= @shop_food.name %></div>
+      <div class="font-bold"><%= @shop_food.food.name %></div>
       <div class="flex flex-row">
         <div class="flex flex-row star-rating" data-rate="<%= @shop_food.rate %>"></div>
         <div class="ml-2">
           <%= @shop_food.rate %>
         </div>
       </div>
-      <div>カテゴリー：<%= @shop_food.category %> </div>
+      <div>カテゴリー：<%= @shop_food.food.category %> </div>
       <div>お店：<%= @shop['name'] %> </div>
     </div>
   </div>

@@ -7,9 +7,11 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
   include AjaxHelper
 
   let(:user) { FactoryBot.create(:user) }
+  let(:food) { FactoryBot.create(:food) }
   before do
+    @created_food_id = food.id
     @created_food = 'created_food'
-    @created_category = 'created_ctgry'
+    @created_category = food.category
     @created_content = 'created_content'
     @created_title = 'created_title'
     @created_shop = ''
@@ -22,7 +24,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     visit new_review_path
     expect do
       fill_in 'Content', with: @created_content
-      fill_in 'Food', with: @created_food
+      fill_in 'Food', with: @created_food_id
       fill_in 'Category', with: @created_category
       fill_in 'Title', with: @created_title
       # rate入力
@@ -40,8 +42,8 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     end.to change(Review, :count).by(1)
     created_review = user.reviews.first
     aggregate_failures do
-      expect(created_review.shop_food.name).to eq @created_food
-      expect(created_review.shop_food.category).to eq @created_category
+      expect(created_review.shop_food.food_id).to eq @created_food_id
+      expect(created_review.shop_food.food.category).to eq @created_category
       expect(created_review.content).to eq @created_content
       expect(created_review.title).to eq @created_title
       expect(created_review.shop_food.shop).to eq @created_shop
@@ -56,14 +58,14 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
       log_in_as user
       visit new_review_path
       fill_in 'Content', with: @created_content
-      fill_in 'Food', with: @created_food
+      fill_in 'Food', with: @created_food_id
       fill_in 'Category', with: @created_category
       fill_in 'Title', with: @created_title
     end
     after do
       expect do
         fill_in 'Content', with: @created_content
-        fill_in 'Food', with: @created_food
+        fill_in 'Food', with: @created_food_id
         fill_in 'Category', with: @created_category
         fill_in 'Title', with: @created_title
         # shop選択
