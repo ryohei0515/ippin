@@ -1,11 +1,14 @@
 <template>
 <div id="food-ddl" class="w-full relative">
   <div class="relative" @click="openAndCloseDdl">
-    <input type="text" id="display-text-box" :value="selectText" readonly class="border w-full pr-8">
-    <i class="fa fa-chevron-down absolute right-2 top-0 bottom-0 m-auto" aria-hidden="true"></i>
+    <input type="hidden" id="review_food_id" name="review[food_id]" :value="foodId">
+    <div class="pr-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      <label :value="selectText" >{{ selectText }}</label>
+      <i class="fa fa-chevron-down absolute right-2 top-0 bottom-0 m-auto" aria-hidden="true"></i>
+    </div>
   </div>
   <div v-if="listShow" class="p-2 absolute z-20 border bg-white shadow-lg w-full">
-    <input type="text" ref="filterTextBox" id="filter-text-box" class="border w-full" v-model="filterText" placeholder="複数条件入力可能です（例:北京　餃子）">
+    <input type="text" ref="filterTextBox" id="filter-text-box" class="mb-2 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="filterText" placeholder="複数条件入力可能です（例:北京　餃子）">
     <ul class="overflow-y-scroll" style="max-height: 40vh;">
       <li class="bg-yellow-100" v-show="filteredItem.length == 0">ヒットする料理がありません。再入力してください。</li>
       <li class="hover:bg-blue-300" v-for="food of filteredItem" :key="food.id" @click="selectItem(food)">{{ displayText(food) }}</li>
@@ -18,16 +21,25 @@
 import axios from "axios";
 
 export default {
+  props: ['initFoodId'],
   data() {
     return {
       foods: [],
       listShow: false,
       filterText: "",
-      selectText: ""
+      selectText: "",
+      foodId: "",
     };
   },
   async created() {
+    this.foodId = this.initFoodId
     this.foods = await axios.get('/api/v1/foods/');
+    if (this.foodId) {
+      var item = this.foods.data.find(food => food.id == this.foodId);
+      var txt = item.category + " | " + item.name;
+      if (item.name_kana) txt += " | " + item.name_kana;
+      this.selectText = txt;
+    }
   },
   mounted() {
     document.addEventListener('click', (e) => {
@@ -42,11 +54,12 @@ export default {
     },
     closeDdl() {
       this.listShow = false;
-      this.filterText = "";
     },
     selectItem(item) {
       this.selectText = this.displayText(item);
+      this.foodId = item.id
       this.closeDdl();
+      this.filterText = "";
     },
     displayText(item) {
       var txt = item.category + " | " + item.name;

@@ -10,6 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const foodDdl = new Vue({
     el: '#food-ddl',
-    render: h => h(Ddl)
+    render: h => h(Ddl, { props: { initFoodId: document.getElementById('food-id-label').getAttribute('data-food-id') } })
   })
 })
