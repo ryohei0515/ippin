@@ -22,9 +22,11 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     visit new_review_path
     expect do
       fill_in 'Content', with: @created_content
-      fill_in 'Food', with: @created_food_id
       fill_in 'Title', with: @created_title
-      # rate入力
+      # food選択
+      page.find('#food-ddl').click
+      page.find('#food-ddl').all('li')[0].click
+      # rate選択
       page.find('#review-star-rating').all('img')[@created_rate - 1].click
       # shop選択
       click_link 'お店を選択'
@@ -53,74 +55,126 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     before do
       log_in_as user
       visit new_review_path
-      fill_in 'Content', with: @created_content
-      fill_in 'Food', with: @created_food_id
-      fill_in 'Title', with: @created_title
     end
     after do
       expect do
         fill_in 'Content', with: @created_content
-        fill_in 'Food', with: @created_food_id
         fill_in 'Title', with: @created_title
+        # food選択
+        page.find('#food-ddl').click
+        page.find('#food-ddl').all('li')[0].click
+        # rate選択
+        page.find('#review-star-rating').all('img')[@created_rate - 1].click
         # shop選択
         click_link 'お店を選択'
         fill_in 'shop-textbox', with: '鳥'
         click_button '検索'
         wait_for_loaded_until_css_exists('.select-button')
         page.all('.select-button')[0].click
-        page.find('#review-star-rating').all('img')[@created_rate - 1].click
         click_button '新規投稿'
       end.to change(Review, :count).by(1)
+      expect(page).to_not have_selector '.alert-danger'
     end
-    describe 'shop以外のチェック' do
-      before do
+    it 'foodが未選択' do
+      expect do
+        fill_in 'Content', with: @created_content
+        fill_in 'Title', with: @created_title
+        # rate選択
+        page.find('#review-star-rating').all('img')[@created_rate - 1].click
         # shop選択
         click_link 'お店を選択'
         fill_in 'shop-textbox', with: '鳥'
         click_button '検索'
         wait_for_loaded_until_css_exists('.select-button')
         page.all('.select-button')[0].click
-        @created_shop = find('#review_shop', visible: false).value
-      end
-      it 'foodが誤り' do
-        expect do
-          page.find('#review-star-rating').all('img')[@created_rate - 1].click
-          fill_in 'Food', with: ''
-          click_button '新規投稿'
-        end.to change(Review, :count).by(0)
-      end
-      it 'contentが誤り' do
-        expect do
-          page.find('#review-star-rating').all('img')[@created_rate - 1].click
-          fill_in 'Content', with: ''
-          click_button '新規投稿'
-        end.to change(Review, :count).by(0)
-      end
-      it 'titleが誤り' do
-        expect do
-          page.find('#review-star-rating').all('img')[@created_rate - 1].click
-          fill_in 'Title', with: ''
-          click_button '新規投稿'
-        end.to change(Review, :count).by(0)
-      end
-      it 'rateが誤り' do
-        expect do
-          # Rateが入力されていない状態で投稿
-          click_button '新規投稿'
-        end.to change(Review, :count).by(0)
-      end
-      it '画像がキャッシュされること' do
-        attach_file 'Picture', file_fixture(@created_picture)
-        # Rateが入力されていない状態で投稿
         click_button '新規投稿'
-        expect(page).to have_selector("img[src$='thumb_#{@created_picture}']")
-      end
+      end.to change(Review, :count).by(0)
+      expect(page).to have_selector '.alert-danger'
+    end
+    it 'contentが未入力' do
+      expect do
+        fill_in 'Title', with: @created_title
+        # food選択
+        page.find('#food-ddl').click
+        page.find('#food-ddl').all('li')[0].click
+        # rate選択
+        page.find('#review-star-rating').all('img')[@created_rate - 1].click
+        # shop選択
+        click_link 'お店を選択'
+        fill_in 'shop-textbox', with: '鳥'
+        click_button '検索'
+        wait_for_loaded_until_css_exists('.select-button')
+        page.all('.select-button')[0].click
+        click_button '新規投稿'
+      end.to change(Review, :count).by(0)
+      expect(page).to have_selector '.alert-danger'
+    end
+    it 'titleが未入力' do
+      expect do
+        fill_in 'Content', with: @created_content
+        # food選択
+        page.find('#food-ddl').click
+        page.find('#food-ddl').all('li')[0].click
+        # rate選択
+        page.find('#review-star-rating').all('img')[@created_rate - 1].click
+        # shop選択
+        click_link 'お店を選択'
+        fill_in 'shop-textbox', with: '鳥'
+        click_button '検索'
+        wait_for_loaded_until_css_exists('.select-button')
+        page.all('.select-button')[0].click
+        click_button '新規投稿'
+      end.to change(Review, :count).by(0)
+      expect(page).to have_selector '.alert-danger'
+    end
+    it 'rateが未選択' do
+      expect do
+        fill_in 'Content', with: @created_content
+        fill_in 'Title', with: @created_title
+        # food選択
+        page.find('#food-ddl').click
+        page.find('#food-ddl').all('li')[0].click
+        # shop選択
+        click_link 'お店を選択'
+        fill_in 'shop-textbox', with: '鳥'
+        click_button '検索'
+        wait_for_loaded_until_css_exists('.select-button')
+        page.all('.select-button')[0].click
+        click_button '新規投稿'
+      end.to change(Review, :count).by(0)
+      expect(page).to have_selector '.alert-danger'
     end
     it 'shopが未選択' do
       expect do
+        fill_in 'Content', with: @created_content
+        fill_in 'Title', with: @created_title
+        # food選択
+        page.find('#food-ddl').click
+        page.find('#food-ddl').all('li')[0].click
+        # rate選択
         page.find('#review-star-rating').all('img')[@created_rate - 1].click
         click_button '新規投稿'
       end.to change(Review, :count).by(0)
+      expect(page).to have_selector '.alert-danger'
+    end
+    it '画像がキャッシュされること' do
+      fill_in 'Content', with: @created_content
+      # food選択
+      page.find('#food-ddl').click
+      page.find('#food-ddl').all('li')[0].click
+      # rate選択
+      page.find('#review-star-rating').all('img')[@created_rate - 1].click
+      # shop選択
+      click_link 'お店を選択'
+      fill_in 'shop-textbox', with: '鳥'
+      click_button '検索'
+      wait_for_loaded_until_css_exists('.select-button')
+      page.all('.select-button')[0].click
+
+      attach_file 'Picture', file_fixture(@created_picture)
+      # Titleが入力されていない状態で投稿
+      click_button '新規投稿'
+      expect(page).to have_selector("img[src$='thumb_#{@created_picture}']")
     end
   end
 end

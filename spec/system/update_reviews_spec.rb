@@ -25,7 +25,7 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     aggregate_failures do
       expect(page).to have_selector "input[value='#{rev.title}']"
       expect(page).to have_selector "#review-star-rating[data-rate='#{rev.rate}']"
-      expect(page).to have_selector "input[value='#{rev.shop_food.food_id}']"
+      expect(page).to have_content rev.shop_food.food.name
       expect(page).to have_content get_shop_info(rev.shop_food.shop)['name']
       expect(page).to have_selector "img[src$='#{rev.picture.filename}']"
       expect(page).to have_content rev.content
@@ -36,8 +36,12 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     log_in_as user
     visit edit_review_path(review.id)
     fill_in 'Content', with: @updated_content
-    fill_in 'Food', with: @updated_food_id
     fill_in 'Title', with: @updated_title
+    # food選択
+    page.find('#food-ddl').click
+    page.find('#food-ddl').all('li')[0].click
+    # rate選択
+    page.find('#review-star-rating').all('img')[@updated_rate - 1].click
     # shop選択
     click_link 'お店を選択'
     fill_in 'shop-textbox', with: '鳥'
@@ -45,7 +49,6 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     wait_for_loaded_until_css_exists('.select-button')
     page.all('.select-button')[0].click
     updated_shop = find('#review_shop', visible: false).value
-    page.find('#review-star-rating').all('img')[@updated_rate - 1].click
     attach_file 'Picture', file_fixture(@updated_picture)
     click_button '修正する'
     updated_review = Review.find(review.id)
@@ -64,17 +67,6 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     before do
       log_in_as user
       visit edit_review_path(review.id)
-      fill_in 'Content', with: @updated_content
-      fill_in 'Food', with: @updated_food_id
-      fill_in 'Title', with: @updated_title
-      attach_file 'Picture', file_fixture(@updated_picture)
-    end
-    it 'foodが誤り' do
-      expect do
-        fill_in 'Food', with: ''
-        click_button '修正する'
-      end.to_not change { review.reload.inspect }
-      expect(page).to have_selector '.alert-danger'
     end
     it 'contentが誤り' do
       expect do
@@ -91,7 +83,7 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     end
     it '画像がキャッシュされること' do
       attach_file 'Picture', file_fixture(@updated_picture)
-      fill_in 'Food', with: ''
+      fill_in 'Title', with: ''
       click_button '修正する'
       expect(page).to have_selector("img[src$='thumb_#{@updated_picture}']")
     end
