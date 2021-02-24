@@ -1,6 +1,9 @@
 <template>
 <div class="w-80 relative">
-  <input type="text" id="display-text-box" readonly @click="openAndCloseDdl" class="border w-full">
+  <div lass="relative" @click="openAndCloseDdl">
+    <input type="text" id="display-text-box" readonly class="border w-full">
+    <i class="fa fa-chevron-down absolute right-2 top-0 bottom-0 m-auto" aria-hidden="true"></i>
+  </div>
   <div v-if="listShow" class="p-2 absolute z-20 border bg-white shadow-lg w-full">
     <input type="text" ref="filterTextBox" id="filter-text-box" class="border w-full" v-model="filterText">
     <ul class="overflow-y-scroll" style="max-height: 40vh;">
