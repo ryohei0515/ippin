@@ -5,12 +5,12 @@
     <i class="fa fa-chevron-down absolute right-2 top-0 bottom-0 m-auto" aria-hidden="true"></i>
   </div>
   <div v-show="listShow" class="p-2 absolute z-20 border bg-white shadow-lg w-full">
-    <input type="text" ref="filterTextBox" id="filter-text-box" class="border w-full" v-model="filterText" placeholder="複数検索条件可能（例:北京 餃子）">
+    <input type="text" ref="filterTextBox" id="filter-text-box" class="border w-full" v-model="filterText" placeholder="複数条件入力可能です（例:北京　餃子）">
     <ul class="overflow-y-scroll" style="max-height: 40vh;">
+      <li class="bg-yellow-100" v-show="filteredItem.length == 0">ヒットする料理がありません。再入力してください。</li>
       <li class="hover:bg-blue-300" v-for="food of filteredItem" :key="food.id" @click="selectItem(food)">{{ displayText(food) }}</li>
     </ul>
   </div>
-  <!-- <div class="my-5">{{ foods }}</div> -->
 </div>
 </template>
 
