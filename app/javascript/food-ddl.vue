@@ -36,9 +36,9 @@ export default {
     this.foods = await axios.get('/api/v1/foods/');
     if (this.foodId) {
       var item = this.foods.data.find(food => food.id == this.foodId);
-      var txt = item.category + " | " + item.name;
-      if (item.name_kana) txt += " | " + item.name_kana;
-      this.selectText = txt;
+      this.selectText = this.displayText(item);
+    } else {
+      this.selectText = "未選択"
     }
   },
   mounted() {
