@@ -17,13 +17,14 @@ module HotpepperApi
     api_access(uri)
   end
 
-  # idが合致する店舗を取得する、カンマ区切りで複数選択可能
-  def search_shop_by_id(id)
-    return json_error_msg('idが不正です') if id.blank?
+  # idが合致する店舗を取得する。IDの複数指定が可能。（最大20）
+  def search_shop_by_id(*ids)
+    return json_error_msg('idが不正です') if ids.blank?
 
+    id_param = ids.join(',')
     api_params = {
       key: API_KEY,
-      id: id,
+      id: id_param,
       format: FORMAT
     }
     uri = URI.parse(API_URL + api_params.to_query)
