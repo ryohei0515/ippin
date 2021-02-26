@@ -1,0 +1,20 @@
+<% provide(:submit_text, "検索") %>
+<div class="">
+  <%= render 'shop_food_search_form' %>
+  <div class="my-5 p-3 bg-yellow-100 text-xl">
+    <h2>フード投稿一覧（<%= @shop_foods.total_count %>件）</h2>
+  </div>
+  <ol>
+    <%= render @shop_foods %>
+  </ol>
+  <div class="my-10">
+    <%= paginate @shop_foods %>
+  </div>
+</div>
+
+<%= stylesheet_pack_tag 'search_shop_foods' %>
+<%= javascript_pack_tag 'search_shop_foods' %>
+
+<script type="text/javascript">
+
+</script>

@@ -1,0 +1,8 @@
+<%= form_with(model: @form, url: shop_foods_path, method: :get, local:true) do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+<div class="mb-4">
+  <%= f.label :food_id, class: "block text-gray-700 text-sm font-bold mb-2",id: "food-id-label", data: { food_id: @form.food_id } %>
+  <div id="food-ddl"></div>
+</div>
+<%= f.submit yield(:submit_text), class: "w-full text-center rounded py-2 bg-blue-400 hover:bg-blue-600 text-white" %>
+<% end %>
