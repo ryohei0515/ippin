@@ -42,6 +42,12 @@
         <% end %>
       </li>
       <li class="border-b md:border-none">
+        <%= link_to(shop_foods_path, class: "header-nav-link") do %>
+          <i class="fa fa-search" aria-hidden="true"></i>
+          料理別お店検索
+        <% end %>
+      </li>
+      <li class="border-b md:border-none">
         <%= link_to(shops_path, class: "header-nav-link") do %>
           <i class="fa fa-search" aria-hidden="true"></i>
           お店検索

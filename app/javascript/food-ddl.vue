@@ -1,7 +1,7 @@
 <template>
 <div id="food-ddl" class="w-full relative">
   <div class="relative" @click="openAndCloseDdl">
-    <input type="hidden" id="review_food_id" name="review[food_id]" :value="foodId">
+    <input type="hidden" :name="name" :value="foodId">
     <div class="pr-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
       <label :value="selectText" >{{ selectText }}</label>
       <i class="fa fa-chevron-down absolute right-2 top-0 bottom-0 m-auto" aria-hidden="true"></i>
@@ -21,7 +21,10 @@
 import axios from "axios";
 
 export default {
-  props: ['initFoodId'],
+  props: {
+    initFoodId: { type: String, default: "" },
+    name: { type: String, default: "" }
+  },
   data() {
     return {
       foods: [],
