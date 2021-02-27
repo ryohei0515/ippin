@@ -2,8 +2,9 @@
 
 class ReviewForm
   include ActiveModel::Model
+  include HotpepperApi
   extend CarrierWave::Mount
-  attr_accessor :review_id, :user_id, :food_id, :content, :title, :shop,
+  attr_accessor :review_id, :user_id, :food_id, :content, :title, :shop_id,
                 :rate
 
   mount_uploader :picture, PictureUploader
@@ -12,7 +13,7 @@ class ReviewForm
   validates :food_id, presence: true
   validates :content, presence: true, length: { maximum: 400 }
   validates :title, presence: true, length: { maximum: 50 }
-  validates :shop, presence: true, length: { maximum: 50 }
+  validates :shop_id, presence: true
   validates :rate, numericality: { greater_than_or_equal_to: 1,
                                    less_than_or_equal_to: 5 }
 
@@ -32,7 +33,7 @@ class ReviewForm
     return if invalid?
 
     ActiveRecord::Base.transaction do
-      _review_food
+      @review_food = _review_food
       review = Review.create!(user_id: user_id, shop_food: @review_food,
                               content: content, title: title,
                               rate: rate, picture: picture)
@@ -49,7 +50,7 @@ class ReviewForm
     return if invalid?
 
     ActiveRecord::Base.transaction do
-      _review_food
+      @review_food = _review_food
       review.update(user_id: user_id, shop_food: @review_food,
                     content: content, title: title,
                     rate: rate, picture: picture)
@@ -73,7 +74,7 @@ class ReviewForm
       food_id: review.shop_food_id ? review.shop_food.food_id : nil,
       content: review.content,
       title: review.title,
-      shop: review.shop_food_id ? review.shop_food.shop : nil,
+      shop_id: review.shop_food_id ? review.shop_food.shop_id : nil,
       rate: review.rate,
       picture: review.picture
     }
@@ -82,8 +83,18 @@ class ReviewForm
 
   # 主キーに合致するShopFoodがあればそれを返す。なければ作成する。
   def _review_food
+    shop = find_or_create_shop(shop_id)
     food = Food.find(food_id)
-    @review_food = ShopFood.find_by(food: food, shop: shop)
-    @review_food ||= ShopFood.create!(food: food, shop: shop)
+    ShopFood.find_by(food: food, shop: shop) || ShopFood.create!(food: food, shop: shop)
+  end
+
+  # 引数のidに該当するレコードがShop存在する場合はそれを返す。なければ作成する。
+  def find_or_create_shop(id)
+    shop = Shop.find_by_id(id)
+    return shop unless shop.nil?
+
+    # shopが見つからない場合、APIより情報を取得し登録する。
+    shop_info = search_shop_by_id(id)['shop'][0]
+    Shop.create!(id: id, large_area: shop_info['large_area'], middle_area: shop_info['middle_area'])
   end
 end

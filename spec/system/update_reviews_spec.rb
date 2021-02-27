@@ -11,7 +11,7 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
   let(:food) { FactoryBot.create(:food) }
   let(:review) { FactoryBot.create(:review, user: user) }
   before do
-    @updated_food_id = food.id
+    food
     @updated_content = 'updated_content'
     @updated_title = 'updated_title'
     @updated_rate = 4
@@ -26,7 +26,7 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
       expect(page).to have_selector "input[value='#{rev.title}']"
       expect(page).to have_selector "#review-star-rating[data-rate='#{rev.rate}']"
       expect(page).to have_content rev.shop_food.food.name
-      expect(page).to have_content get_shop_info(rev.shop_food.shop)['name']
+      expect(page).to have_content get_shop_info(rev.shop_food.shop_id)['name']
       expect(page).to have_selector "img[src$='#{rev.picture.filename}']"
       expect(page).to have_content rev.content
     end
@@ -48,15 +48,15 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     click_button '検索'
     wait_for_loaded_until_css_exists('.select-button')
     page.all('.select-button')[0].click
-    updated_shop = find('#review_shop', visible: false).value
+    updated_shop = find('#review_shop_id', visible: false).value
     attach_file 'Picture', file_fixture(@updated_picture)
     click_button '修正する'
     updated_review = Review.find(review.id)
     aggregate_failures do
-      expect(updated_review.shop_food.food_id).to eq @updated_food_id
+      expect(updated_review.shop_food.food_id).to eq Food.first.id
       expect(updated_review.content).to eq @updated_content
       expect(updated_review.title).to eq @updated_title
-      expect(updated_review.shop_food.shop).to eq updated_shop
+      expect(updated_review.shop_food.shop_id).to eq updated_shop
       expect(updated_review.rate).to eq @updated_rate
       expect(updated_review.picture.file.filename).to eq @updated_picture
       expect(current_path).to eq review_path(review.id)

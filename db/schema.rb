@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_26_073024) do
+ActiveRecord::Schema.define(version: 2021_02_27_034843) do
 
   create_table "foods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -35,14 +35,15 @@ ActiveRecord::Schema.define(version: 2021_02_26_073024) do
   end
 
   create_table "shop_foods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "shop"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "rate"
     t.bigint "food_id", null: false
-    t.index ["food_id", "shop"], name: "index_shop_foods_on_food_id_and_shop", unique: true
+    t.string "shop_id", null: false
+    t.index ["food_id", "shop_id"], name: "index_shop_foods_on_food_id_and_shop_id", unique: true
     t.index ["food_id"], name: "index_shop_foods_on_food_id"
     t.index ["rate"], name: "index_shop_foods_on_rate"
+    t.index ["shop_id"], name: "index_shop_foods_on_shop_id"
   end
 
   create_table "shops", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -66,4 +67,5 @@ ActiveRecord::Schema.define(version: 2021_02_26_073024) do
   add_foreign_key "reviews", "shop_foods"
   add_foreign_key "reviews", "users"
   add_foreign_key "shop_foods", "foods"
+  add_foreign_key "shop_foods", "shops"
 end

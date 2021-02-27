@@ -9,10 +9,9 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
   let(:user) { FactoryBot.create(:user) }
   let(:food) { FactoryBot.create(:food) }
   before do
-    @created_food_id = food.id
+    food
     @created_content = 'created_content'
     @created_title = 'created_title'
-    @created_shop = ''
     @created_rate = 4
     @created_picture = 'test_pic_01.jpg'
   end
@@ -34,17 +33,17 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
       click_button '検索'
       wait_for_loaded_until_css_exists('.select-button')
       page.all('.select-button')[0].click
-      @created_shop = find('#review_shop', visible: false).value
+      @created_shop = find('#review_shop_id', visible: false).value
       # pictureアップロード
       attach_file 'Picture', file_fixture(@created_picture)
       click_button '新規投稿'
     end.to change(Review, :count).by(1)
     created_review = user.reviews.first
     aggregate_failures do
-      expect(created_review.shop_food.food_id).to eq @created_food_id
+      expect(created_review.shop_food.food_id).to eq Food.first.id
       expect(created_review.content).to eq @created_content
       expect(created_review.title).to eq @created_title
-      expect(created_review.shop_food.shop).to eq @created_shop
+      expect(created_review.shop_food.shop_id).to eq @created_shop
       expect(created_review.rate).to eq @created_rate
       expect(created_review.picture.file.filename).to eq @created_picture
       expect(current_path).to eq review_path(created_review.id)

@@ -10,8 +10,8 @@ RSpec.describe ShopFood, type: :model do
   it { should belong_to(:food) }
   it { is_expected.to validate_presence_of(:food_id) }
 
-  it { is_expected.to validate_presence_of(:shop) }
-  it { is_expected.to validate_length_of(:shop).is_at_most(50) }
+  it { should belong_to(:shop) }
+  it { is_expected.to validate_presence_of(:shop_id) }
 
   it 'rateの降順でデータが取得できること' do
     FactoryBot.create :shop_food, rate: 3
