@@ -4,5 +4,9 @@
   <%= f.label :food_id, class: "block text-gray-700 text-sm font-bold mb-2",id: "food-id-label", data: { food_id: @form.food_id } %>
   <div id="food-ddl"></div>
 </div>
+<div class="mb-4">
+  <%= f.label :large_area, class: "block text-gray-700 text-sm font-bold mb-2",id: "area-label", data: { large_area: @form.large_area, middle_area: @form.middle_area } %>
+  <div id="area-ddl"></div>
+</div>
 <%= f.submit yield(:submit_text), class: "w-full text-center rounded py-2 bg-blue-400 hover:bg-blue-600 text-white" %>
 <% end %>
