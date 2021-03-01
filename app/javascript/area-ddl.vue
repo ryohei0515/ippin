@@ -2,14 +2,16 @@
   <div>
     <div>largeAreas</div>
     <select :name="largeAreaName" v-model="largeAreaSelected" class="border w-80">
-      <option value="-">-</option>
+      <option :value="initLargeArea" v-if="initLargeArea">{{ initLargeArea }}</option>
+      <option value="">-</option>
       <option v-for="areaName in largeAreas" :value="areaName" :key="areaName">
         {{ areaName }}
       </option>
     </select>
     <div>middleAreas</div>
-    <select :name="middleAreaName" class="border w-80">
-      <option value="-">-</option>
+    <select :name="middleAreaName" class="border w-80" :value="middleAreaSelected">
+      <option :value="initMiddleArea" v-if="initMiddleArea && initLargeArea == largeAreaSelected">{{ initMiddleArea }}</option>
+      <option value="">-</option>
       <option v-for="areaName in middleAreas" :value="areaName" :key="areaName">
         {{ areaName }}
       </option>
@@ -79,8 +81,10 @@ export default {
         "鹿児島",
         "沖縄",
       ],
+      middleAreas: [],
       middleAreasGroup: {},
       largeAreaSelected: "",
+      middleAreaSelected: "",
     };
   },
   async created() {
@@ -96,12 +100,17 @@ export default {
         this.middleAreasGroup[data.large_area.name] = [data.name];
       }
     }
+    this.middleAreas = this.middleAreasGroup[this.largeAreaSelected];
   },
-  computed: {
-    middleAreas: function () {
-      return this.middleAreasGroup[this.largeAreaSelected];
-    },
+  mounted() {
+    this.largeAreaSelected = this.initLargeArea
+    this.middleAreaSelected = this.initMiddleArea
   },
+  watch: {
+    largeAreaSelected: function(v) {
+      this.middleAreas = this.middleAreasGroup[v];
+    }
+  }
 };
 </script>
 
