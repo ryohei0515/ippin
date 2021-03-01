@@ -22,6 +22,6 @@ class ShopFoodsController < ApplicationController
   private
 
   def search_params
-    params.permit(:food_id)
+    params.permit(:food_id, :large_area, :middle_area)
   end
 end
