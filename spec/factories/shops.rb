@@ -16,13 +16,13 @@ FactoryBot.define do
 
     trait :specific_large_area do
       sequence(:id) { |n| large_area_shop_list[n % 5] }
-      large_area { 'Z022' }
+      large_area { '京都' }
     end
 
     trait :specific_middle_area do
       sequence(:id) { |n| middle_area_shop_list[n % 5] }
-      large_area { 'Z023' }
-      middle_area { 'Y356' }
+      large_area { '大阪' }
+      middle_area { '茨木' }
     end
   end
 end

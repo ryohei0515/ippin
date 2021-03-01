@@ -95,6 +95,6 @@ class ReviewForm
 
     # shopが見つからない場合、APIより情報を取得し登録する。
     shop_info = search_shop_by_id(id)['shop'][0]
-    Shop.create!(id: id, large_area: shop_info['large_area']['code'], middle_area: shop_info['middle_area']['code'])
+    Shop.create!(id: id, large_area: shop_info['large_area']['name'], middle_area: shop_info['middle_area']['name'])
   end
 end
