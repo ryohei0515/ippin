@@ -33,7 +33,7 @@
     </div>
 
   </div>
-  <div :class="isOpen ? 'block' : 'hidden'" class="absolute w-full bg-yellow-200 md:block md:static md:h-12 md:bg-gradient-to-b md:from-yellow-400 md:to-yellow-200 z-30">
+  <div id="sub-menu" :class="isOpen ? 'block' : 'hidden'" class="hidden absolute w-full bg-yellow-200 md:block md:static md:h-12 md:bg-gradient-to-b md:from-yellow-400 md:to-yellow-200 z-30">
     <ul class="md:flex md:justify-start md:items-center">
       <li class="border-b md:border-none">
         <%= link_to(help_path, class: "header-nav-link") do %>
@@ -73,6 +73,7 @@
 
 <script>
   $(document).on('DOMContentLoaded', function() {
+    document.getElementById('sub-menu').classList.remove('hidden')
     const header = new Vue({
       el: '#header',
       data: {
