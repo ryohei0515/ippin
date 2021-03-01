@@ -5,7 +5,7 @@ import Ddl from '../food-ddl.vue'
 document.addEventListener('DOMContentLoaded', () => {
   const searchModal = new Vue({
     el: '#select-shop-modal',
-    render: h => h(Modal, { props: { initShopId: document.getElementById('shop-label').getAttribute('data-shop') } })
+    render: h => h(Modal, { props: { initShopId: document.getElementById('shop-label').getAttribute('data-shop-id') } })
   })
 
   const foodDdl = new Vue({

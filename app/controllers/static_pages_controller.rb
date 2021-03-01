@@ -6,7 +6,7 @@ class StaticPagesController < ApplicationController
     return if @shop_foods.empty?
 
     # 料理に紐付く店舗情報取得
-    param = @shop_foods.pluck(:shop).join(',')
+    param = @shop_foods.pluck(:shop_id).join(',')
     result = search_shop_by_id(param)['shop']
     @shops = result.map { |r| [r['id'], r] }.to_h
   end

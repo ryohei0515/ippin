@@ -13,7 +13,7 @@ module HotpepperApi
       format: FORMAT,
       count: count
     }
-    uri = URI.parse(API_URL + api_params.to_query)
+    uri = URI.parse(SHOP_API_URL + api_params.to_query)
     api_access(uri)
   end
 
@@ -27,7 +27,17 @@ module HotpepperApi
       id: id_param,
       format: FORMAT
     }
-    uri = URI.parse(API_URL + api_params.to_query)
+    uri = URI.parse(SHOP_API_URL + api_params.to_query)
+    api_access(uri)
+  end
+
+  # Areaの一覧を取得する。
+  def index_area
+    api_params = {
+      key: API_KEY,
+      format: FORMAT
+    }
+    uri = URI.parse(AREA_API_URL + api_params.to_query)
     api_access(uri)
   end
 end
@@ -36,7 +46,8 @@ private
 
 API_KEY = Rails.application.credentials.api_key[:HOTPEPPER]
 FORMAT = 'json'
-API_URL = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?'
+SHOP_API_URL = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?'
+AREA_API_URL = 'http://webservice.recruit.co.jp/hotpepper/middle_area/v1/?'
 
 # httpでアクセスし、結果をJSON形式で返却する。
 def api_access(uri)
