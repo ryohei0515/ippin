@@ -103,8 +103,8 @@ export default {
     this.middleAreas = this.middleAreasGroup[this.largeAreaSelected];
   },
   mounted() {
-    this.largeAreaSelected = this.initLargeArea
-    this.middleAreaSelected = this.initMiddleArea
+    this.largeAreaSelected = this.initLargeArea != null ? this.initLargeArea : "";
+    this.middleAreaSelected = this.initMiddleArea != null ? this.initMiddleArea : "";
   },
   watch: {
     largeAreaSelected: function(v) {
