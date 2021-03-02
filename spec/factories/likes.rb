@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :like do
-    user { nil }
-    review { nil }
+    association :user, factory: :user, strategy: :create
+    association :review, factory: :review, strategy: :create
   end
 end
