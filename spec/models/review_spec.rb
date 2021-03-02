@@ -35,4 +35,6 @@ RSpec.describe Review, type: :model do
 
   it { is_expected.to validate_presence_of(:shop_food_id) }
   it { should belong_to(:shop_food) }
+
+  it { should have_many(:likes) }
 end

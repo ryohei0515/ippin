@@ -68,6 +68,8 @@ RSpec.describe User, type: :model do
     end
   end
 
+  it { should have_many(:likes) }
+
   describe '#authenticated?' do
     it '引数がnilの時、falseを返すこと' do
       expect(build(:user).authenticated?(nil)).to be_falsey
