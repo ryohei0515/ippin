@@ -50,4 +50,19 @@ class User < ApplicationRecord
   def forget
     update_attribute(:remember_digest, nil)
   end
+
+  # reviewをLikeに登録する
+  def like(review)
+    like_reviews << review
+  end
+
+  # reviewをLikeから削除する
+  def unlike(review)
+    likes.find_by(review_id: review.id).destroy
+  end
+
+  # Likeに登録されているかを返す
+  def liked?(review)
+    like_reviews.include?(review)
+  end
 end

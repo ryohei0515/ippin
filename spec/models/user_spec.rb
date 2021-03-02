@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  let(:user) { FactoryBot.create(:user) }
+  let(:review) { FactoryBot.create(:review) }
   it 'name、email、passwordが全て有効' do
     expect(build(:user)).to be_valid
   end
@@ -82,8 +84,30 @@ RSpec.describe User, type: :model do
   end
 
   it 'ユーザを削除した時、レビューも併せて削除されること' do
-    user = create(:user)
     FactoryBot.create(:review, user: user)
     expect { user.destroy }.to change { Review.count }.by(-1)
+  end
+
+  describe '#like' do
+    it '引数のreviewをlikeに登録できること' do
+      expect { user.like(review) }.to change { user.like_reviews.count }.by(1)
+    end
+  end
+
+  describe '#unlike' do
+    it '引数のreviewをlikeから削除できること' do
+      user.like(review)
+      expect { user.unlike(review) }.to change { user.like_reviews.count }.by(-1)
+    end
+  end
+
+  describe '#liked?' do
+    it '引数のreviewをLikeしていない場合、falseを返すこと' do
+      expect(user.liked?(review)).to be_falsey
+    end
+    it '引数のreviewをLikeしている場合、trueを返すこと' do
+      user.like(review)
+      expect(user.liked?(review)).to be_truthy
+    end
   end
 end
