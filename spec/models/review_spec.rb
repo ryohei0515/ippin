@@ -42,4 +42,7 @@ RSpec.describe Review, type: :model do
       .through(:likes)
       .source(:user)
   end
+
+  it { should delegate_method(:food).to(:shop_food) }
+  it { should delegate_method(:shop).to(:shop_food) }
 end
