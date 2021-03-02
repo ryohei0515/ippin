@@ -13,4 +13,5 @@ class Review < ApplicationRecord
                                    less_than_or_equal_to: 5 }
   validates :shop_food_id, presence: true
   has_many :likes, dependent: :destroy
+  has_many :liked_user, through: :likes, source: :user
 end

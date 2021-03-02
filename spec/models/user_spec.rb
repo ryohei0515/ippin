@@ -69,6 +69,11 @@ RSpec.describe User, type: :model do
   end
 
   it { should have_many(:likes) }
+  it do
+    should have_many(:like_reviews)
+      .through(:likes)
+      .source(:review)
+  end
 
   describe '#authenticated?' do
     it '引数がnilの時、falseを返すこと' do

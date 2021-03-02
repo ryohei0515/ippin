@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :foods, through: :reviews
   has_many :likes, dependent: :destroy
+  has_many :like_reviews, through: :likes, source: :review
 
   # 引数の文字列のハッシュ値を返す
   def self.digest(string)

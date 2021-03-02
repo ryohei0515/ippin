@@ -37,4 +37,9 @@ RSpec.describe Review, type: :model do
   it { should belong_to(:shop_food) }
 
   it { should have_many(:likes) }
+  it do
+    should have_many(:liked_user)
+      .through(:likes)
+      .source(:user)
+  end
 end
