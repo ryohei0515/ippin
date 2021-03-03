@@ -38,7 +38,7 @@ RSpec.describe Review, type: :model do
 
   it { should have_many(:likes) }
   it do
-    should have_many(:liked_user)
+    should have_many(:liked_users)
       .through(:likes)
       .source(:user)
   end
