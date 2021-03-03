@@ -28,8 +28,8 @@
                 <div class="ml-4" id="hint1"></div>
               </div>
           </div>
-
           <div class="m-2"><%= review.content %></div>
+          <%= render 'likes/like_form', review: review if logged_in? %>
         </div>
     </div>
   </div>
