@@ -35,4 +35,14 @@ RSpec.describe Review, type: :model do
 
   it { is_expected.to validate_presence_of(:shop_food_id) }
   it { should belong_to(:shop_food) }
+
+  it { should have_many(:likes) }
+  it do
+    should have_many(:liked_users)
+      .through(:likes)
+      .source(:user)
+  end
+
+  it { should delegate_method(:food).to(:shop_food) }
+  it { should delegate_method(:shop).to(:shop_food) }
 end

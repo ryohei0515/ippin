@@ -15,6 +15,8 @@ class User < ApplicationRecord
 
   has_many :reviews, dependent: :destroy
   has_many :foods, through: :reviews
+  has_many :likes, dependent: :destroy
+  has_many :like_reviews, through: :likes, source: :review
 
   # 引数の文字列のハッシュ値を返す
   def self.digest(string)
@@ -47,5 +49,20 @@ class User < ApplicationRecord
   # 永続セッションの破棄
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  # reviewをLikeに登録する
+  def like(review)
+    like_reviews << review
+  end
+
+  # reviewをLikeから削除する
+  def unlike(review)
+    likes.find_by(review_id: review.id).destroy
+  end
+
+  # Likeに登録されているかを返す
+  def liked?(review)
+    like_reviews.include?(review)
   end
 end
