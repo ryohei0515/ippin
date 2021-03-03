@@ -47,8 +47,8 @@ RSpec.describe User, type: :model do
       end
     end
     it '他ユーザと重複しているため無効' do
-      create(:user)
-      user = build(:user)
+      duplicate_user = create(:user)
+      user = build(:user, email: duplicate_user.email)
       expect(user).to_not be_valid
       user.email = 'other@example.com'
       expect(user).to be_valid
