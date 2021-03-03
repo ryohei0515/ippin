@@ -29,6 +29,7 @@
               </div>
           </div>
           <div class="m-2"><%= review.content %></div>
+          <%= render 'likes/count', review: review %>
           <%= render 'likes/like_form', review: review if logged_in? %>
         </div>
     </div>
