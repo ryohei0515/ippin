@@ -19,7 +19,7 @@ RSpec.describe 'ShowShopFoods', type: :system, js: true do
       expect(page).to have_selector("div.star-rating[data-rate='#{shop_food.rate}']")
       expect(page).to have_content "#{shop_food.reviews.count}件"
       expect(page).to have_selector '.pagination'
-      shop_food.reviews.order(rate: :desc)[0..4] do |review|
+      shop_food.reviews[0..4].each do |review|
         expect(page).to have_content review.title
         expect(page).to have_content review.content
         expect(page).to have_selector("div.star-rating[data-rate='#{review.rate}']")
