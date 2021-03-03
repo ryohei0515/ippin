@@ -11,11 +11,12 @@ RSpec.describe 'likeReviews', type: :system, js: true do
   let(:review) { FactoryBot.create(:review, user: other_user) }
   let(:own_review) { FactoryBot.create(:review, user: user) }
 
-  it 'likeしていないreviewに対し、like用のボタンを押すことで、登録されること' do
+  before do
     log_in_as user
-    @user = user
     visit shop_food_path(review.shop_food_id)
+  end
 
+  it 'likeしていないreviewに対し、like用のボタンを押すことで、登録されること' do
     expect do
       click_button '参考になった'
       wait_for_loaded_until_css_disappeared('input[value="参考になった"]')
@@ -25,8 +26,6 @@ RSpec.describe 'likeReviews', type: :system, js: true do
   end
 
   it 'like済のreviewに対し、like用のボタンを押すことで、解除されること' do
-    log_in_as user
-    visit shop_food_path(review.shop_food_id)
     click_button '参考になった'
     wait_for_loaded_until_css_disappeared('input[value="参考になった"]')
 
@@ -38,8 +37,21 @@ RSpec.describe 'likeReviews', type: :system, js: true do
     expect(page).to have_button '参考になった'
   end
 
+  it 'like用のボタンをクリックするたびに、画面のliked_usersの人数が更新されること' do
+    expect(page).to have_content "#{review.liked_users.count}人"
+
+    FactoryBot.create_list(:like, Random.rand(2..5), review: review)
+    click_button '参考になった'
+    wait_for_loaded_until_css_disappeared('input[value="参考になった"]')
+    expect(page).to have_content "#{review.liked_users.count}人"
+
+    FactoryBot.create_list(:like, Random.rand(2..5), review: review)
+    click_button '取消'
+    wait_for_loaded_until_css_disappeared('input[value="取消"]')
+    expect(page).to have_content "#{review.liked_users.count}人"
+  end
+
   it 'ユーザ自身のreviewに対し、like用のボタンが表示されないこと' do
-    log_in_as user
     visit shop_food_path(own_review.shop_food_id)
 
     expect(page).to_not have_button '参考になった'

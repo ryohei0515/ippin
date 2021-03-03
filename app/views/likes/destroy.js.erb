@@ -1,1 +1,2 @@
 $("<%= "#like_form_#{@review.id}" %>").html("<%= escape_javascript(render('likes/like', review: @review)) %>");
+$("<%= "#count_likes_#{@review.id}" %>").html("<%= escape_javascript(render('likes/count', review: @review)) %>");
