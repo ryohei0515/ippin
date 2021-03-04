@@ -23,7 +23,8 @@ RUN apk update \
     bash \
     build-base \
     imagemagick \
-	  mysql-client \
+    less \
+    mysql-client \
     mysql-dev \
     nodejs \
     python2 \
