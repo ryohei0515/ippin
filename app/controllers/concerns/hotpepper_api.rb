@@ -4,7 +4,7 @@ module HotpepperApi
   extend ActiveSupport::Concern
 
   # 検索条件に合致する店舗を取得する、半角スペースで複数条件指定可能
-  def search_shop(term, count = 100)
+  def search_shop(term, count = ENV['HOTPEPPER_API_SEARCH_SHOPS_LIMIT'].to_i)
     return json_error_msg('ERROR: 条件指定が不正です') if term.blank?
 
     api_params = {
@@ -14,7 +14,9 @@ module HotpepperApi
       count: count
     }
     uri = URI.parse(SHOP_API_URL + api_params.to_query)
-    api_access(uri)
+    # api_access(uri)
+    # ポートフォリオ用の仮店舗も検索できるよう修正。#56
+    TemporaryShop.search(api_access(uri), term)
   end
 
   # idが合致する店舗を取得する。IDの複数指定が可能。（最大20）
@@ -28,7 +30,9 @@ module HotpepperApi
       format: FORMAT
     }
     uri = URI.parse(SHOP_API_URL + api_params.to_query)
-    api_access(uri)
+    # api_access(uri)
+    # ポートフォリオ用の仮店舗も検索できるよう修正。#56
+    TemporaryShop.search_by_id(api_access(uri), ids)
   end
 
   # Areaの一覧を取得する。

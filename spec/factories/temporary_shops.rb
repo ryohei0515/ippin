@@ -1,0 +1,73 @@
+# frozen_string_literal: true
+
+FactoryBot.define do
+  factory :temporary_shop do
+    id { 'test_id' }
+    name { 'test_name' }
+    logo_image { 'test_logo_image' }
+    name_kana { 'test_name_kana' }
+    address { 'test_address' }
+    station_name { 'test_station_name' }
+    ktai_coupon { 1 }
+    large_service_area_code { 'test_large_service_area_code' }
+    large_service_area_name { 'test_large_service_area_name' }
+    service_area_code { 'test_service_area_code' }
+    service_area_name { 'test_service_area_name' }
+    large_area_code { 'test_large_area_code' }
+    large_area_name { 'test_large_area_name' }
+    middle_area_code { 'test_middle_area_code' }
+    middle_area_name { 'test_middle_area_name' }
+    small_area_code { 'test_small_area_code' }
+    small_area_name { 'test_small_area_name' }
+    lat { 1 }
+    lng { 1 }
+    genre_code { 'test_genre_code' }
+    genre_name { 'test_genre_name' }
+    genre_catch { 'test_genre_catch' }
+    sub_genre_code { 'test_sub_genre_code' }
+    sub_genre_name { 'test_sub_genre_name' }
+    budget_code { 'test_budget_code' }
+    budget_name { 'test_budget_name' }
+    budget_average { 'test_budget_average' }
+    budget_memo { 'test_budget_memo' }
+    catch { 'test_catch' }
+    capacity { 1 }
+    access { 'test_access' }
+    mobile_access { 'test_mobile_access' }
+    urls_pc { 'test_urls_pc' }
+    open { 'test_open' }
+    close { 'test_close' }
+    party_capacity { 1 }
+    wifi { 'test_wifi' }
+    wedding { 'test_wedding' }
+    course { 'test_course' }
+    free_drink { 'test_free_drink' }
+    free_food { 'test_free_food' }
+    private_room { 'test_private_room' }
+    horigotatsu { 'test_horigotatsu' }
+    tatami { 'test_tatami' }
+    card { 'test_card' }
+    non_smoking { 'test_non_smoking' }
+    charter { 'test_charter' }
+    ktai { 'test_ktai' }
+    parking { 'test_parking' }
+    barrier_free { 'test_barrier_free' }
+    other_memo { 'test_other_memo' }
+    sommelier { 'test_sommelier' }
+    open_air { 'test_open_air' }
+    show { 'test_show' }
+    equipment { 'test_equipment' }
+    karaoke { 'test_karaoke' }
+    band { 'test_band' }
+    tv { 'test_tv' }
+    english { 'test_english' }
+    pet { 'test_pet' }
+    child { 'test_child' }
+    lunch { 'test_lunch' }
+    midnight { 'test_midnight' }
+    shop_detail_memo { 'test_shop_detail_memo' }
+    coupon_urls_pc { 'test_coupon_urls_pc' }
+    coupon_urls_sp { 'test_coupon_urls_sp' }
+    search_keyword { 'test_search_keyword' }
+  end
+end

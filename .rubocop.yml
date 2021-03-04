@@ -12,6 +12,7 @@ AllCops:
     - 'vendor/**/*'
     - 'node_modules/**/*'
     - 'tmp/**/*'
+    - 'app/models/temporary_shop.rb' # ポートフォリオ用の機能のため、除外。
 
 # 日本語コメントを許可。
 Style/AsciiComments:

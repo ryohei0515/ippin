@@ -176,4 +176,39 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
       expect(page).to have_selector("img[src$='thumb_#{@created_picture}']")
     end
   end
+
+  it 'TemporaryShopのレビューを新規作成できていること' do
+    log_in_as user
+    FactoryBot.create(:temporary_shop)
+    visit new_review_path
+    expect do
+      fill_in 'Content', with: @created_content
+      fill_in 'Title', with: @created_title
+      # food選択
+      page.find('#food-ddl').click
+      page.find('#food-ddl').all('li')[0].click
+      # rate選択
+      page.find('#review-star-rating').all('img')[@created_rate - 1].click
+      # shop選択
+      click_link 'お店を選択'
+      fill_in 'shop-textbox', with: 'test'
+      click_button '検索'
+      wait_for_loaded_until_css_exists('.select-button')
+      page.all('.select-button')[0].click
+      @created_shop = find('#review_shop_id', visible: false).value
+      # pictureアップロード
+      attach_file 'Picture', file_fixture(@created_picture)
+      click_button '新規投稿'
+    end.to change(Review, :count).by(1)
+    created_review = user.reviews.first
+    aggregate_failures do
+      expect(created_review.shop_food.food_id).to eq Food.first.id
+      expect(created_review.content).to eq @created_content
+      expect(created_review.title).to eq @created_title
+      expect(created_review.shop_food.shop_id).to eq @created_shop
+      expect(created_review.rate).to eq @created_rate
+      expect(created_review.picture.file.filename).to eq @created_picture
+      expect(current_path).to eq review_path(created_review.id)
+    end
+  end
 end
