@@ -5,7 +5,8 @@ class TemporaryShop < ApplicationRecord
     return hash if hash['error'].present?
 
     hash['results_returned'] = hash['results_returned'].to_i # 処理用に数値に変換する。最後文字列に戻す。
-    shops = TemporaryShop.where("search_keyword like '%#{term}%'")
+    query = "%#{term.gsub(/ /, "%' AND search_keyword like '%")}%"
+    shops = TemporaryShop.where("search_keyword like '#{query}'")
     hash['shop'] = [] if hash['results_returned'].zero?
 
     shops.each_with_index do |shop, i|
@@ -29,7 +30,8 @@ class TemporaryShop < ApplicationRecord
     return hash if hash['error'].present? || hash['results_returned'].to_i == ids.count
 
     hash['results_returned'] = hash['results_returned'].to_i # 処理用に数値に変換する。最後文字列に戻す。
-    shops = TemporaryShop.where("id in ('#{ids.join(",").gsub(/,/, "','")}')")
+    query = "'#{ids.join(",").gsub(/,/, "','")}'"
+    shops = TemporaryShop.where("id in (#{query})")
     hash['shop'] = [] if hash['results_returned'].zero?
 
     shops.each do |shop|
