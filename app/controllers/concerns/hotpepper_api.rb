@@ -4,7 +4,7 @@ module HotpepperApi
   extend ActiveSupport::Concern
 
   # 検索条件に合致する店舗を取得する、半角スペースで複数条件指定可能
-  def search_shop(term, count = ENV['HOTPEPPER_API_SEARCH_SHOPS_LIMIT'].to_i)
+  def search_shop(term, count = Settings.hotpepper_api.search_shops_limit)
     return json_error_msg('ERROR: 条件指定が不正です') if term.blank?
 
     api_params = {

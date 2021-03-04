@@ -5,7 +5,6 @@ class TemporaryShop < ApplicationRecord
     return hash if hash['error'].present?
 
     hash['results_returned'] = hash['results_returned'].to_i # 処理用に数値に変換する。最後文字列に戻す。
-    limit = ENV['HOTPEPPER_API_SEARCH_SHOPS_LIMIT'].to_i
     shops = TemporaryShop.where("search_keyword like '%#{term}%'")
     hash['shop'] = [] if hash['results_returned'].zero?
 
@@ -13,7 +12,7 @@ class TemporaryShop < ApplicationRecord
       hash_shop = convert_hash(shop)
       hash['results_available'] += 1
 
-      if hash['results_returned'] < limit
+      if hash['results_returned'] < Settings.hotpepper_api.search_shops_limit
         hash['results_returned'] += 1
         hash['shop'].insert(i, hash_shop)
       else
