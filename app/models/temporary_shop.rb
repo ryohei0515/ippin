@@ -27,7 +27,7 @@ class TemporaryShop < ApplicationRecord
 
   # IDが合致するTemporaryShopを取得し、その結果を引数のShopのハッシュに追加して返却する。
   def self.search_by_id(hash, *ids)
-    return hash if hash['error'].present? || hash['results_returned'].to_i == ids.count
+    return hash if hash['error'].present?
 
     hash['results_returned'] = hash['results_returned'].to_i # 処理用に数値に変換する。最後文字列に戻す。
     query = "'#{ids.join(",").gsub(/,/, "','")}'"
