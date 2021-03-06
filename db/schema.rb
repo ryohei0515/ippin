@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_03_040005) do
+ActiveRecord::Schema.define(version: 2021_03_06_001005) do
 
   create_table "foods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2021_03_03_040005) do
     t.float "rate"
     t.bigint "shop_food_id", null: false
     t.string "picture"
+    t.string "picture_cc"
     t.index ["shop_food_id"], name: "index_reviews_on_shop_food_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end

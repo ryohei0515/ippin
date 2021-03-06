@@ -4,7 +4,11 @@
   <%= @review.content %>,
   <%= link_to @review.user.name, @review.user %>,
   <%= time_ago_in_words(@review.updated_at) %>
-  <%= image_tag @review.picture.url if @review.picture? %>
+  <% if @review.picture? %>
+    <%= image_tag @review.picture.url %>
+    <% # ポートフォリオ用に収集したReview用画像のCC表記用 #60 %>
+    <%= @review.picture_cc.html_safe if @review.picture_cc? && @review.picture.identifier.include?("cc_picture_") %>
+  <% end %>
 </div>
 
 <% if current_user?(@review.user) %>
