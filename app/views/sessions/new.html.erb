@@ -22,6 +22,17 @@
       <%= f.submit "ログイン", class: "w-full text-center rounded py-2 bg-blue-400 hover:bg-blue-600 text-white" %>
     </div>
   <% end %>
+  <div class="container mx-auto">
+  <%= form_with(url: login_path, scope: :session, local: true) do |f| %>
+    <div class="mx-5 py-5 border-b">
+      <div class="mb-4 text-center">
+        <span class="border-b-4 border-yellow-200 border-opacity-50">ゲスト用のログインはこちらから</span>
+      </div>
+        <%= f.hidden_field :email, value: Settings.sample_user.email %>
+        <%= f.hidden_field :password, value: Settings.sample_user.password %>
+      <%= f.submit "ゲストログイン", class: "w-full text-center rounded py-2 bg-blue-400 hover:bg-blue-600 text-white" %>
+    </div>
+  <% end %>
   <div class="text-sm p-5">
     まだ登録されていない方は<%= link_to "こちら", signup_path(@review), class: "font-bold text-blue-500" %>からユーザ登録してください
   </div>

@@ -1,2 +1,7 @@
 hotpepper_api:
   search_shops_limit: 100
+
+sample_user:
+  id: 2
+  email: "sample_user@example.com"
+  password: "sampleuser"
