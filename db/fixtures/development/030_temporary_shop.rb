@@ -1,6 +1,6 @@
 require 'csv'
 
-file_path = "db/fixtures/#{Rails.env}/temporary_shop.csv"
+file_path = "db/fixtures/#{Rails.env}/csv/temporary_shop.csv"
 
 CSV.foreach(file_path, encoding: 'UTF-8', headers: :first_row) do |r|
   TemporaryShop.seed(:id) do |s| 

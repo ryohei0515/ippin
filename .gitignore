@@ -45,3 +45,12 @@ vendor/bundle/
 .env
 public/uploads
 bs-config.js
+
+db/fixtures/resource/temp_picture/*
+!db/fixtures/resource/temp_picture/.keep
+
+db/fixtures/development/csv/*
+!db/fixtures/development/csv/.keep
+
+db/fixtures/production/csv/*
+!db/fixtures/production/csv/.keep
