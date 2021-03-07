@@ -96,11 +96,7 @@ RSpec.describe 'Log in', type: :system do
   end
 
   it 'ゲストログイン機能よりログインできること' do
-    FactoryBot.create(:user,
-                      id: Settings.sample_user.id,
-                      email: Settings.sample_user.email,
-                      password: Settings.sample_user.password,
-                      password_confirmation: Settings.sample_user.password)
+    FactoryBot.create(:sample_user)
     visit root_path
     click_link 'ログイン'
     click_button 'ゲストログイン'
