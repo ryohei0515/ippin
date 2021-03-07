@@ -30,7 +30,10 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(users_params)
+    if params[:id] == Settings.sample_user.id.to_s
+      flash.now[:danger] = 'ゲストユーザでログイン中のため、ユーザ情報の更新は実施できません。'
+      render 'edit'
+    elsif @user.update(users_params)
       flash[:success] = 'ユーザ情報を更新しました'
       redirect_to edit_user_path(@user)
     else

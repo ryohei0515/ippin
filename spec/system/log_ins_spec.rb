@@ -94,4 +94,17 @@ RSpec.describe 'Log in', type: :system do
       expect(page).to_not have_selector 'a', text: 'ログアウト'
     end
   end
+
+  it 'ゲストログイン機能よりログインできること' do
+    FactoryBot.create(:sample_user)
+    visit root_path
+    click_link 'ログイン'
+    click_button 'ゲストログイン'
+
+    aggregate_failures do
+      expect(current_path).to eq user_path(Settings.sample_user.id)
+      expect(page).to have_selector 'a', text: 'ログアウト'
+      expect(page).to_not have_selector 'a', text: 'ログイン'
+    end
+  end
 end
