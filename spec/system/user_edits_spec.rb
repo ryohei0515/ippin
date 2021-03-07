@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe 'UserEdits', type: :system do
   include LoginSupport
   let(:user) { FactoryBot.create(:user) }
+  let(:sample_user) { FactoryBot.create(:sample_user) }
   before do
     @updated_name = 'updated_name'
     @updated_email = 'updated@example.com'
@@ -100,5 +101,16 @@ RSpec.describe 'UserEdits', type: :system do
       visit edit_user_path(other_user.id)
       expect(current_path).to eq root_path
     end
+  end
+
+  it 'ゲストユーザが自身の情報を更新できないこと' do
+    log_in_as sample_user
+    visit edit_user_path(sample_user.id)
+    expect do
+      fill_in 'user_password', with: @updated_password
+      fill_in 'user_password_confirmation', with: @updated_password
+      click_button '登録情報更新'
+    end.to_not change { sample_user.reload.inspect }
+    expect(page).to have_selector '.alert-danger'
   end
 end
