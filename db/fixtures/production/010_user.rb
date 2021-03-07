@@ -1,17 +1,14 @@
-# メインのサンプルユーザーを1人作成する
-User.seed(:email) do |s|
-  s.name = "Example User"
-  s.email = "example@railstutorial.org"
-  s.password = "foobar"
-  s.password_confirmation = "foobar"
-end
+require 'csv'
 
-# 追加のユーザーをまとめて生成する
-30.times do |n|
-  User.seed(:email) do |s|
-    s.name = Faker::Name.name
-    s.email = "example-#{n+1}@railstutorial.org"
-    s.password = "password"
-    s.password_confirmation = "password"
+file_path = "db/fixtures/#{Rails.env}/csv/user.csv"
+
+CSV.foreach(file_path, encoding: 'UTF-8', headers: :first_row) do |r|
+  User.seed(:id) do |s|
+    s.id = r['id']
+    s.email = r['email']
+    s.name = r['name']
+    s.password = r['password']
+    s.password_confirmation = r['password']
+    s.picture = Rails.root.join("db/fixtures/resource/temp_picture/#{r['picture']}").open if r['picture'].present?
   end
 end

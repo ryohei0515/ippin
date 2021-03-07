@@ -15,9 +15,13 @@
       </div>
     </div>
       <div class="m-1 bg-white flex flex-row">
-        <div class="">
-          <%= image_tag review.picture_url(:thumb) if review.picture? %>
-        </div>
+        <% if review.picture? %>
+          <div class="">
+            <%= image_tag review.picture_url(:thumb) %>
+            <% # ポートフォリオ用に収集したReview用画像のCC表記用 #60 %>
+            <%= review.picture_cc.html_safe if review.picture_cc? && review.picture.identifier.include?("cc_picture_") %>
+          </div>
+        <% end %>
         <div class="">
           <div class="m-2">
             <span class="border-b-4 border-yellow-300 border-opacity-50 text-xl"><%= review.title %></span>

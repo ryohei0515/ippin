@@ -1,6 +1,6 @@
 require 'csv'
 
-file_path = "db/fixtures/#{Rails.env}/food.csv"
+file_path = "db/fixtures/#{Rails.env}/csv/food.csv"
 
 CSV.foreach(file_path, encoding: 'UTF-8', headers: :first_row) do |r|
   Food.seed(:id) do |s|
