@@ -6,7 +6,10 @@
       </div>
       <div class="ml-4">
         <div class="link text-xl"><%= link_to @shops[shop_food.shop_id]['name'], shop_food %></div>
-        <div class=""><%= "#{@shops[shop_food.shop_id]['genre']['name']} | #{@shops[shop_food.shop_id]['sub_genre']['name']}" %></div>
+        <% genre = @shops[shop_food.shop_id]['genre']['name'] %>
+        <% sub_genre = @shops[shop_food.shop_id]['sub_genre']['name'] %>
+        <% disp_genre = sub_genre.blank? || genre == sub_genre ? genre : "#{genre} | #{sub_genre}" %>
+        <div class=""><%= disp_genre %></div>
         <div>
           <div class="sm:flex sm:flex-row sm:items-center">
             <div class="flex flex-row items-center">
