@@ -15,6 +15,16 @@
 <%= stylesheet_pack_tag 'search_shop_foods' %>
 <%= javascript_pack_tag 'search_shop_foods' %>
 
-<script type="text/javascript">
-
+<!-- 評価javascript -->
+<script>
+  $('.star-rating').raty({
+    starOff: '<%= asset_path("star-off.png") %>',
+    starOn: '<%= asset_path("star-on.png") %>',
+    starHalf: '<%= asset_path("star-half.png") %>',
+    scoreName: 'review[rate]',
+    score: function() {
+      return $(this).attr('data-rate');
+    },
+    readOnly: true
+  });
 </script>
