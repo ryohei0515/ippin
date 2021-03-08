@@ -4,7 +4,9 @@ class ShopFoodsController < ApplicationController
   def show
     @shop_food = ShopFood.find(params[:id])
     @reviews = @shop_food.reviews.page(params[:page]).per(PER_REVIEW)
-    @shop = search_shop_by_id(@shop_food.shop_id)['shop'][0]
+
+    api_result = search_shop_by_id(@shop_food.shop_id)['shop']
+    @shops = api_result.map { |r| [r['id'], r] }.to_h
   end
 
   def index
