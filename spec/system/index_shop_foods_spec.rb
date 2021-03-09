@@ -23,10 +23,14 @@ RSpec.describe 'IndexShopFoods', type: :system, js: true do
       expect(page).to have_content "#{result.count}件"
       expect(page).to have_selector '.pagination'
       result.order('rate desc, shop_foods.updated_at desc')[0..4].each do |shop_food|
-        expect(page).to have_content shop_food.food.name
-        expect(page).to have_content get_shop_info(shop_food.shop_id)['name']
-        expect(page).to have_content shop_food.food.category
+        shop = get_shop_info(shop_food.shop_id)
+        expect(page).to have_content shop['name']
+        expect(page).to have_content shop['genre']['name']
+        expect(page).to have_content shop['mobile_access']
+        expect(page).to have_content shop['address']
+        expect(page).to have_content "#{shop['capacity']}席"
         expect(page).to have_content shop_food.rate
+        expect(page).to have_content "#{shop_food.reviews.count}件"
       end
     end
   end
@@ -68,7 +72,6 @@ RSpec.describe 'IndexShopFoods', type: :system, js: true do
     visit shop_foods_path
 
     click_button '検索'
-    expect(page).to have_selector '.alert-danger'
-    expect(page).to_not have_selector '.pagination'
+    expect(page).to have_content '料理を選択してください'
   end
 end

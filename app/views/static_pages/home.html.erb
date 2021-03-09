@@ -1,21 +1,20 @@
-<div class="">
+<div class="relative w-full h-128 xsm:h-128 sm:h-112">
   <ul class="slider">
-    <li><%= image_tag "food_pic_01.jpg" ,class: "w-screen h-64 md:h-96 object-cover" %></li>
-    <li><%= image_tag "food_pic_02.jpg" ,class: "w-screen h-64 md:h-96 object-cover"  %></li>
-    <li><%= image_tag "food_pic_03.jpg" ,class: "w-screen h-64 md:h-96 object-cover"  %></li>
-    <li><%= image_tag "food_pic_04.jpg" ,class: "w-screen h-64 md:h-96 object-cover"  %></li>
+    <li><%= image_tag "food_pic_01.jpg" ,class: "w-full h-128 xsm:h-128 sm:h-112 object-cover" %></li>
+    <li><%= image_tag "food_pic_02.jpg" ,class: "w-full h-128 xsm:h-128 sm:h-112 object-cover" %></li>
+    <li><%= image_tag "food_pic_03.jpg" ,class: "w-full h-128 xsm:h-128 sm:h-112 object-cover" %></li>
+    <li><%= image_tag "food_pic_04.jpg" ,class: "w-full h-128 xsm:h-128 sm:h-112 object-cover" %></li>
   </ul>
-
-  <div class="my-5 p-3 bg-yellow-100 text-xl">
-    <h2>フード投稿一覧（<%= @shop_foods.total_count %>件）</h2>
-  </div>
-  <ol>
-    <%= render @shop_foods %>
-  </ol>
-  <div class="my-10">
-    <%= paginate @shop_foods %>
+  <% provide :search_catch, '好きな料理を検索して、美味しいお店を見つけよう！' %>
+  <% provide :color, 'black' %>
+  <% provide(:submit_text, "検索") %>
+  <div class="absolute bottom-8 right-0 left-0 m-auto">
+    <%= render 'shop_foods/shop_food_search_form' %>
   </div>
 </div>
+
+<%= stylesheet_pack_tag 'search_shop_foods' %>
+<%= javascript_pack_tag 'search_shop_foods' %>
 
 <script type="text/javascript">
   $(document).on('DOMContentLoaded', function() {
@@ -28,16 +27,5 @@
       prevArrow: "",
       nextArrow: ""
     });
-  });
-
-  $('.star-rating').raty({
-    starOff: '<%= asset_path("star-off.png") %>',
-    starOn: '<%= asset_path("star-on.png") %>',
-    starHalf: '<%= asset_path("star-half.png") %>',
-    scoreName: 'review[rate]',
-    score: function() {
-      return $(this).attr('data-rate');
-    },
-    readOnly: true
   });
 </script>

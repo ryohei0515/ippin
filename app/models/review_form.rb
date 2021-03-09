@@ -66,7 +66,6 @@ class ReviewForm
   attr_reader :review
   attr_accessor :review_food
 
-  # rubocop:disable Metrics/AbcSize
   def default_attributes
     {
       review_id: review.id,
@@ -79,7 +78,6 @@ class ReviewForm
       picture: review.picture
     }
   end
-  # rubocop:enable Metrics/AbcSize
 
   # 主キーに合致するShopFoodがあればそれを返す。なければ作成する。
   def _review_food
