@@ -22,5 +22,12 @@
     @apply p-3 rounded bg-gray-100 hover:bg-yellow-100
   }
 
+  .link {
+    @apply font-bold text-blue-500 underline
+  }
+
+  .genre-tag {
+    @apply border rounded-lg px-2 inline-block border-green-300 text-green-500 bg-white
+  }
 }
 @import "tailwindcss/utilities";

@@ -14,9 +14,9 @@ module HotpepperApi
       count: count
     }
     uri = URI.parse(SHOP_API_URL + api_params.to_query)
-    # api_access(uri)
+    # complement_shop_info(api_access(uri))
     # ポートフォリオ用の仮店舗も検索できるよう修正。#56
-    TemporaryShop.search(api_access(uri), term)
+    complement_shop_info(TemporaryShop.search(api_access(uri), term))
   end
 
   # idが合致する店舗を取得する。IDの複数指定が可能。（最大20）
@@ -30,9 +30,9 @@ module HotpepperApi
       format: FORMAT
     }
     uri = URI.parse(SHOP_API_URL + api_params.to_query)
-    # api_access(uri)
+    # complement_shop_info(api_access(uri))
     # ポートフォリオ用の仮店舗も検索できるよう修正。#56
-    TemporaryShop.search_by_id(api_access(uri), ids)
+    complement_shop_info(TemporaryShop.search_by_id(api_access(uri), ids))
   end
 
   # Areaの一覧を取得する。
@@ -56,7 +56,7 @@ AREA_API_URL = 'http://webservice.recruit.co.jp/hotpepper/middle_area/v1/?'
 # httpでアクセスし、結果をJSON形式で返却する。
 def api_access(uri)
   response = Net::HTTP.start(uri.host, uri.port) do |http|
-    http.open_timeout = 5  # 接続時に待つ最大秒数
+    http.open_timeout = 5 # 接続時に待つ最大秒数
     http.get(uri.request_uri)
   end
 
@@ -70,4 +70,28 @@ end
 
 def json_error_msg(msg)
   { error: { message: msg } }
+end
+
+HASH_KEYS = {
+  'budget' => %w[average code name],
+  'coupon_urls' => %w[pc sp],
+  'genre' => %w[catch code name],
+  'large_area' => %w[code name],
+  'large_service_area' => %w[code name],
+  'middle_area' => %w[code name],
+  'photo' => %w[mobile pc],
+  'service_area' => %w[code name],
+  'small_area' => %w[code name],
+  'sub_genre' => %w[code name],
+  'urls' => %w[pc]
+}.freeze
+
+# 結果ハッシュの1階層目にキーがなく、2階層目以降のキーが取得できない場合、2階層目以降のキーを設定する。（値は空）
+def complement_shop_info(hash)
+  hash['shop'].each_with_index do |shop, i|
+    HASH_KEYS.each do |key, array|
+      hash['shop'][i][key] = array.map { |v| [v, ''] }.to_h if shop[key].nil?
+    end
+  end
+  hash
 end

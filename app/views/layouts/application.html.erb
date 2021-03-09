@@ -33,16 +33,17 @@
     <header>
       <%= render 'layouts/header' %>
     </header>
-    <div class="">
+    <div class="xl:container xl:mx-auto">
       <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>
       <% end %>
-      <div class="" style="border: solid;">
+      <div class="">
         <%= yield %>
       </div>
+    </div>
+    <div class="">
       <%= render 'layouts/footer' %>
-      <div class="" style="border: solid;">
-      </div>
+    </div>
     </div>
   </body>
 </html>

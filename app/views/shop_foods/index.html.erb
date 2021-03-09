@@ -1,20 +1,32 @@
 <% provide(:submit_text, "検索") %>
 <div class="">
   <%= render 'shop_food_search_form' %>
-  <div class="my-5 p-3 bg-yellow-100 text-xl">
-    <h2>フード投稿一覧（<%= @shop_foods.total_count %>件）</h2>
-  </div>
-  <ol>
-    <%= render @shop_foods %>
-  </ol>
-  <div class="my-10">
-    <%= paginate @shop_foods %>
-  </div>
+  <% if @shop_foods.total_count > 0 %>
+    <div class="my-5 p-3 bg-yellow-100 text-xl">
+      <h2><%= "#{@shop_foods[0].food.name}のレビューが投稿されたお店が、#{@shop_foods.total_count}件見つかりました。" %></h2>
+    </div>
+    <ol>
+      <%= render @shop_foods %>
+    </ol>
+    <div class="my-10">
+      <%= paginate @shop_foods %>
+    </div>
+  <% end %>
 </div>
 
 <%= stylesheet_pack_tag 'search_shop_foods' %>
 <%= javascript_pack_tag 'search_shop_foods' %>
 
-<script type="text/javascript">
-
+<!-- 評価javascript -->
+<script>
+  $('.star-rating').raty({
+    starOff: '<%= asset_path("star-off.png") %>',
+    starOn: '<%= asset_path("star-on.png") %>',
+    starHalf: '<%= asset_path("star-half.png") %>',
+    scoreName: 'review[rate]',
+    score: function() {
+      return $(this).attr('data-rate');
+    },
+    readOnly: true
+  });
 </script>

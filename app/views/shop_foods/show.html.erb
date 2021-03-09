@@ -1,26 +1,10 @@
 <% provide(:title, "料理詳細") %>
-
-<div class="w-11/12 mx-auto bg-gray-50 my-4 p-4">
-  <div class="sm:flex sm:flex-row">
-    <%= link_to(@shop_food, class: "sm:w-4/12") do %>
-    <div class="h-40 bg-gray-300 sm:h-full sm:w-full">food画像</div>
-    <% end %>
-    <div class="ml-4">
-      <div class="font-bold"><%= @shop_food.food.name %></div>
-      <div class="flex flex-row">
-        <div class="flex flex-row star-rating" data-rate="<%= @shop_food.rate %>"></div>
-        <div class="ml-2">
-          <%= @shop_food.rate %>
-        </div>
-      </div>
-      <div>カテゴリー：<%= @shop_food.food.category %> </div>
-      <div>お店：<%= @shop['name'] %> </div>
-    </div>
-  </div>
-</div>
+<ol>
+  <%= render @shop_food %>
+</ol>
 
 <div class="my-5 p-3 bg-yellow-100 text-xl">
-  <h2><span class="ml-2 font-semibold">レビュー投稿<i class="fas fa-comments text-green-300 mx-1"></i><%= @shop_food.reviews.count %>件</span></h2>
+  <h2><span class="ml-2 font-semibold"><%= @shop_food.food.name %>のレビュー<i class="fas fa-comments text-green-300 ml-3 mr-1"></i><%= @shop_food.reviews.count %>件</span></h2>
 </div>
 <ol>
   <%= render @reviews %>
@@ -35,7 +19,6 @@
     starOn: '<%= asset_path("star-on.png") %>',
     starHalf: '<%= asset_path("star-half.png") %>',
     scoreName: 'review[rate]',
-    target: '#hint1',
     hints: ['とても悪い', '悪い', '普通', '良い', 'とても良い'],
     score: function() {
       return $(this).attr('data-rate');

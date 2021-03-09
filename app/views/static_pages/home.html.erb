@@ -18,15 +18,26 @@
 </div>
 
 <script type="text/javascript">
-$(document).on('DOMContentLoaded', function(){
-  $('.slider').not('.slick-initialized').slick({
-    autoplay:true,
-    autoplaySpeed: 6000,
-    dots:false,
-    fade:true,
-    speed:1000,
-    prevArrow:"",
-    nextArrow:""
+  $(document).on('DOMContentLoaded', function() {
+    $('.slider').not('.slick-initialized').slick({
+      autoplay: true,
+      autoplaySpeed: 6000,
+      dots: false,
+      fade: true,
+      speed: 1000,
+      prevArrow: "",
+      nextArrow: ""
+    });
   });
-});
+
+  $('.star-rating').raty({
+    starOff: '<%= asset_path("star-off.png") %>',
+    starOn: '<%= asset_path("star-on.png") %>',
+    starHalf: '<%= asset_path("star-half.png") %>',
+    scoreName: 'review[rate]',
+    score: function() {
+      return $(this).attr('data-rate');
+    },
+    readOnly: true
+  });
 </script>
