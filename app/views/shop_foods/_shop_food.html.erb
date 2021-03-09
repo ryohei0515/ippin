@@ -1,51 +1,49 @@
 <li>
-  <div class="w-11/12 mx-auto bg-gray-100 my-4 p-4 rounded-md">
-    <div class="sm:flex sm:justify-start">
-      <div class="mb-2 w-11/12 xsm:w-8/12 mx-auto sm:mx-4 sm:my-auto sm:w-3/12 lg:w-2/12">
-        <%= image_tag @shops[shop_food.shop_id]['photo']['mobile']['l'], class: "w-full h-auto" %>
-      </div>
-      <div class="ml-4">
-        <div class="link text-xl"><%= link_to @shops[shop_food.shop_id]['name'], shop_food %></div>
-        <div><%= @shops[shop_food.shop_id]['genre']['catch'] %></div>
-        <div class="my-1">
-          <% if @shops[shop_food.shop_id]['genre']['name'].present? %>
-          <div class="genre-tag">
-            <%= @shops[shop_food.shop_id]['genre']['name'] %>
-          </div>
-          <% end %>
-          <% if @shops[shop_food.shop_id]['sub_genre']['name'].present? %>
-          <div class="genre-tag">
-            <%= @shops[shop_food.shop_id]['sub_genre']['name'] %>
-          </div>
-          <% end %>
+  <div class="w-11/12 mx-auto bg-gray-100 my-4 p-4 rounded-md sm:flex sm:justify-start">
+    <div class="mb-2 w-11/12 xsm:w-8/12 mx-auto sm:mx-4 sm:my-auto sm:w-3/12 lg:w-2/12">
+      <%= image_tag @shops[shop_food.shop_id]['photo']['mobile']['l'], class: "w-full h-auto" %>
+    </div>
+    <div class="ml-4">
+      <div class="link text-xl"><%= link_to @shops[shop_food.shop_id]['name'], shop_food %></div>
+      <div><%= @shops[shop_food.shop_id]['genre']['catch'] %></div>
+      <div class="my-1">
+        <% if @shops[shop_food.shop_id]['genre']['name'].present? %>
+        <div class="genre-tag">
+          <%= @shops[shop_food.shop_id]['genre']['name'] %>
         </div>
-        <div>
-          <div class="sm:flex sm:flex-row sm:items-center">
-            <div class="flex flex-row items-center">
-              <div class="flex flex-row star-rating" data-rate="<%= shop_food.rate %>"></div>
-              <div class="ml-2 font-semibold"><%= shop_food.rate %></div>
-            </div>
-            <div class="mt-1 sm:mt-0 sm:ml-4">
-              <i class="fas fa-comments text-green-300 mx-1"></i>
-              <%= link_to "レビュー：#{shop_food.reviews.count}件", shop_food, class: "link" %>
-            </div>
+        <% end %>
+        <% if @shops[shop_food.shop_id]['sub_genre']['name'].present? %>
+        <div class="genre-tag">
+          <%= @shops[shop_food.shop_id]['sub_genre']['name'] %>
+        </div>
+        <% end %>
+      </div>
+      <div>
+        <div class="sm:flex sm:flex-row sm:items-center">
+          <div class="flex flex-row items-center">
+            <div class="flex flex-row star-rating" data-rate="<%= shop_food.rate %>"></div>
+            <div class="ml-2 font-semibold"><%= shop_food.rate %></div>
+          </div>
+          <div class="mt-1 sm:mt-0 sm:ml-4">
+            <i class="fas fa-comments text-green-300 mx-1"></i>
+            <%= link_to "レビュー：#{shop_food.reviews.count}件", shop_food, class: "link" %>
           </div>
         </div>
-        <table class="mt-2">
-          <tr>
-            <td class="align-top"><i class="fa fa-subway" aria-hidden="true"></td>
-            <td><%= @shops[shop_food.shop_id]['mobile_access'] %></td>
-          </tr>
-          <tr>
-            <td class="align-top"><i class="fas fa-map mr-2" aria-hidden="true"></td>
-            <td><%= @shops[shop_food.shop_id]['address'] %></td>
-          </tr>
-          <tr>
-            <td class="align-top"><i class="fas fa-chair mr-2" aria-hidden="true"></td>
-            <td><%= @shops[shop_food.shop_id]['capacity'] %>席</td>
-          </tr>
-        </table>
       </div>
+      <table class="mt-2">
+        <tr>
+          <td class="align-top"><i class="fa fa-subway" aria-hidden="true"></i></td>
+          <td><%= @shops[shop_food.shop_id]['mobile_access'] %></td>
+        </tr>
+        <tr>
+          <td class="align-top"><i class="fas fa-map mr-2" aria-hidden="true"></i></td>
+          <td><%= @shops[shop_food.shop_id]['address'] %></td>
+        </tr>
+        <tr>
+          <td class="align-top"><i class="fas fa-chair mr-2" aria-hidden="true"></i></td>
+          <td><%= @shops[shop_food.shop_id]['capacity'] %>席</td>
+        </tr>
+      </table>
     </div>
   </div>
 </li>
