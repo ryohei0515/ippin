@@ -9,8 +9,8 @@
   </div>
   <div v-if="listShow" class="p-2 absolute z-20 border bg-white shadow-lg w-full">
     <input type="text" ref="filterTextBox" id="filter-text-box" class="mb-2 border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" v-model="filterText" placeholder="複数条件入力可能です（例:北京　餃子）">
-    <ul class="overflow-y-scroll" style="max-height: 40vh;">
-      <li class="bg-yellow-100" v-show="filteredItem.length == 0">ヒットする料理がありません。再入力してください。</li>
+    <ul class="overflow-y-scroll select-none" style="max-height: 40vh;">
+      <li class="bg-yellow-100" v-show="filteredItem.length == 0">該当する料理がありません。再入力してください。</li>
       <li class="hover:bg-blue-300" v-for="food of filteredItem" :key="food.id" @click="selectItem(food)">{{ displayText(food) }}</li>
     </ul>
   </div>
