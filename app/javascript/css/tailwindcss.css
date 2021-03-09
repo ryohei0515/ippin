@@ -29,5 +29,13 @@
   .genre-tag {
     @apply border rounded-lg px-2 inline-block border-green-300 text-green-500 bg-white
   }
+
+  .input-label {
+    @apply block font-bold mb-2
+  }
+
+  .submit-button {
+    @apply text-center rounded py-2 bg-blue-400 hover:bg-blue-600 text-white cursor-pointer
+  }
 }
 @import "tailwindcss/utilities";

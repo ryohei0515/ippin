@@ -1,5 +1,5 @@
 <template>
-<div id="food-ddl" class="w-full relative">
+<div id="food-ddl" class="w-full max-w-md relative">
   <div class="relative" @click="openAndCloseDdl">
     <input type="hidden" :name="name" :value="foodId">
     <div class="pr-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">

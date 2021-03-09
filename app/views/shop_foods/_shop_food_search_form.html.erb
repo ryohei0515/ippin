@@ -1,12 +1,13 @@
 <%= form_with(model: @form, url: shop_foods_path, method: :get, local:true) do |f| %>
 <%= render 'shared/error_messages', object: f.object %>
-<div class="mb-4">
-  <%= f.label :food_id, class: "block text-gray-700 text-sm font-bold mb-2",id: "food-id-label", data: { food_id: @form.food_id } %>
-  <div id="food-ddl"></div>
+<div class="m-2 max-w-2xl xsm:border-4 xsm:border-gray-200 xsm:rounded-2xl xsm:p-8 xsm:m-6 md:mx-auto">
+  <div class="mb-4">
+    <%= f.label :food_id, "料理名", class: "input-label",id: "food-id-label" %>
+    <div id="food-ddl" data-food-id="<%= @form.food_id %>"></div>
+  </div>
+  <div class="mb-4">
+    <div id="area-ddl" data-large-area="<%= @form.large_area %>" data-middle-area="<%= @form.middle_area %>"></div>
+  </div>
+  <%= f.submit yield(:submit_text), class: "submit-button w-full mt-6" %>
 </div>
-<div class="mb-4">
-  <%= f.label :large_area, class: "block text-gray-700 text-sm font-bold mb-2",id: "area-label", data: { large_area: @form.large_area, middle_area: @form.middle_area } %>
-  <div id="area-ddl"></div>
-</div>
-<%= f.submit yield(:submit_text), class: "w-full text-center rounded py-2 bg-blue-400 hover:bg-blue-600 text-white" %>
 <% end %>
