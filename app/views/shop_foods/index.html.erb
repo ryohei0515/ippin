@@ -3,7 +3,7 @@
   <%= render 'shop_food_search_form' %>
   <% if @shop_foods.total_count > 0 %>
     <div class="my-5 p-3 bg-yellow-100 text-xl">
-      <h2><%= "#{@shop_foods[0].food.name}のお店が#{@shop_foods.total_count}件見つかりました。" %></h2>
+      <h2><%= "#{@shop_foods[0].food.name}のレビューが投稿されたお店が、#{@shop_foods.total_count}件見つかりました。" %></h2>
     </div>
     <ol>
       <%= render @shop_foods %>
