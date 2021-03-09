@@ -2,7 +2,7 @@
   <div class="sm:flex sm:flex-row">
     <div>
       <div class="input-label">都道府県</div>
-      <div class="w-24 relative">
+      <div class="w-24 relative text-gray-700">
         <select :name="largeAreaName" v-model="largeAreaSelected" class="pr-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
           <option :value="initLargeArea" v-if="initLargeArea">{{ initLargeArea }}</option>
           <option value="">-</option>
@@ -15,7 +15,7 @@
     </div>
     <div class="mt-2 sm:ml-6 sm:mt-0">
       <div class="input-label">エリア</div>
-      <div class="w-72 relative">
+      <div class="w-72 relative text-gray-700">
         <select :name="middleAreaName" :value="middleAreaSelected"  class="pr-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
           <option :value="initMiddleArea" v-if="initMiddleArea && initLargeArea == largeAreaSelected">{{ initMiddleArea }}</option>
           <option value="">-</option>

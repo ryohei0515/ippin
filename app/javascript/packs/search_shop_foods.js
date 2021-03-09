@@ -24,4 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   })
+
+  document.getElementById('search-button').addEventListener('click', function (e) {
+    var i = document.getElementsByName("food_id")[0].value
+    if (i == "") {
+      swal('料理を選択してください');
+      e.preventDefault();
+    }
+  })
 })

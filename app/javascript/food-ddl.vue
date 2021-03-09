@@ -1,14 +1,14 @@
 <template>
-<div id="food-ddl" class="w-full max-w-md relative">
+<div id="food-ddl" class="w-full max-w-md relative text-gray-700">
   <div class="relative" @click="openAndCloseDdl">
     <input type="hidden" :name="name" :value="foodId">
-    <div class="pr-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    <div class="bg-white pr-8 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
       <label :value="selectText" >{{ selectText }}</label>
       <i class="fa fa-chevron-down absolute right-2 top-0 bottom-0 m-auto" aria-hidden="true"></i>
     </div>
   </div>
   <div v-if="listShow" class="p-2 absolute z-20 border bg-white shadow-lg w-full">
-    <input type="text" ref="filterTextBox" id="filter-text-box" class="mb-2 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="filterText" placeholder="複数条件入力可能です（例:北京　餃子）">
+    <input type="text" ref="filterTextBox" id="filter-text-box" class="mb-2 border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" v-model="filterText" placeholder="複数条件入力可能です（例:北京　餃子）">
     <ul class="overflow-y-scroll" style="max-height: 40vh;">
       <li class="bg-yellow-100" v-show="filteredItem.length == 0">ヒットする料理がありません。再入力してください。</li>
       <li class="hover:bg-blue-300" v-for="food of filteredItem" :key="food.id" @click="selectItem(food)">{{ displayText(food) }}</li>
