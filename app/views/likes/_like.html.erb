@@ -1,4 +1,6 @@
 <%= form_with(model: current_user.likes.build, remote: true) do |f| %>
   <%= hidden_field_tag :review_id, review.id %>
-  <%= f.submit "参考になった" %>
+  <%= button_tag type: :submit, class: 'text-center rounded bg-green-500 hover:bg-green-700 text-white cursor-pointer px-2 py-1 focus:outline-none' do %>
+    <i class="fa fa-thumbs-up mr-2" aria-hidden="true"></i>参考になった
+  <% end %>
 <% end %>

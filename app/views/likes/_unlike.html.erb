@@ -1,4 +1,6 @@
 <%= form_with(model: current_user.likes.find_by(review_id: review.id),
-              html: { method: :delete }, remote: true) do |f| %>
-  <%= f.submit "取消" %>
+              html: { method: :delete }, remote: true,id: "test_") do |f| %>
+  <div class="text-green-700 py-1">
+    <i class="fa fa-check-circle mr-2" aria-hidden="true"></i>参考になったと回答済。<%= f.submit "取消", class: "link font-normal" %>
+  </div>
 <% end %>
