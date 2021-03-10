@@ -2,7 +2,7 @@
 <div id="food-ddl" class="w-full max-w-md relative text-gray-700">
   <div class="relative" @click="openAndCloseDdl">
     <input type="hidden" :name="name" :value="foodId">
-    <div class="bg-white pr-8 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+    <div id="food-ddl-disp" class="bg-white pr-8 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
       <label :value="selectText" >{{ selectText }}</label>
       <i class="fa fa-chevron-down absolute right-2 top-0 bottom-0 m-auto" aria-hidden="true"></i>
     </div>
