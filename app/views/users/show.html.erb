@@ -15,8 +15,8 @@
       <h2><span class="ml-2 font-semibold">レビュー投稿<i class="fas fa-comments text-green-300 mx-1"></i><%= @user.reviews.count %>件</span></h2>
     </div>
     <ol>
-      <%= render partial: 'reviews/review_summary', collection: @review, as: :review %>
+      <%= render partial: 'reviews/review', collection: @review, as: :review %>
     </ol>
-     <%= paginate @review %>
+    <%= paginate @review %>
   <% end %>
 </div>

@@ -3,7 +3,30 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("@rails/ujs").start()
+import Rails from '@rails/ujs';
+
+
+const sweetAlertConfirm = (element) => {
+  const message = element.target.getAttribute('data-confirm-swal')
+  Swal.fire({
+    title: '確認',
+    html: message || '実行してよろしいですか？',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: '実行',
+    cancelButtonText: 'キャンセル',
+  }).then(function (result) {
+    if (result.value) {
+      element.target.removeAttribute('data-confirm-swal')
+      element.target.click()
+    }
+  });
+  Rails.stopEverything(element);
+}
+Rails.delegate(document, 'a[data-confirm-swal]', 'click', sweetAlertConfirm)
+
+Rails.start();
+
 require("@rails/activestorage").start()
 require("channels")
 import '../css/tailwindcss.css';

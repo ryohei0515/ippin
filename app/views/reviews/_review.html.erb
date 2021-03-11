@@ -8,7 +8,7 @@
             <div class="">
               <%= link_to "レビュー修正", edit_review_path(review), class: "font-bold text-blue-500" %>
               <%= link_to "削除", review_path(review), method: :delete,
-                            data: {confirm: "本当に投稿を削除してよろしいですか？"},
+                            data: {confirm_swal: "本当に投稿を削除してよろしいですか？"},
                             class: "font-bold text-blue-500" %>
             </div>
           <% end%>
