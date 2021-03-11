@@ -19,7 +19,7 @@ RSpec.describe 'UserEdits', type: :system do
       visit edit_user_path(user.id)
       fill_in 'user_name', with: @updated_name
       fill_in 'user_email', with: @updated_email
-      attach_file 'ファイル選択', file_fixture(@updated_picture)
+      attach_file 'pic_field', file_fixture(@updated_picture)
     end
 
     it '全情報の編集' do
@@ -82,10 +82,10 @@ RSpec.describe 'UserEdits', type: :system do
     end
 
     it '画像がキャッシュされること' do
-      attach_file 'ファイル選択', file_fixture(@updated_picture)
+      attach_file 'pic_field', file_fixture(@updated_picture)
       fill_in 'user_name', with: ''
       click_button '登録情報更新'
-      expect(page).to have_selector("img[src$='thumb_#{@updated_picture}']")
+      expect(page).to have_selector("img[src$='#{@updated_picture}']")
     end
   end
 

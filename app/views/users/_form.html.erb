@@ -3,18 +3,17 @@
   <div class="mb-6 mx-1 text-center">
     <span class="border-b-4 border-yellow-200 border-opacity-50"><%= yield(:description) %></span>
   </div>
-  <div class="xsm:flex xsm:justify-between mx-5 mb-8">
-    <div class="w-36 sm:w-4/12 h-40 mx-auto xsm:h-full xsm:mr-4 sm:mx-6 xsm:my-auto">
-      <div class="w-8/12 mb-2 mx-auto">
-        <% if @user.picture? %>
-          <%= image_tag @user.picture_url(:thumb), class: "rounded-full w-full" %>
-        <% else %>
-          <%= image_tag "no_image.jpg", class: "rounded-full w-full" %>
-        <% end %>
+  <div class="sm:flex sm:justify-between mx-5 mb-8 xl:mb-16">
+    <div class="w-36 sm:w-4/12 xl:w-3/12 h-40 mb-4 mx-auto sm:h-full sm:mr-8 sm:my-auto">
+      <div class="w-10/12 mb-4 mx-auto" >
+        <div class="pic-wrap">
+          <% pic = @user.picture? ? @user.picture_url : "no_image.jpg" %>
+          <%= image_tag pic, id: "pic_preview", class: "rounded-full pic-disp" %>
+        </div>
       </div>
       <div class="w-full mx-auto">
         <%= f.label :picture, '<i class="fa fa-folder-open mr-2" aria-hidden="true"></i>ファイル選択'.html_safe, class: "select-button block" %>
-        <%= f.file_field :picture, class: "hidden" %>
+        <%= f.file_field :picture, id: "pic_field", class: "hidden" %>
         <%= f.hidden_field :picture_cache %>
       </div>
     </div>
@@ -39,3 +38,5 @@
   </div>
   <%= f.submit yield(:submit_text), class: "w-full text-center rounded py-2 bg-blue-400 hover:bg-blue-600 text-white" %>
 <% end %>
+
+<%= javascript_pack_tag 'picture/preview' %>
