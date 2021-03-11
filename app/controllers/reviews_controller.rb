@@ -42,7 +42,7 @@ class ReviewsController < ApplicationController
     review = Review.find(params[:id])
     shop_food = review.shop_food
     review.destroy
-    shop_food.destroy if shop_food.reviews.count.zero?
+    shop_food.reviews.count.zero? ? shop_food.destroy : shop_food.calc_and_save_rate
     flash[:success] = 'レビューを削除しました'
     redirect_to user_path(@review_user)
   end
