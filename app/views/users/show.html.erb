@@ -1,11 +1,17 @@
 <% provide(:title, @user.name) %>
 
-<div class="container my-5 p-2 mx-auto">
-  <div class="">
-    名前：<%= @user.name %>
+<div class="m-8 flex flex-row">
+  <div class="w-24">
+    <% if @user.picture? %>
+      <%= image_tag @user.picture_url(:thumb), class: "rounded-full w-full" %>
+    <% else %>
+      <img src="http://placehold.jp/300x300.png?text=No image" class="rounded-full w-full">
+    <% end %>
   </div>
-  <div class="">
-    Email：<%= @user.email %>
+  <div class="ml-3">
+    <div class="">
+      ユーザ：<%= @user.name %>
+    </div>
   </div>
 </div>
 

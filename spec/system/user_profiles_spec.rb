@@ -11,6 +11,8 @@ RSpec.describe 'UserProfiles', type: :system do
     review_list
     visit user_path(user.id)
     aggregate_failures do
+      expect(page).to have_content user.name
+      expect(page).to have_selector("img[src$='#{user.picture_url(:thumb)}']")
       expect(page).to have_content "#{user.reviews.count}件"
       expect(page).to have_selector '.pagination'
       review_list[0..4].each do |review|
