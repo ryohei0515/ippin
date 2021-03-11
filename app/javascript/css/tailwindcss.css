@@ -35,7 +35,19 @@
   }
 
   .submit-button {
-    @apply text-center rounded py-2 bg-blue-400 hover:bg-blue-600 text-white cursor-pointer focus:outline-none
+    @apply text-center rounded p-2 bg-blue-400 hover:bg-blue-600 text-white cursor-pointer focus:outline-none
   }
+  .select-button {
+    @apply text-center rounded p-2 bg-yellow-200 hover:bg-yellow-400 text-gray-900 cursor-pointer focus:outline-none
+  }
+
+  .pic-wrap {
+    @apply w-full h-0 relative;
+    padding-bottom: 100%;
+  }
+
+  .pic-disp {
+    @apply object-cover w-full h-full absolute
+  } 
 }
 @import "tailwindcss/utilities";
