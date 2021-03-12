@@ -3,7 +3,7 @@
     <span class="font-semibold">エラーが <%= object.errors.count %>件 あります</span>
     <ul class="mt-2">
       <% object.errors.full_messages.each do |msg| %>
-      <li><span class="mr-2">・</span><%= msg %></li>
+      <li class="mt-1"><span class="mr-2">・</span><%= msg %></li>
       <% end %>
     </ul>
   </div>
