@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="w-full mx-auto">
-        <%= f.label :picture, '<i class="fa fa-folder-open mr-2" aria-hidden="true"></i>ファイル選択'.html_safe, class: "select-button block" %>
+        <%= f.label :picture, '<i class="fa fa-folder-open mr-2" aria-hidden="true"></i>ファイル選択'.html_safe, class: "select-button block", for: "pic_field" %>
         <%= f.file_field :picture, id: "pic_field", class: "hidden" %>
         <%= f.hidden_field :picture_cache %>
       </div>
