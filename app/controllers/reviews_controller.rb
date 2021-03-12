@@ -12,7 +12,7 @@ class ReviewsController < ApplicationController
     @form = ReviewForm.new(reviews_params)
     if @form.create
       flash[:success] = 'レビューを投稿しました'
-      redirect_to review_path(@form.review_id)
+      redirect_to current_user
     else
       render 'new'
     end
@@ -32,7 +32,7 @@ class ReviewsController < ApplicationController
     @form = ReviewForm.new(reviews_params, review: @review)
     if @form.update
       flash[:success] = 'レビューを更新しました'
-      redirect_to @review
+      redirect_to @review.user
     else
       render 'edit'
     end
