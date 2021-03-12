@@ -36,7 +36,8 @@ RSpec.describe 'ShowShopFoods', type: :system, js: true do
         expect(page).to have_selector("div.star-rating[data-rate='#{review.rate}']")
         expect(page).to have_content review.user.name
         expect(page).to have_selector("img[src$='#{review.picture_url}']")
-        expect(page).to have_content review.updated_at.strftime('%Y年%-m月%-d日')
+        expect(page).to have_content review.created_at.strftime('%Y/%-m/%-d')
+        expect(page).to have_content review.updated_at.strftime('%Y/%-m/%-d')
         expect(page).to have_content "#{review.liked_users.count}人"
       end
     end

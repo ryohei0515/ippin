@@ -11,16 +11,19 @@
         </div>
         <div class="w-full sm:flex sm:justify-between">
           <div>
-            投稿日：<%= review.created_at.strftime("%Y年%-m月%-d日") %>
+            <% created_at = review.created_at.strftime("%Y/%-m/%-d") %>
+            <% updated_at = review.updated_at.strftime("%Y/%-m/%-d") %>
+            <div><%= "投稿日：#{created_at}" %></div>
+            <% if created_at != updated_at %>
+              <div class="text-sm text-gray-500"><%= "(最終更新：#{updated_at})" %></div>
+            <% end %>
           </div>
-          <div class="">
+          <div class="mt-auto">
             <% if current_user?(review.user) %>
-              <div class="">
-                <%= link_to "レビュー修正", edit_review_path(review), class: "link" %>
-                <%= link_to "削除", review_path(review), method: :delete,
-                              data: {confirm_swal: "本当に投稿を削除してよろしいですか？"},
-                              class: "link mx-3" %>
-              </div>
+              <%= link_to "レビュー修正", edit_review_path(review), class: "link" %>
+              <%= link_to "削除", review_path(review), method: :delete,
+                            data: {confirm_swal: "本当に投稿を削除してよろしいですか？"},
+                            class: "link mx-3" %>
             <% end %>
           </div>
         </div>
