@@ -19,26 +19,26 @@
   }
 
   .pagination-link {
-    @apply p-3 rounded bg-gray-100 hover:bg-yellow-100
+    @apply p-3 rounded bg-gray-100 hover:bg-yellow-100;
   }
 
   .link {
-    @apply font-semibold text-blue-500 underline cursor-pointer focus:outline-none bg-transparent
+    @apply font-semibold text-blue-500 underline cursor-pointer focus:outline-none bg-transparent;
   }
 
   .genre-tag {
-    @apply border rounded-lg px-2 inline-block border-green-300 text-green-500 bg-white
+    @apply border rounded-lg px-2 inline-block border-green-300 text-green-500 bg-white;
   }
 
   .input-label {
-    @apply block font-bold mb-2
+    @apply block font-bold mb-2;
   }
 
   .submit-button {
-    @apply text-center rounded p-2 bg-blue-400 hover:bg-blue-600 text-white cursor-pointer focus:outline-none select-none
+    @apply text-center rounded p-2 bg-blue-400 hover:bg-blue-600 text-white cursor-pointer focus:outline-none select-none;
   }
   .select-button {
-    @apply text-center rounded p-2 bg-yellow-200 hover:bg-yellow-400 text-gray-900 cursor-pointer focus:outline-none select-none
+    @apply text-center rounded p-2 bg-yellow-200 hover:bg-yellow-400 text-gray-900 cursor-pointer focus:outline-none select-none;
   }
 
   .square-pic-wrap {
@@ -47,7 +47,31 @@
   }
 
   .square-pic-disp {
-    @apply object-cover w-full h-full absolute
-  } 
+    @apply object-cover w-full h-full absolute;
+  }
+
+  .alert {
+    @apply border-2 rounded-xl p-4;
+  }
+
+  .alert-success {
+    @apply border-green-400 bg-green-100 text-green-600;
+  }
+
+  .alert-danger {
+    @apply border-red-400 bg-red-100 text-red-600;
+  }
+
+  .error-label {
+    @apply text-red-600 font-bold underline;
+  }
+
+  .label {
+    @apply text-gray-800 font-semibold;
+  }
+
+  .error-input {
+    @apply border-2 border-red-600 bg-red-200
+  }
 }
 @import "tailwindcss/utilities";

@@ -35,7 +35,7 @@
     </header>
     <div class="xl:container xl:mx-auto">
       <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %>"><%= message %></div>
+        <div class="alert alert-<%= message_type %> w-11/12 sm:8/12 mx-auto my-2"><%= message %></div>
       <% end %>
       <div class="">
         <%= yield %>

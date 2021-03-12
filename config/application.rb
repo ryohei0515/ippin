@@ -31,5 +31,16 @@ module Ippin
 
     # 認証トークンをremoteフォームに埋め込む
     config.action_view.embed_authenticity_token_in_remote_forms = true
+
+    # バリデーションエラー時の表示を変更
+    # config.action_view.field_error_proc = Proc.new do |html_tag, instance|
+    #   if instance.kind_of?(ActionView::Helpers::Tags::Label)
+    config.action_view.field_error_proc = proc do |html_tag, instance|
+      if instance.is_a?(ActionView::Helpers::Tags::Label)
+        "<div class=\"error-label\">#{html_tag}</div>".html_safe
+      else
+        html_tag.html_safe
+      end
+    end
   end
 end

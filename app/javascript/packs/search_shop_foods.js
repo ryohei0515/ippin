@@ -31,9 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let el = document.getElementById('food-ddl-disp');
       el.classList.remove("border");
       el.classList.remove("bg-white");
-      el.classList.add("border-2");
-      el.classList.add("border-red-600");
-      el.classList.add("bg-red-200");
+      el.classList.add("error-input");
       Swal.fire({
         html: '料理を選択してください',
         icon: 'error',

@@ -1,5 +1,7 @@
 <%= form_with(model: @form, url: shop_foods_path, method: :get, local:true) do |f| %>
-<%= render 'shared/error_messages', object: f.object %>
+<div class='mb-4'>
+  <%= render 'shared/error_messages', object: f.object %>
+</div>
 <% if yield(:color) == 'black' %>
 <div class="bg-gray-700 bg-opacity-60 p-2 max-w-2xl text-white xsm:rounded-2xl xsm:p-8 xsm:mx-6 md:mx-auto">
   <div class="text-xl font-semibold mb-4 text-center text-shadow-md">
