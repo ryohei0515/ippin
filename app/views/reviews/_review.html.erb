@@ -1,11 +1,11 @@
 <li>
   <div class="border-4 rounded-2xl w-11/12 mx-auto mb-4">
     <div class="border-b mx-auto p-2 flex flex-row">
-      <div class="w-14 mx-3">
+      <div class="w-16 mx-3">
         <% pic = review.user.picture? ? review.user.picture_url(:thumb) : "no_image.jpg" %>
         <%= image_tag pic, class: "rounded-full" %>
       </div>
-      <div class="w-full">
+      <div class="w-full my-auto">
         <div>
           投稿者：<%= link_to review.user.name, review.user, class: "link" %>
         </div>
@@ -26,6 +26,21 @@
         </div>
       </div>
     </div>
+    <% if @shop_food_disp %>
+      <div class="border-b p-2 flex flex-row">
+        <div class="w-16 mx-3">
+          <%= image_tag @shops[review.shop.id]['photo']['mobile']['l'] %>
+        </div>
+        <div class="w-full my-auto">
+          <div>
+            お店：<%= @shops[review.shop.id]['name'] %>
+          </div>
+          <div>
+            料理：<%= link_to review.food.name, review.user, class: "link" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
     <div class="m-1 bg-white md:flex md:flex-row-reverse">
       <div class="md:w-full">
         <div class="m-3">

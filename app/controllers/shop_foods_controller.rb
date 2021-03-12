@@ -5,7 +5,7 @@ class ShopFoodsController < ApplicationController
     @shop_food = ShopFood.find(params[:id])
     @reviews = @shop_food.reviews.page(params[:page]).per(PER_REVIEW)
 
-    _shops(@shop_food.shop_id)
+    @shops = get_shop_info(@shop_food.shop_id)
   end
 
   def index
@@ -20,18 +20,12 @@ class ShopFoodsController < ApplicationController
       return
     end
 
-    _shops(@shop_foods.pluck(:shop_id))
+    @shops = get_shop_info(@shop_foods.pluck(:shop_id))
   end
 
   private
 
   def search_params
     params.permit(:food_id, :large_area, :middle_area)
-  end
-
-  # @shopsのデータを作成する。
-  def _shops(shop_ids)
-    api_result = search_shop_by_id(shop_ids)['shop']
-    @shops = api_result.map { |r| [r['id'], r] }.to_h
   end
 end

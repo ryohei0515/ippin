@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'UserProfiles', type: :system do
+  include ApiHelper
   let(:user) { FactoryBot.create(:user) }
   let(:other_user) { FactoryBot.create(:other_user) }
   let(:review_list) { FactoryBot.create_list(:review, 30, user: user) }
@@ -16,11 +17,14 @@ RSpec.describe 'UserProfiles', type: :system do
       expect(page).to have_content "#{user.reviews.count}件"
       expect(page).to have_selector '.pagination'
       review_list[0..4].each do |review|
+        shop = get_shop_info(review.shop.id)
+        expect(page).to have_content shop['name']
+        expect(page).to have_content review.food.name
         expect(page).to have_content review.title
         expect(page).to have_content review.content
         expect(page).to have_selector("div.star-rating[data-rate='#{review.rate}']")
         expect(page).to have_content review.user.name
-        expect(page).to have_selector("img[src$='#{review.picture_url(:thumb)}']")
+        expect(page).to have_selector("img[src$='#{review.picture_url}']")
         expect(page).to have_content review.updated_at.strftime('%Y年%-m月%-d日')
         expect(page).to have_content "#{review.liked_users.count}人"
       end
