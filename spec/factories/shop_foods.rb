@@ -5,6 +5,7 @@ FactoryBot.define do
     rate { Random.rand(8).to_f / 2 + 1 }
     association :food, factory: :food, strategy: :create
     association :shop, factory: :shop, strategy: :create
+    sequence(:updated_at) { |n| n.minutes.ago }
 
     factory :shop_food_specific_large_area do
       shop { create(:shop, :specific_large_area) }
