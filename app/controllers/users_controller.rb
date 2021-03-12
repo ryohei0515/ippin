@@ -10,7 +10,12 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @review = @user.reviews.page(params[:page]).per(PER_REVIEW)
+    @reviews = @user.reviews.page(params[:page]).per(PER_REVIEW)
+    ids = []
+    @reviews.each do |review|
+      ids << review.shop.id
+    end
+    @shops = get_shop_info(ids) if @reviews.count.positive?
   end
 
   def create
@@ -52,5 +57,11 @@ class UsersController < ApplicationController
   def correct_user
     @user = User.find(params[:id])
     redirect_to(root_url) unless current_user?(@user)
+  end
+
+  # @shopsのデータを作成する。
+  def _shops(shop_ids)
+    api_result = search_shop_by_id(shop_ids)['shop']
+    api_result.map { |r| [r['id'], r] }.to_h
   end
 end

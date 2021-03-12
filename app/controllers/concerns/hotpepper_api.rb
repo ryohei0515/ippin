@@ -44,6 +44,12 @@ module HotpepperApi
     uri = URI.parse(AREA_API_URL + api_params.to_query)
     api_access(uri)
   end
+
+  # shop_idを元にHotpepperApiから店舗情報を取得しハッシュで返却する。（KEYはshop_id）
+  def get_shop_info(shop_ids)
+    api_result = search_shop_by_id(shop_ids)['shop']
+    api_result.map { |r| [r['id'], r] }.to_h
+  end
 end
 
 private
