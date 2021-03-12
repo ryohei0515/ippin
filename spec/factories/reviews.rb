@@ -8,17 +8,20 @@ FactoryBot.define do
     association :user, factory: :review_user, strategy: :create
     association :shop_food, factory: :shop_food, strategy: :create
 
-    sequence(:created_at) { |n| n.hours.ago }
+    sequence(:created_at) { |n| (n + 1).days.ago }
     sequence(:updated_at) { |n| n.hours.ago }
 
     trait :created_30_minutes_ago do
       created_at { 30.minutes.ago }
+      updated_at { 30.minutes.ago }
     end
     trait :created_20_minutes_ago do
       created_at { 20.minutes.ago }
+      updated_at { 20.minutes.ago }
     end
-    trait :created_most_recent do
+    trait :created_10_minutes_ago do
       created_at { 10.minutes.ago }
+      updated_at { 10.minutes.ago }
     end
 
     trait :picture do

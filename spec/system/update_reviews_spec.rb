@@ -59,7 +59,8 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
       expect(updated_review.shop_food.shop_id).to eq updated_shop
       expect(updated_review.rate).to eq @updated_rate
       expect(updated_review.picture.file.filename).to eq @updated_picture
-      expect(current_path).to eq review_path(review.id)
+      expect(current_path).to eq user_path(user.id)
+      expect(page).to have_selector '.alert-success'
     end
   end
 

@@ -3,7 +3,7 @@
 class Review < ApplicationRecord
   belongs_to :user
   belongs_to :shop_food
-  default_scope -> { order(created_at: :desc) }
+  default_scope -> { order(updated_at: :desc) }
   mount_uploader :picture, PictureUploader
 
   validates :user_id, presence: true

@@ -9,10 +9,12 @@ RSpec.describe Review, type: :model do
     expect(review).to be_valid
   end
 
-  it 'created_atの降順でデータが取得できること' do
+  it 'updated_atの降順でデータが取得できること' do
     create :review, :created_30_minutes_ago
-    create :review, :created_20_minutes_ago
-    expect(create(:review, :created_most_recent)).to eq Review.first
+    rev = create :review, :created_20_minutes_ago
+    create :review, :created_10_minutes_ago
+    rev.update(content: 'test')
+    expect(rev).to eq Review.first
   end
 
   it { is_expected.to validate_presence_of(:content) }

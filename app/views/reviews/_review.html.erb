@@ -1,7 +1,7 @@
 <li>
   <div class="border-4 rounded-2xl w-11/12 mx-auto mb-4">
     <div class="border-b mx-auto p-2 flex flex-row">
-      <div class="w-16 mx-3">
+      <div class="w-16 mx-3 my-auto">
         <% pic = review.user.picture? ? review.user.picture_url(:thumb) : "no_image.jpg" %>
         <%= image_tag pic, class: "rounded-full" %>
       </div>
@@ -11,16 +11,19 @@
         </div>
         <div class="w-full sm:flex sm:justify-between">
           <div>
-            投稿日：<%= review.created_at.strftime("%Y年%-m月%-d日") %>
+            <% created_at = review.created_at.strftime("%Y/%-m/%-d") %>
+            <% updated_at = review.updated_at.strftime("%Y/%-m/%-d") %>
+            <div><%= "投稿日：#{created_at}" %></div>
+            <% if created_at != updated_at %>
+              <div class="text-sm text-gray-500"><%= "(最終更新：#{updated_at})" %></div>
+            <% end %>
           </div>
-          <div class="">
+          <div class="mt-auto">
             <% if current_user?(review.user) %>
-              <div class="">
-                <%= link_to "レビュー修正", edit_review_path(review), class: "link" %>
-                <%= link_to "削除", review_path(review), method: :delete,
-                              data: {confirm_swal: "本当に投稿を削除してよろしいですか？"},
-                              class: "link mx-3" %>
-              </div>
+              <%= link_to "レビュー修正", edit_review_path(review), class: "link" %>
+              <%= link_to "削除", review_path(review), method: :delete,
+                            data: {confirm_swal: "本当に投稿を削除してよろしいですか？"},
+                            class: "link mx-3" %>
             <% end %>
           </div>
         </div>
@@ -28,7 +31,7 @@
     </div>
     <% if @shop_food_disp %>
       <div class="border-b p-2 flex flex-row">
-        <div class="w-16 mx-3">
+        <div class="w-16 mx-3 my-auto">
           <%= image_tag @shops[review.shop.id]['photo']['mobile']['l'] %>
         </div>
         <div class="w-full my-auto">

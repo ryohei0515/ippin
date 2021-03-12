@@ -46,7 +46,8 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
       expect(created_review.shop_food.shop_id).to eq @created_shop
       expect(created_review.rate).to eq @created_rate
       expect(created_review.picture.file.filename).to eq @created_picture
-      expect(current_path).to eq review_path(created_review.id)
+      expect(current_path).to eq user_path(user.id)
+      expect(page).to have_selector '.alert-success'
     end
   end
 
@@ -208,7 +209,8 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
       expect(created_review.shop_food.shop_id).to eq @created_shop
       expect(created_review.rate).to eq @created_rate
       expect(created_review.picture.file.filename).to eq @created_picture
-      expect(current_path).to eq review_path(created_review.id)
+      expect(current_path).to eq user_path(user.id)
+      expect(page).to have_selector '.alert-success'
     end
   end
 end
