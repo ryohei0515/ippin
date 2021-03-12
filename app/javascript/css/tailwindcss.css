@@ -69,5 +69,9 @@
   .label {
     @apply text-gray-800 font-semibold;
   }
+
+  .error-input {
+    @apply border-2 border-red-600 bg-red-200
+  }
 }
 @import "tailwindcss/utilities";
