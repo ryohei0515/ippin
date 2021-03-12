@@ -43,7 +43,9 @@
       </div>
       <% if review.picture? %>
         <div class="m-3">
-          <%= image_tag review.picture_url, class: "max-w-xs max-h-80 w-auto mx-auto" %>
+          <div class="max-w-sm mx-auto">
+            <%= image_tag review.picture_url, class: "object-contain max-h-80 mx-auto" %>
+          </div>
           <% # ポートフォリオ用に収集したReview用画像のCC表記用 #60 %>
           <div class="text-2xs text-gray-400 text-center"><%= review.picture_cc.html_safe if review.picture_cc? && review.picture.identifier.include?("cc_picture_") %></div>
         </div>
