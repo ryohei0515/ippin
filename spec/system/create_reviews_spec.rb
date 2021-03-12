@@ -31,11 +31,11 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
       click_link 'お店を選択'
       fill_in 'shop-textbox', with: '鳥'
       click_button '検索'
-      wait_for_loaded_until_css_exists('.select-button')
+      wait_for_loaded_until_css_exists('.list')
       page.all('.select-button')[0].click
       @created_shop = find('#review_shop_id', visible: false).value
       # pictureアップロード
-      attach_file 'Picture', file_fixture(@created_picture)
+      attach_file 'pic_field', file_fixture(@created_picture), make_visible: true
       click_button '新規投稿'
     end.to change(Review, :count).by(1)
     created_review = user.reviews.first
@@ -69,7 +69,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
         click_link 'お店を選択'
         fill_in 'shop-textbox', with: '鳥'
         click_button '検索'
-        wait_for_loaded_until_css_exists('.select-button')
+        wait_for_loaded_until_css_exists('.list')
         page.all('.select-button')[0].click
         click_button '新規投稿'
       end.to change(Review, :count).by(1)
@@ -85,7 +85,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
         click_link 'お店を選択'
         fill_in 'shop-textbox', with: '鳥'
         click_button '検索'
-        wait_for_loaded_until_css_exists('.select-button')
+        wait_for_loaded_until_css_exists('.list')
         page.all('.select-button')[0].click
         click_button '新規投稿'
       end.to change(Review, :count).by(0)
@@ -103,7 +103,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
         click_link 'お店を選択'
         fill_in 'shop-textbox', with: '鳥'
         click_button '検索'
-        wait_for_loaded_until_css_exists('.select-button')
+        wait_for_loaded_until_css_exists('.list')
         page.all('.select-button')[0].click
         click_button '新規投稿'
       end.to change(Review, :count).by(0)
@@ -121,7 +121,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
         click_link 'お店を選択'
         fill_in 'shop-textbox', with: '鳥'
         click_button '検索'
-        wait_for_loaded_until_css_exists('.select-button')
+        wait_for_loaded_until_css_exists('.list')
         page.all('.select-button')[0].click
         click_button '新規投稿'
       end.to change(Review, :count).by(0)
@@ -138,7 +138,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
         click_link 'お店を選択'
         fill_in 'shop-textbox', with: '鳥'
         click_button '検索'
-        wait_for_loaded_until_css_exists('.select-button')
+        wait_for_loaded_until_css_exists('.list')
         page.all('.select-button')[0].click
         click_button '新規投稿'
       end.to change(Review, :count).by(0)
@@ -168,13 +168,13 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
       click_link 'お店を選択'
       fill_in 'shop-textbox', with: '鳥'
       click_button '検索'
-      wait_for_loaded_until_css_exists('.select-button')
+      wait_for_loaded_until_css_exists('.list')
       page.all('.select-button')[0].click
 
-      attach_file 'Picture', file_fixture(@created_picture)
+      attach_file 'pic_field', file_fixture(@created_picture), make_visible: true
       # Titleが入力されていない状態で投稿
       click_button '新規投稿'
-      expect(page).to have_selector("img[src$='thumb_#{@created_picture}']")
+      expect(page).to have_selector("img[src$='#{@created_picture}']")
     end
   end
 
@@ -194,11 +194,11 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
       click_link 'お店を選択'
       fill_in 'shop-textbox', with: 'test'
       click_button '検索'
-      wait_for_loaded_until_css_exists('.select-button')
+      wait_for_loaded_until_css_exists('.list')
       page.all('.select-button')[0].click
       @created_shop = find('#review_shop_id', visible: false).value
       # pictureアップロード
-      attach_file 'Picture', file_fixture(@created_picture)
+      attach_file 'pic_field', file_fixture(@created_picture), make_visible: true
       click_button '新規投稿'
     end.to change(Review, :count).by(1)
     created_review = user.reviews.first
