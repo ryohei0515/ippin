@@ -1,8 +1,8 @@
 <template>
 <div>
-  <div class="float flex flex-row">
-    <label class="block text-gray-700 text-sm mb-2 mx-2" :value="shopName" >{{ shopName }}</label>
-    <a class="font-bold text-blue-500" id="select_shop_modal_link" href="#" @click.self="modalOpen">お店を選択</a>
+  <div class="xsm:float xsm:flex xsm:flex-row">
+    <label class="block text-gray-700 text-sm mb-2 mx-3" :value="shopName" >{{ shopName }}</label>
+    <a class="link" id="select_shop_modal_link" href="#" @click.self="modalOpen">お店を選択</a>
     <input type="hidden" name="review[shop_id]" id="review_shop_id" :value="shopId">
   </div>
   <div class="overlay z-10 fixed top-0 left-0 w-full h-full" @click.self="modalClose" v-show="modalShow" @test="modalOpen">
