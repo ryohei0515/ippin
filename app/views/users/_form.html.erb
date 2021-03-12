@@ -1,5 +1,7 @@
 <%= form_with(model: @user, local:true) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+  <div class='mb-4'>
+    <%= render 'shared/error_messages', object: f.object %>
+  </div>
   <div class="mb-6 mx-1 text-center">
     <span class="border-b-4 border-yellow-200 border-opacity-50"><%= yield(:description) %></span>
   </div>

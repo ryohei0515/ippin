@@ -1,9 +1,9 @@
 <% if object.errors.any? %>
-  <div class="alert alert-danger">
-    エラーが <%= object.errors.count %>件 あります
-    <ul>
+  <div class="alert alert-danger w-11/12 sm:8/12 mx-auto">
+    <span class="font-semibold">エラーが <%= object.errors.count %>件 あります</span>
+    <ul class="mt-2">
       <% object.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+      <li><span class="mr-2">・</span><%= msg %></li>
       <% end %>
     </ul>
   </div>
