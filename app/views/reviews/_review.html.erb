@@ -1,7 +1,7 @@
 <li>
   <div class="border-4 rounded-2xl w-11/12 mx-auto mb-4">
     <div class="border-b mx-auto p-2 flex flex-row">
-      <div class="w-16 mx-3">
+      <div class="w-16 mx-3 my-auto">
         <% pic = review.user.picture? ? review.user.picture_url(:thumb) : "no_image.jpg" %>
         <%= image_tag pic, class: "rounded-full" %>
       </div>
@@ -31,7 +31,7 @@
     </div>
     <% if @shop_food_disp %>
       <div class="border-b p-2 flex flex-row">
-        <div class="w-16 mx-3">
+        <div class="w-16 mx-3 my-auto">
           <%= image_tag @shops[review.shop.id]['photo']['mobile']['l'] %>
         </div>
         <div class="w-full my-auto">
