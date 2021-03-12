@@ -9,8 +9,8 @@ RSpec.describe 'Log in', type: :system do
   it 'ログインできること' do
     visit root_path
     click_link 'ログイン'
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
+    fill_in 'メールアドレス', with: user.email
+    fill_in 'パスワード', with: user.password
     click_button 'ログイン'
 
     aggregate_failures do
@@ -23,8 +23,8 @@ RSpec.describe 'Log in', type: :system do
   it 'パスワード不一致の場合、ログインできないこと' do
     visit root_path
     click_link 'ログイン'
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: 'invalid'
+    fill_in 'メールアドレス', with: user.email
+    fill_in 'パスワード', with: 'invalid'
     click_button 'ログイン'
 
     aggregate_failures do
@@ -47,8 +47,8 @@ RSpec.describe 'Log in', type: :system do
   it 'ログイン状態の記憶にチェックを入れている場合、ブラウザ再起動後ログイン状態であること' do
     visit root_path
     click_link 'ログイン'
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
+    fill_in 'メールアドレス', with: user.email
+    fill_in 'パスワード', with: user.password
     check 'ログイン状態を記憶する'
     click_button 'ログイン'
 
@@ -73,8 +73,8 @@ RSpec.describe 'Log in', type: :system do
   it 'ログイン状態の記憶にチェックを入れていない場合、ブラウザ再起動後ログイン状態でないこと' do
     visit root_path
     click_link 'ログイン'
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
+    fill_in 'メールアドレス', with: user.email
+    fill_in 'パスワード', with: user.password
     click_button 'ログイン'
 
     # cookieを一時退避（remember_tokenは空の想定）

@@ -11,26 +11,26 @@
     <div class="lg:w-8/12 lg:mx-auto">
       <%= f.hidden_field :user_id %>
       <div class="mb-4">
-        <span class="label"><%= f.label :title, class: "block mb-2" %></span>
+        <span class="label"><%= f.label :title, "タイトル", class: "block mb-2" %></span>
         <%= f.text_field :title, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
       </div>
       <div class="mb-4">
-        <span class="label"><%= f.label :rate, class: "block mb-2" %></span>
+        <span class="label"><%= f.label :rate, "評価", class: "block mb-2" %></span>
         <div class="xsm:flex xsm:flex-row">
           <div class="flex flex-row" id="review-star-rating" data-rate="<%= @form.rate %>"></div>
           <div class="xsm:ml-4" id="hint1"></div>
         </div>
       </div>
       <div class="mb-4">
-        <span class="label"><%= f.label :food_id, class: "block mb-2",id: "food-id-label", data: { food_id: @form.food_id } %></span>
+        <span class="label"><%= f.label :food_id, "料理", class: "block mb-2",id: "food-id-label", data: { food_id: @form.food_id } %></span>
         <div id="food-ddl"></div>
       </div>
       <div class="mb-4">
-        <span class="label"><%= f.label :shop_id, class: "block mb-2", id: "shop-label", data: { shop_id: @form.shop_id } %></span>
+        <span class="label"><%= f.label :shop_id, "お店", class: "block mb-2", id: "shop-label", data: { shop_id: @form.shop_id } %></span>
         <div id="select-shop-modal"></div>
       </div>
       <div class="mb-4">
-        <span class="label"><%= f.label :content, class: "block mb-2" %></span>
+        <span class="label"><%= f.label :content, "内容", class: "block mb-2" %></span>
         <%= f.text_area :content, class: "h-48 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
       </div>
     </div>

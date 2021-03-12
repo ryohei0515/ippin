@@ -5,11 +5,11 @@
         <span class="border-b-4 border-yellow-200 border-opacity-50">登録済みの方はこちらからログインください</span>
       </div>
       <div class="mb-4">
-        <%= f.label :email, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= f.label :email, "メールアドレス", class: "block text-gray-700 text-sm font-bold mb-2" %>
         <%= f.email_field :email, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
       </div>
       <div class="mb-4">
-        <%= f.label :password, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= f.label :password, "パスワード", class: "block text-gray-700 text-sm font-bold mb-2" %>
         <%= f.password_field :password, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
       </div>
       <div class="mb-4">
@@ -34,6 +34,6 @@
     </div>
   <% end %>
   <div class="text-sm p-5">
-    まだ登録されていない方は<%= link_to "こちら", signup_path(@review), class: "font-bold text-blue-500" %>からユーザ登録してください
+    まだ登録されていない方は<%= link_to "こちら", signup_path(@review), class: "link" %>からユーザ登録してください
   </div>
 </div>
