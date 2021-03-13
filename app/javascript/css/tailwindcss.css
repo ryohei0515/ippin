@@ -71,7 +71,11 @@
   }
 
   .error-input {
-    @apply border-2 border-red-600 bg-red-200
+    @apply border-2 border-red-600 bg-red-200;
+  }
+
+  #cc-wrap a {
+    @apply text-blue-500 underline cursor-pointer focus:outline-none bg-transparent;
   }
 }
 @import "tailwindcss/utilities";
