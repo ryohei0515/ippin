@@ -26,7 +26,7 @@ RSpec.describe 'Homes', type: :system, js: true do
         expect(page).to have_content shop['name']
         expect(page).to have_content shop['genre']['name']
         expect(page).to have_content shop['mobile_access']
-        expect(page).to have_content shop['address'].strip
+        expect(page).to have_content shop['address'].strip_all_space!
         expect(page).to have_content "#{shop['capacity']}席"
         expect(page).to have_content shop_food.rate
         expect(page).to have_content "#{shop_food.reviews.count}件"
