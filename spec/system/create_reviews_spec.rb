@@ -20,8 +20,8 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     log_in_as user
     visit new_review_path
     expect do
-      fill_in 'Content', with: @created_content
-      fill_in 'Title', with: @created_title
+      fill_in '内容', with: @created_content
+      fill_in 'タイトル', with: @created_title
       # food選択
       page.find('#food-ddl').click
       page.find('#food-ddl').all('li')[0].click
@@ -58,8 +58,8 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     end
     after do
       expect do
-        fill_in 'Content', with: @created_content
-        fill_in 'Title', with: @created_title
+        fill_in '内容', with: @created_content
+        fill_in 'タイトル', with: @created_title
         # food選択
         page.find('#food-ddl').click
         page.find('#food-ddl').all('li')[0].click
@@ -77,8 +77,8 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     end
     it 'foodが未選択' do
       expect do
-        fill_in 'Content', with: @created_content
-        fill_in 'Title', with: @created_title
+        fill_in '内容', with: @created_content
+        fill_in 'タイトル', with: @created_title
         # rate選択
         page.find('#review-star-rating').all('img')[@created_rate - 1].click
         # shop選択
@@ -93,7 +93,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     end
     it 'contentが未入力' do
       expect do
-        fill_in 'Title', with: @created_title
+        fill_in 'タイトル', with: @created_title
         # food選択
         page.find('#food-ddl').click
         page.find('#food-ddl').all('li')[0].click
@@ -111,7 +111,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     end
     it 'titleが未入力' do
       expect do
-        fill_in 'Content', with: @created_content
+        fill_in '内容', with: @created_content
         # food選択
         page.find('#food-ddl').click
         page.find('#food-ddl').all('li')[0].click
@@ -129,8 +129,8 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     end
     it 'rateが未選択' do
       expect do
-        fill_in 'Content', with: @created_content
-        fill_in 'Title', with: @created_title
+        fill_in '内容', with: @created_content
+        fill_in 'タイトル', with: @created_title
         # food選択
         page.find('#food-ddl').click
         page.find('#food-ddl').all('li')[0].click
@@ -146,8 +146,8 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     end
     it 'shopが未選択' do
       expect do
-        fill_in 'Content', with: @created_content
-        fill_in 'Title', with: @created_title
+        fill_in '内容', with: @created_content
+        fill_in 'タイトル', with: @created_title
         # food選択
         page.find('#food-ddl').click
         page.find('#food-ddl').all('li')[0].click
@@ -158,7 +158,7 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
       expect(page).to have_selector '.alert-danger'
     end
     it '画像がキャッシュされること' do
-      fill_in 'Content', with: @created_content
+      fill_in '内容', with: @created_content
       # food選択
       page.find('#food-ddl').click
       page.find('#food-ddl').all('li')[0].click
@@ -183,8 +183,8 @@ RSpec.describe 'CreateReviews', type: :system, js: true do
     FactoryBot.create(:temporary_shop)
     visit new_review_path
     expect do
-      fill_in 'Content', with: @created_content
-      fill_in 'Title', with: @created_title
+      fill_in '内容', with: @created_content
+      fill_in 'タイトル', with: @created_title
       # food選択
       page.find('#food-ddl').click
       page.find('#food-ddl').all('li')[0].click

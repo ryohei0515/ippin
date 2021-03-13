@@ -10,12 +10,13 @@ class ReviewForm
   mount_uploader :picture, PictureUploader
 
   validates :user_id, presence: true
-  validates :food_id, presence: true
-  validates :content, presence: true, length: { maximum: 400 }
   validates :title, presence: true, length: { maximum: 50 }
-  validates :shop_id, presence: true
   validates :rate, numericality: { greater_than_or_equal_to: 1,
-                                   less_than_or_equal_to: 5 }
+                                   less_than_or_equal_to: 5,
+                                   message: 'を選択してください' }
+  validates :food_id, presence: { message: 'を選択してください' }
+  validates :shop_id, presence: { message: 'を選択してください' }
+  validates :content, presence: true, length: { maximum: 400 }
 
   delegate :persisted?, to: :review
 

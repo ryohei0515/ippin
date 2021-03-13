@@ -35,8 +35,8 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
   it 'ログインユーザ自身のレビューを更新できること' do
     log_in_as user
     visit edit_review_path(review.id)
-    fill_in 'Content', with: @updated_content
-    fill_in 'Title', with: @updated_title
+    fill_in '内容', with: @updated_content
+    fill_in 'タイトル', with: @updated_title
     # food選択
     page.find('#food-ddl').click
     page.find('#food-ddl').all('li')[0].click
@@ -71,20 +71,20 @@ RSpec.describe 'UpdateReviews', type: :system, js: true do
     end
     it 'contentが誤り' do
       expect do
-        fill_in 'Content', with: ''
+        fill_in '内容', with: ''
         click_button '修正する'
       end.to_not change { review.reload.inspect }
       expect(page).to have_selector '.alert-danger'
     end
     it 'titleが誤り' do
       expect do
-        fill_in 'Title', with: ''
+        fill_in 'タイトル', with: ''
         click_button '修正する'
       end.to change(Review, :count).by(0)
     end
     it '画像がキャッシュされること' do
       attach_file 'pic_field', file_fixture(@updated_picture), make_visible: true
-      fill_in 'Title', with: ''
+      fill_in 'タイトル', with: ''
       click_button '修正する'
       expect(page).to have_selector("img[src$='#{@updated_picture}']")
     end

@@ -11,7 +11,7 @@ RSpec.describe ReviewForm, type: :model do
 
   it { is_expected.to validate_presence_of(:user_id) }
 
-  it { is_expected.to validate_presence_of(:food_id) }
+  it { is_expected.to validate_presence_of(:food_id).with_message('を選択してください') }
 
   it { is_expected.to validate_presence_of(:content) }
   it { is_expected.to validate_length_of(:content).is_at_most(400) }
@@ -19,15 +19,15 @@ RSpec.describe ReviewForm, type: :model do
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_length_of(:title).is_at_most(50) }
 
-  it { is_expected.to validate_presence_of(:shop_id) }
+  it { is_expected.to validate_presence_of(:shop_id).with_message('を選択してください') }
 
   it {
     is_expected.to validate_numericality_of(:rate)
-      .is_greater_than_or_equal_to(1)
+      .is_greater_than_or_equal_to(1).with_message('を選択してください')
   }
   it {
     is_expected.to validate_numericality_of(:rate)
-      .is_less_than_or_equal_to(5)
+      .is_less_than_or_equal_to(5).with_message('を選択してください')
   }
 
   describe '#create' do
