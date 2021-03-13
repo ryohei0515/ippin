@@ -29,7 +29,7 @@ class UpdateTempData
       food_id = rev.shop_food.food_id
       # rateが高く、画像の使用制限を超えていないときのみ登録する
       if use_pic_limit[food_id] > 0 && rev.rate >= 4
-        num = use_pic_limit[food_id] % use_count
+        num = use_pic_limit[food_id] % pictures[food_id].length
         rev.update(created_at: created_date, updated_at: updated_date,
                    picture: open(pictures[food_id][num][:picture]),
                    picture_cc: pictures[food_id][num][:picture_cc])
