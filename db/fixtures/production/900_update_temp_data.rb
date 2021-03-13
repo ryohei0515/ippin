@@ -3,7 +3,7 @@ require 'csv'
 # ポートフォリオ用のReview用画像データ登録用。
 class UpdateTempData
   def self.exec
-    use_count = 5 # 1枚の画像につき、何reviewで使用するか設定
+    use_count = 10 # 1枚の画像につき、何reviewで使用するか設定
 
     use_pic_limit = {}
     Food.all.each do |food|
