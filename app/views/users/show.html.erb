@@ -24,7 +24,9 @@
     <ol>
       <%= render partial: 'reviews/review', collection: @reviews, as: :review %>
     </ol>
-    <%= paginate @reviews %>
+    <div class="my-10">
+      <%= paginate @reviews %>
+    </div>
   <% end %>
 </div>
 

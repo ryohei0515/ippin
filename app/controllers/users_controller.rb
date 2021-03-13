@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @reviews = @user.reviews.page(params[:page]).per(PER_REVIEW)
+    @reviews = @user.reviews.page(params[:page]).per(Settings.kaminari.per.review)
     ids = []
     @reviews.each do |review|
       ids << review.shop.id
