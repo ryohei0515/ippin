@@ -10,6 +10,7 @@ RSpec.describe 'Homes', type: :system do
   let(:food) { FactoryBot.create(:food) }
   let(:shop_food_list) { FactoryBot.create_list(:shop_food, 20) } # 検索対象外のShopFoodを生成
   let(:shop_food_target_list) { FactoryBot.create_list(:shop_food, Settings.kaminari.per.shop_food + 5, food: food) } # 検索対象とするShopFoodを生成
+  let(:review_list) { FactoryBot.create_list(:review, Settings.kaminari.per.review + 5) }
 
   it 'Foodの検索条件に合致したShopの情報が表示されること', js: true do
     shop_food_target_list
@@ -67,5 +68,28 @@ RSpec.describe 'Homes', type: :system do
 
     expect(page).to_not have_button 'ログイン'
     expect(page).to_not have_button 'ゲストログイン'
+  end
+
+  it 'ホーム画面に更新日の降順でレビューが表示されること' do
+    review_list
+    visit root_path
+
+    aggregate_failures do
+      expect(page).to have_content "#{Review.count}件"
+      expect(page).to have_selector '.pagination'
+      review_list[0..Settings.kaminari.per.review - 1].each do |review|
+        shop = get_shop_info(review.shop.id)
+        expect(page).to have_content shop['name']
+        expect(page).to have_content review.food.name
+        expect(page).to have_content review.title
+        expect(page).to have_content review.content
+        expect(page).to have_selector("div.star-rating[data-rate='#{review.rate}']")
+        expect(page).to have_content review.user.name
+        expect(page).to have_selector("img[src$='#{review.picture_url}']")
+        expect(page).to have_content review.created_at.strftime('%Y/%-m/%-d')
+        expect(page).to have_content review.updated_at.strftime('%Y/%-m/%-d')
+        expect(page).to have_content "#{review.liked_users.count}人"
+      end
+    end
   end
 end

@@ -1,3 +1,5 @@
+<% @shop_food_disp = true %>
+
 <div class="relative w-full h-128 xsm:h-128 sm:h-112">
   <ul class="slider">
     <li><%= image_tag "food_pic_01.jpg" ,class: "w-full h-128 xsm:h-128 sm:h-112 object-cover" %></li>
@@ -12,16 +14,30 @@
     <%= render 'shop_foods/shop_food_search_form' %>
   </div>
 </div>
-<div class="container mx-auto py-10">
+<div class="md:container md:mx-auto py-10">
   <div class="text-center mb-5">
     <span class="under-line text-xl md:text-2xl">IPPINは中華料理別に投稿できる、お店の口コミサイトです。</span>
   </div>
   <% unless logged_in? %>
-    <div class="text-center mb-3">口コミの閲覧はログインなしでも可能です。好きな料理を選択して、検索してください。</div>
-    <div class="text-center mb-3">口コミの投稿はログインが必要です。以下よりログインして新規投稿してください。</div>
+    <div class="md:text-center mb-3">口コミの閲覧はログインなしでも可能です。好きな料理を選択して、検索してください。</div>
+    <div class="md:text-center mb-3">口コミの投稿はログインが必要です。以下よりログインして新規投稿してください。</div>
     <%= render 'sessions/login_form' %>
   <% end %>
 </div>
+<div class="">
+  <% if @reviews.any? %>
+    <div class="mb-5 p-3 bg-yellow-100 text-xl">
+      <h2 class="md:container md:mx-auto"><span class="ml-2 font-semibold">IPPINにレビューが<i class="fas fa-comments text-green-300 mx-1"></i><%= @reviews.total_count %>件投稿されています</span></h2>
+    </div>
+    <ol class="container mx-auto">
+      <%= render partial: 'reviews/review', collection: @reviews, as: :review %>
+    </ol>
+    <div class="my-10">
+      <%= paginate @reviews %>
+    </div>
+  <% end %>
+</div>
+
 <%= javascript_pack_tag 'search_shop_foods' %>
 
 <script type="text/javascript">
@@ -35,5 +51,17 @@
       prevArrow: "",
       nextArrow: ""
     });
+  });
+
+  $('.star-rating').raty({
+    starOff: '<%= asset_path("star-off.png") %>',
+    starOn: '<%= asset_path("star-on.png") %>',
+    starHalf: '<%= asset_path("star-half.png") %>',
+    scoreName: 'review[rate]',
+    hints: ['とても悪い', '悪い', '普通', '良い', 'とても良い'],
+    score: function() {
+      return $(this).attr('data-rate');
+    },
+    readOnly: true
   });
 </script>
