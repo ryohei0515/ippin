@@ -3,11 +3,8 @@
 
 <div class="m-8 flex flex-row">
   <div class="w-24">
-    <% if @user.picture? %>
-      <%= image_tag @user.picture_url(:thumb), class: "rounded-full w-full" %>
-    <% else %>
-      <img src="http://placehold.jp/300x300.png?text=No image" class="rounded-full w-full">
-    <% end %>
+    <% pic = @user.picture? ? @user.picture_url(:thumb) : "no_image.jpg" %>
+    <%= image_tag pic, class: "rounded-full w-full" %>
   </div>
   <div class="ml-3">
     <div class="">
