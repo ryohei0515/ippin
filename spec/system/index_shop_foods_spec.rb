@@ -26,7 +26,7 @@ RSpec.describe 'IndexShopFoods', type: :system, js: true do
         shop = get_shop_info(shop_food.shop_id)
         expect(page).to have_content shop['name']
         expect(page).to have_content shop['genre']['name']
-        expect(page).to have_content shop['mobile_access']
+        expect(page).to have_content shop['mobile_access'].strip_all_space!
         expect(page).to have_content shop['address'].strip_all_space!
         expect(page).to have_content "#{shop['capacity']}席"
         expect(page).to have_content shop_food.rate
@@ -57,7 +57,7 @@ RSpec.describe 'IndexShopFoods', type: :system, js: true do
         shop = get_shop_info(shop_food.shop_id)
         expect(page).to have_content shop['name']
         expect(page).to have_content shop['genre']['name']
-        expect(page).to have_content shop['mobile_access']
+        expect(page).to have_content shop['mobile_access'].strip_all_space!
         expect(page).to have_content shop['address'].strip_all_space!
         expect(page).to have_content "#{shop['capacity']}席"
         expect(page).to have_content shop_food.rate
