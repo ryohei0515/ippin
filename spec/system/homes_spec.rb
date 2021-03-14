@@ -7,7 +7,7 @@ RSpec.describe 'Homes', type: :system, js: true do
 
   let(:food) { FactoryBot.create(:food) }
   let(:shop_food_list) { FactoryBot.create_list(:shop_food, 20) } # 検索対象外のShopFoodを生成
-  let(:shop_food_target_list) { FactoryBot.create_list(:shop_food, 10, food: food) } # 検索対象とするShopFoodを生成
+  let(:shop_food_target_list) { FactoryBot.create_list(:shop_food, Settings.kaminari.per.shop_food + 5, food: food) } # 検索対象とするShopFoodを生成
 
   it 'Foodの検索条件に合致したShopの情報が表示されること' do
     shop_food_target_list
@@ -21,7 +21,7 @@ RSpec.describe 'Homes', type: :system, js: true do
     aggregate_failures do
       expect(page).to have_content "#{result.count}件"
       expect(page).to have_selector '.pagination'
-      result.order('rate desc, shop_foods.updated_at desc')[0..4].each do |shop_food|
+      result.order('rate desc, shop_foods.updated_at desc')[0..Settings.kaminari.per.shop_food - 1].each do |shop_food|
         shop = get_shop_info(shop_food.shop_id)
         expect(page).to have_content shop['name']
         expect(page).to have_content shop['genre']['name']

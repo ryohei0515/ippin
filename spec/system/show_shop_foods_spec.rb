@@ -6,7 +6,7 @@ RSpec.describe 'ShowShopFoods', type: :system, js: true do
   include ActionView::Helpers::DateHelper
   include ApiHelper
 
-  let(:review_list) { FactoryBot.create_list(:review, 10, :picture, shop_food: shop_food) }
+  let(:review_list) { FactoryBot.create_list(:review, Settings.kaminari.per.review + 5, :picture, shop_food: shop_food) }
   let(:shop_food) { FactoryBot.create(:shop_food) }
 
   before do
@@ -30,7 +30,7 @@ RSpec.describe 'ShowShopFoods', type: :system, js: true do
       expect(page).to have_content shop_food.rate
       expect(page).to have_content "#{shop_food.reviews.count}件"
       expect(page).to have_selector '.pagination'
-      shop_food.reviews[0..4].each do |review|
+      shop_food.reviews[0..Settings.kaminari.per.review - 1].each do |review|
         expect(page).to have_content review.title
         expect(page).to have_content review.content
         expect(page).to have_selector("div.star-rating[data-rate='#{review.rate}']")

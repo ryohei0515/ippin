@@ -6,7 +6,7 @@ RSpec.describe 'UserProfiles', type: :system do
   include ApiHelper
   let(:user) { FactoryBot.create(:user) }
   let(:other_user) { FactoryBot.create(:other_user) }
-  let(:review_list) { FactoryBot.create_list(:review, 30, user: user) }
+  let(:review_list) { FactoryBot.create_list(:review, Settings.kaminari.per.review + 5, user: user) }
 
   it 'ユーザ詳細ページが正しく表示されること' do
     review_list
@@ -16,7 +16,7 @@ RSpec.describe 'UserProfiles', type: :system do
       expect(page).to have_selector("img[src$='#{user.picture_url(:thumb)}']")
       expect(page).to have_content "#{user.reviews.count}件"
       expect(page).to have_selector '.pagination'
-      review_list[0..4].each do |review|
+      review_list[0..Settings.kaminari.per.review - 1].each do |review|
         shop = get_shop_info(review.shop.id)
         expect(page).to have_content shop['name']
         expect(page).to have_content review.food.name
