@@ -5,3 +5,8 @@ sample_user:
   id: 2
   email: "sample_user@example.com"
   password: "sampleuser"
+
+kaminari:
+  per:
+    shop_food: 10
+    review: 10

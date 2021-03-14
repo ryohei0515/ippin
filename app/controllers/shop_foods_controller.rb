@@ -3,7 +3,7 @@
 class ShopFoodsController < ApplicationController
   def show
     @shop_food = ShopFood.find(params[:id])
-    @reviews = @shop_food.reviews.page(params[:page]).per(PER_REVIEW)
+    @reviews = @shop_food.reviews.page(params[:page]).per(Settings.kaminari.per.review)
 
     @shops = get_shop_info(@shop_food.shop_id)
   end
@@ -14,7 +14,7 @@ class ShopFoodsController < ApplicationController
     # 対象のShopFoodの取得。初期表示時はエラー表示回避のため、検索処理を実行せず、空の配列を作成する。
     res = search_params[:food_id].nil? ? ShopFood.where('1=0') : @form.search
 
-    @shop_foods = res.page(params[:page]).per(PER_FOOD)
+    @shop_foods = res.page(params[:page]).per(Settings.kaminari.per.shop_food)
     if @shop_foods.count.zero?
       flash.now[:danger] = '検索結果が見つかりません。他の検索条件でお試しください。' if search_params[:food_id].present?
       return
