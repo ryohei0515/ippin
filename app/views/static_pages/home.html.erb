@@ -5,14 +5,23 @@
     <li><%= image_tag "food_pic_03.jpg" ,class: "w-full h-128 xsm:h-128 sm:h-112 object-cover" %></li>
     <li><%= image_tag "food_pic_04.jpg" ,class: "w-full h-128 xsm:h-128 sm:h-112 object-cover" %></li>
   </ul>
-  <% provide :search_catch, '好きな料理を検索して、美味しいお店を見つけよう！' %>
+  <% provide :search_catch, '好きな中華料理を検索して、美味しいお店を見つけよう！' %>
   <% provide :color, 'black' %>
   <% provide(:submit_text, "検索") %>
   <div class="absolute bottom-8 right-0 left-0 m-auto">
     <%= render 'shop_foods/shop_food_search_form' %>
   </div>
 </div>
-
+<div class="container mx-auto py-10">
+  <div class="text-center mb-5">
+    <span class="under-line text-xl md:text-2xl">IPPINは中華料理別に投稿できる、お店の口コミサイトです。</span>
+  </div>
+  <% unless logged_in? %>
+    <div class="text-center mb-3">口コミの閲覧はログインなしでも可能です。好きな料理を選択して、検索してください。</div>
+    <div class="text-center mb-3">口コミの投稿はログインが必要です。以下よりログインして新規投稿してください。</div>
+    <%= render 'sessions/login_form' %>
+  <% end %>
+</div>
 <%= javascript_pack_tag 'search_shop_foods' %>
 
 <script type="text/javascript">

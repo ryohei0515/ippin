@@ -1,0 +1,39 @@
+<div class="container mx-auto">
+  <div class="md:border-b md:flex md:flex-row md:mx-auto md:w-192">
+    <%= form_with(url: login_path, scope: :session, local: true) do |f| %>
+      <div class="mx-5 py-5 border-b md:border-b-0 md:border-r md:w-96 md:mx-auto md:pr-8">
+        <div class="mb-4 text-center">
+          <span class="under-line text-lg">登録済みの方はこちらから</span>
+        </div>
+        <div class="mb-4">
+          <%= f.label :email, "メールアドレス", class: "block text-gray-700 text-sm font-bold mb-2" %>
+          <%= f.email_field :email, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        </div>
+        <div class="mb-4">
+          <%= f.label :password, "パスワード", class: "block text-gray-700 text-sm font-bold mb-2" %>
+          <%= f.password_field :password, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        </div>
+        <div class="mb-4">
+          <%= f.label :remember_me do %>
+            <%= f.check_box :remember_me, class: "mr-2" %>
+            <span class="text-gray-700 text-sm">ログイン状態を記憶する</span>
+          <% end %>
+        </div>
+        <%= f.submit "ログイン", class: "w-full submit-button" %>
+      </div>
+    <% end %>
+    <%= form_with(url: login_path, scope: :session, local: true) do |f| %>
+      <div class="mx-5 py-5 border-b md:border-b-0 md:w-80 md:mx-auto md:pl-12 md:h-20 md:my-auto">
+        <div class="mb-8 text-center md:mb-20">
+          <span class="under-line text-lg">ゲスト用のログインはこちらから</span>
+        </div>
+        <%= f.hidden_field :email, value: Settings.sample_user.email, id: 'guest_email' %>
+        <%= f.hidden_field :password, value: Settings.sample_user.password, id: 'guest_password' %>
+        <%= f.submit "ゲストログイン", class: "w-full submit-button" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="text-sm p-5 text-center">
+  まだ登録されていない方は<%= link_to "こちら", signup_path(@review), class: "link" %>からユーザ登録してください
+  </div>
+</div>

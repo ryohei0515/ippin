@@ -2,14 +2,16 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Homes', type: :system, js: true do
+RSpec.describe 'Homes', type: :system do
+  include LoginSupport
   include ApiHelper
 
+  let(:user) { FactoryBot.create(:user) }
   let(:food) { FactoryBot.create(:food) }
   let(:shop_food_list) { FactoryBot.create_list(:shop_food, 20) } # 検索対象外のShopFoodを生成
   let(:shop_food_target_list) { FactoryBot.create_list(:shop_food, Settings.kaminari.per.shop_food + 5, food: food) } # 検索対象とするShopFoodを生成
 
-  it 'Foodの検索条件に合致したShopの情報が表示されること' do
+  it 'Foodの検索条件に合致したShopの情報が表示されること', js: true do
     shop_food_target_list
     shop_food_list
     visit root_path
@@ -32,5 +34,38 @@ RSpec.describe 'Homes', type: :system, js: true do
         expect(page).to have_content "#{shop_food.reviews.count}件"
       end
     end
+  end
+
+  it 'ホーム画面のログインフォームよりログインできること' do
+    visit root_path
+    fill_in 'メールアドレス', with: user.email
+    fill_in 'パスワード', with: user.password
+    click_button 'ログイン'
+
+    aggregate_failures do
+      expect(current_path).to eq user_path(user)
+      expect(page).to have_selector 'a', text: 'ログアウト'
+      expect(page).to_not have_selector 'a', text: 'ログイン'
+    end
+  end
+
+  it 'ホーム画面よりゲストログインできること' do
+    FactoryBot.create(:sample_user)
+    visit root_path
+    click_button 'ゲストログイン'
+
+    aggregate_failures do
+      expect(current_path).to eq user_path(Settings.sample_user.id)
+      expect(page).to have_selector 'a', text: 'ログアウト'
+      expect(page).to_not have_selector 'a', text: 'ログイン'
+    end
+  end
+
+  it 'ログイン時、ホーム画面にログインフォームが表示されないこと' do
+    log_in_as user
+    visit root_path
+
+    expect(page).to_not have_button 'ログイン'
+    expect(page).to_not have_button 'ゲストログイン'
   end
 end
