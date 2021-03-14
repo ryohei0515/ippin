@@ -39,7 +39,7 @@
             お店：<%= @shops[review.shop.id]['name'] %>
           </div>
           <div>
-            料理：<%= link_to review.food.name, review.user, class: "link" %>
+            料理：<%= link_to review.food.name, review.shop_food, class: "link" %>
           </div>
         </div>
       </div>
